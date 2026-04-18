@@ -20,7 +20,7 @@ const stats = [
   { value: `${brandsData.length}誌`, label: "収録ブランド" },
   { value: `${performersData.length}人`, label: "人気タレント" },
   { value: `${releasesData.length}件`, label: "直近の新刊" },
-  { value: "10本", label: "ガイド記事" },
+  { value: `${sorted.length}本`, label: "記事" },
 ];
 
 const featuredArticles = sorted.slice(0, 6);
@@ -81,7 +81,7 @@ const moreArticles = sorted.slice(6);
 
     <!-- Featured articles -->
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-xl sm:text-2xl font-black" style="color: #1a1a2e;">ガイド記事</h2>
+      <h2 class="text-xl sm:text-2xl font-black" style="color: #1a1a2e;">注目記事</h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
       {featuredArticles.map((article) => (
