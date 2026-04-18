@@ -1,6 +1,6 @@
 ---
 title: "2026年 注目の新人グラビアアイドル"
-description: "2025〜2026年にデビューし、急速に出演回数を伸ばしている注目の新人グラビアアイドルを紹介。次のスター候補はこの中にいる。"
+description: "2023〜2026年にデビューし、急速に活動を広げている注目の新人グラビアアイドルを紹介。次のスター候補はこの中にいる。"
 pubDate: 2026-04-18
 category: guide
 order: 9
@@ -8,37 +8,33 @@ order: 9
 
 import performerData from "../../data/top-performers.json";
 
-グラビア業界では毎年新しいタレントが登場し、人気を競っています。ここでは、データベースの出演記録をもとに、短期間で急成長しているタレントをピックアップします。
+グラビア業界では毎年新しいタレントが登場し、人気を競っています。ここでは、複数の主要グラビア誌に出演している若手・新鋭タレントをピックアップします。
 
 ## 注目ポイントの見方
 
-「注目の新人」を選ぶ基準として、以下の指標を重視しています。
+「注目の新人」を選ぶ基準として、以下を重視しています。
 
-1. **デビューが新しい**: 2024 年以降に初出演
-2. **出演回数の伸び率**: 短期間で多くの雑誌に登場
-3. **掲載誌の多様性**: 特定の雑誌だけでなく複数誌に展開
+1. **デビューが新しい**: 2023 年以降に初出演
+2. **複数誌への展開**: 特定の雑誌だけでなく複数誌に登場
+3. **活動継続中**: 直近の出演実績あり
 
 ## 若手注目ランキング
 
 export const youngTalents = performerData
-  .filter(p => p.first_date >= "2023-01-01" && p.appearance_count >= 20)
-  .sort((a, b) => b.appearance_count - a.appearance_count)
+  .filter(p => p.first_date >= "2023-01-01" && p.top_brands.length >= 2)
   .slice(0, 10);
 
 {youngTalents.length > 0 ? (
 <div class="overflow-x-auto">
 <table>
 <thead>
-<tr><th>名前</th><th>出演回数</th><th>表紙回数</th><th>掲載誌数</th><th>活動開始</th><th>主な掲載誌</th></tr>
+<tr><th>名前</th><th>活動開始</th><th>主な掲載誌</th></tr>
 </thead>
 <tbody>
 {youngTalents.map(p => (
 <tr>
 <td><strong>{p.name}</strong></td>
-<td>{p.appearance_count}</td>
-<td>{p.cover_count}</td>
-<td>{p.brand_count}</td>
-<td>{p.first_date?.slice(0, 10)}</td>
+<td>{p.first_date?.slice(0, 7)}</td>
 <td>{p.top_brands.slice(0, 3).join("、")}</td>
 </tr>
 ))}
