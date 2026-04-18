@@ -42,7 +42,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const items = await Promise.all(res.results.slice(0, 10).map((r) => r.data()));
       if (input.value.trim() !== q) return;
       if (items.length === 0) {
-        results.innerHTML = `<p style="color:#6b7280;font-size:0.875rem">「${q}」に一致する記事が見つかりませんでした。</p>`;
+        const msg = document.createElement("p");
+        msg.style.cssText = "color:#6b7280;font-size:0.875rem";
+        msg.textContent = `「${q}」に一致する記事が見つかりませんでした。`;
+        results.innerHTML = "";
+        results.appendChild(msg);
         return;
       }
       results.innerHTML = items.map((item) => `
