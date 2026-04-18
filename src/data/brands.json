@@ -45,7 +45,7 @@
     "name": "週刊SPA!",
     "cadence": "weekly",
     "publisher": "",
-    "total_issues": 287,
+    "total_issues": 286,
     "latest_issue_date": "2026-04-14",
     "recent_performers": [
       "日号",
@@ -98,20 +98,6 @@
     ]
   },
   {
-    "name": "ヤングマガジン",
-    "cadence": "weekly",
-    "publisher": "講談社",
-    "total_issues": 225,
-    "latest_issue_date": "2026-04-20",
-    "recent_performers": [
-      "沢口愛華",
-      "本郷柚巴",
-      "桃月なしこ",
-      "牧野真莉愛",
-      "豊田ルナ"
-    ]
-  },
-  {
     "name": "週刊少年チャンピオン",
     "cadence": "weekly",
     "publisher": "秋田書店",
@@ -123,6 +109,20 @@
       "桃月なしこ",
       "東雲うみ",
       "福井梨莉華"
+    ]
+  },
+  {
+    "name": "ヤングマガジン",
+    "cadence": "weekly",
+    "publisher": "講談社",
+    "total_issues": 224,
+    "latest_issue_date": "2026-04-20",
+    "recent_performers": [
+      "沢口愛華",
+      "本郷柚巴",
+      "桃月なしこ",
+      "牧野真莉愛",
+      "豊田ルナ"
     ]
   },
   {
@@ -219,8 +219,8 @@
       "えなこ",
       "永尾まりや",
       "橋本梨菜",
-      "都丸紗也華",
-      "豊田ルナ"
+      "豊田ルナ",
+      "都丸紗也華"
     ]
   },
   {

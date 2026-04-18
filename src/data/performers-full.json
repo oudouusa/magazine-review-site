@@ -91,7 +91,7 @@
       "ヤングマガジン",
       "週刊プレイボーイ",
       "FLASH",
-      "漫画アクション"
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -500,20 +500,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "高崎かなみ",
-    "name": "高崎かなみ",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "FLASH",
-      "週刊SPA!",
-      "ヤングガンガン",
-      "EX大衆"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026"
-  },
-  {
     "slug": "十味",
     "name": "十味",
     "top_brands": [
@@ -525,6 +511,20 @@
     ],
     "is_active": true,
     "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "高崎かなみ",
+    "name": "高崎かなみ",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!",
+      "ヤングガンガン",
+      "EX大衆"
+    ],
+    "is_active": true,
+    "first_year": "2019",
     "last_year": "2026"
   },
   {
@@ -598,20 +598,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "染谷有香",
-    "name": "染谷有香",
-    "top_brands": [
-      "FLASH",
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "週刊現代",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2014",
-    "last_year": "2026"
-  },
-  {
     "slug": "福井梨莉華",
     "name": "福井梨莉華",
     "top_brands": [
@@ -623,6 +609,20 @@
     ],
     "is_active": true,
     "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "染谷有香",
+    "name": "染谷有香",
+    "top_brands": [
+      "FLASH",
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "週刊現代",
+      "週刊ポスト"
+    ],
+    "is_active": true,
+    "first_year": "2014",
     "last_year": "2026"
   },
   {
@@ -710,20 +710,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "葉月つばさ",
-    "name": "葉月つばさ",
-    "top_brands": [
-      "FRIDAY",
-      "ヤングガンガン",
-      "週刊プレイボーイ",
-      "週刊ビッグコミックスピリッツ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026"
-  },
-  {
     "slug": "北向珠夕",
     "name": "北向珠夕",
     "top_brands": [
@@ -735,6 +721,20 @@
     ],
     "is_active": true,
     "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "葉月つばさ",
+    "name": "葉月つばさ",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングガンガン",
+      "週刊プレイボーイ",
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!"
+    ],
+    "is_active": true,
+    "first_year": "2019",
     "last_year": "2026"
   },
   {
@@ -988,6 +988,20 @@
     "last_year": "2026"
   },
   {
+    "slug": "与田祐希",
+    "name": "与田祐希",
+    "top_brands": [
+      "FLASH",
+      "週刊少年マガジン",
+      "ヤングジャンプ",
+      "週刊少年サンデー",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2016",
+    "last_year": "2026"
+  },
+  {
     "slug": "小倉優香",
     "name": "小倉優香",
     "top_brands": [
@@ -1024,20 +1038,6 @@
       "週刊大衆",
       "週刊プレイボーイ",
       "週刊実話"
-    ],
-    "is_active": true,
-    "first_year": "2016",
-    "last_year": "2026"
-  },
-  {
-    "slug": "与田祐希",
-    "name": "与田祐希",
-    "top_brands": [
-      "FLASH",
-      "週刊少年マガジン",
-      "ヤングジャンプ",
-      "週刊少年サンデー",
-      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1128,6 +1128,20 @@
     "last_year": "2026"
   },
   {
+    "slug": "山田南実",
+    "name": "山田南実",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングジャンプ",
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングガンガン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
     "slug": "星名美津紀",
     "name": "星名美津紀",
     "top_brands": [
@@ -1153,20 +1167,6 @@
     ],
     "is_active": true,
     "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "山田南実",
-    "name": "山田南実",
-    "top_brands": [
-      "FRIDAY",
-      "ヤングジャンプ",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングガンガン"
-    ],
-    "is_active": true,
-    "first_year": "2018",
     "last_year": "2026"
   },
   {
@@ -1323,6 +1323,20 @@
     "last_year": "2026"
   },
   {
+    "slug": "松平璃子",
+    "name": "松平璃子",
+    "top_brands": [
+      "FRIDAY",
+      "週刊SPA!",
+      "週刊ポスト",
+      "週刊プレイボーイ",
+      "グラビアザテレビジョン"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026"
+  },
+  {
     "slug": "壇蜜",
     "name": "壇蜜",
     "top_brands": [
@@ -1362,20 +1376,6 @@
     ],
     "is_active": true,
     "first_year": "2013",
-    "last_year": "2026"
-  },
-  {
-    "slug": "松平璃子",
-    "name": "松平璃子",
-    "top_brands": [
-      "FRIDAY",
-      "週刊SPA!",
-      "週刊ポスト",
-      "週刊プレイボーイ",
-      "グラビアザテレビジョン"
-    ],
-    "is_active": true,
-    "first_year": "2022",
     "last_year": "2026"
   },
   {
@@ -1686,6 +1686,20 @@
     "last_year": "2025"
   },
   {
+    "slug": "白川のぞみ",
+    "name": "白川のぞみ",
+    "top_brands": [
+      "FRIDAY",
+      "週刊実話",
+      "EX-MAX!",
+      "週刊プレイボーイ",
+      "週刊アサヒ芸能"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026"
+  },
+  {
     "slug": "上西恵",
     "name": "上西恵",
     "top_brands": [
@@ -1722,6 +1736,20 @@
       "週刊少年サンデー",
       "週刊少年チャンピオン",
       "EX大衆"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "蓼沼優衣",
+    "name": "蓼沼優衣",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングジャンプ",
+      "週刊SPA!",
+      "週刊現代",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1826,20 +1854,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "蓼沼優衣",
-    "name": "蓼沼優衣",
-    "top_brands": [
-      "FRIDAY",
-      "ヤングジャンプ",
-      "週刊SPA!",
-      "週刊現代",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2018",
-    "last_year": "2026"
-  },
-  {
     "slug": "山下美月",
     "name": "山下美月",
     "top_brands": [
@@ -1851,34 +1865,6 @@
     ],
     "is_active": true,
     "first_year": "2016",
-    "last_year": "2026"
-  },
-  {
-    "slug": "フォトマガジン",
-    "name": "フォトマガジン",
-    "top_brands": [
-      "ヤングジャンプ",
-      "ヤングアニマル",
-      "週刊プレイボーイ",
-      "ヤングガンガン",
-      "ヤングマガジン"
-    ],
-    "is_active": false,
-    "first_year": "2010",
-    "last_year": "2020"
-  },
-  {
-    "slug": "白川のぞみ",
-    "name": "白川のぞみ",
-    "top_brands": [
-      "FRIDAY",
-      "週刊実話",
-      "EX-MAX!",
-      "週刊プレイボーイ",
-      "週刊アサヒ芸能"
-    ],
-    "is_active": true,
-    "first_year": "2022",
     "last_year": "2026"
   },
   {
@@ -2845,6 +2831,20 @@
     "last_year": "2026"
   },
   {
+    "slug": "梅澤美波",
+    "name": "梅澤美波",
+    "top_brands": [
+      "週刊少年マガジン",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングジャンプ",
+      "EX大衆",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2017",
+    "last_year": "2026"
+  },
+  {
     "slug": "小鳥遊るい",
     "name": "小鳥遊るい",
     "top_brands": [
@@ -2955,20 +2955,6 @@
     "is_active": true,
     "first_year": "2011",
     "last_year": "2025"
-  },
-  {
-    "slug": "梅澤美波",
-    "name": "梅澤美波",
-    "top_brands": [
-      "週刊少年マガジン",
-      "週刊ビッグコミックスピリッツ",
-      "ヤングジャンプ",
-      "EX大衆",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2026"
   },
   {
     "slug": "松井玲奈",
@@ -3195,6 +3181,18 @@
     "last_year": "2026"
   },
   {
+    "slug": "つぼみ",
+    "name": "つぼみ",
+    "top_brands": [
+      "ヤングアニマル",
+      "週刊プレイボーイ",
+      "ENTAME"
+    ],
+    "is_active": true,
+    "first_year": "2011",
+    "last_year": "2026"
+  },
+  {
     "slug": "片山萌美",
     "name": "片山萌美",
     "top_brands": [
@@ -3303,18 +3301,6 @@
     ],
     "is_active": true,
     "first_year": "2015",
-    "last_year": "2026"
-  },
-  {
-    "slug": "つぼみ",
-    "name": "つぼみ",
-    "top_brands": [
-      "ヤングアニマル",
-      "週刊プレイボーイ",
-      "ENTAME"
-    ],
-    "is_active": true,
-    "first_year": "2011",
     "last_year": "2026"
   },
   {
@@ -3936,6 +3922,20 @@
     "last_year": "2026"
   },
   {
+    "slug": "大島優子",
+    "name": "大島優子",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "FLASH",
+      "BOMB",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026"
+  },
+  {
     "slug": "波多野結衣",
     "name": "波多野結衣",
     "top_brands": [
@@ -4039,20 +4039,6 @@
     "last_year": "2025"
   },
   {
-    "slug": "大島優子",
-    "name": "大島優子",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "ヤングジャンプ",
-      "FLASH",
-      "BOMB",
-      "ヤングマガジン"
-    ],
-    "is_active": true,
-    "first_year": "2010",
-    "last_year": "2026"
-  },
-  {
     "slug": "阿部なつき",
     "name": "阿部なつき",
     "top_brands": [
@@ -4146,5 +4132,19 @@
     "is_active": true,
     "first_year": "2012",
     "last_year": "2026"
+  },
+  {
+    "slug": "川村那月",
+    "name": "川村那月",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2025"
   }
 ]
