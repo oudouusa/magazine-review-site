@@ -37,7 +37,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (!q) { results.innerHTML = ""; return; }
       const res = await pagefind.debouncedSearch(q);
       if (!res) return;
+      // Guard: discard result if the query changed while awaiting
+      if (input.value.trim() !== q) return;
       const items = await Promise.all(res.results.slice(0, 10).map((r) => r.data()));
+      if (input.value.trim() !== q) return;
+      if (items.length === 0) {
+        results.innerHTML = `<p style="color:#6b7280;font-size:0.875rem">「${q}」に一致する記事が見つかりませんでした。</p>`;
+        return;
+      }
       results.innerHTML = items.map((item) => `
         <article style="border:1px solid #e5e7eb;border-radius:0.5rem;padding:0.75rem 1rem;">
           <a href="${item.url}" style="font-weight:700;color:#1a1a2e;text-decoration:none;">${item.meta?.title ?? item.url}</a>
