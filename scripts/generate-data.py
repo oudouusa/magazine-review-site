@@ -16,7 +16,7 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
 
 NOISE_PERFORMERS = {
     "日号", "月号", "雑誌", "カット", "号", "＋", "未定",
-    "ヘア", "激写美女",
+    "ヘア", "激写美女", "発売",
 }
 
 GROUP_PATTERN_SUFFIXES = ("46", "48", "46G", "48G")

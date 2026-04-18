@@ -2104,20 +2104,6 @@
     "last_year": "2024"
   },
   {
-    "slug": "発売",
-    "name": "発売",
-    "top_brands": [
-      "ヤングジャンプ",
-      "週刊少年チャンピオン",
-      "週刊プレイボーイ",
-      "週刊少年マガジン",
-      "ヤングキング"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2026"
-  },
-  {
     "slug": "西野夢菜",
     "name": "西野夢菜",
     "top_brands": [
@@ -4146,6 +4132,19 @@
     ],
     "is_active": true,
     "first_year": "2024",
+    "last_year": "2026"
+  },
+  {
+    "slug": "最上もが",
+    "name": "最上もが",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2012",
     "last_year": "2026"
   }
 ]
