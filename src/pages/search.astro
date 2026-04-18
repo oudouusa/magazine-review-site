@@ -3,11 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="検索" description="グラビア雑誌ガイドの全記事・タレントページを検索できます。">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14" data-pagefind-ignore>
     <h1 class="text-2xl sm:text-3xl font-black mb-2" style="color: #1a1a2e;">サイト内検索</h1>
     <p class="text-sm mb-8" style="color: #6b7280;">記事・タレントページを検索できます。</p>
 
     <div id="search"></div>
+    <div id="search-unavailable" class="hidden text-sm py-8 text-center" style="color: #6b7280;">
+      検索機能は本番環境でのみ利用できます。
+    </div>
   </div>
 </BaseLayout>
 
@@ -15,6 +18,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <script src="/pagefind/pagefind-ui.js" is:inline></script>
 <script is:inline>
   window.addEventListener("DOMContentLoaded", () => {
+    if (typeof PagefindUI === "undefined") {
+      document.getElementById("search").classList.add("hidden");
+      document.getElementById("search-unavailable").classList.remove("hidden");
+      return;
+    }
     new PagefindUI({
       element: "#search",
       showSubResults: true,
