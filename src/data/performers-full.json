@@ -20,7 +20,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "ヤングマガジン",
-      "FLASH"
+      "FLASH",
+      "週刊少年マガジン"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -103,7 +104,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -194,7 +196,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ENTAME"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -221,7 +224,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングジャンプ",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -248,7 +252,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -261,7 +266,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -274,7 +280,8 @@
       "FRIDAY",
       "FLASH",
       "ヤングアニマル",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -300,14 +307,6 @@
     "top_brands": [
       "FRIDAY"
     ],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Sarina-Kashiwagi",
-    "name": "Sarina Kashiwagi",
-    "top_brands": [],
     "is_active": true,
     "first_year": "2026",
     "last_year": "2026"
@@ -360,7 +359,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊SPA!",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -372,7 +373,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -407,26 +410,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Hina-Kikuchi",
-    "name": "Hina Kikuchi",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "FLASH",
-      "週刊SPA!",
-      "ヤングマガジン"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
     "slug": "森咲智美",
     "name": "森咲智美",
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊プレイボーイ",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -439,7 +430,8 @@
       "FLASH",
       "週刊大衆",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -466,20 +458,11 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2018",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Koharu-Nishino",
-    "name": "Koharu Nishino",
-    "top_brands": [
+      "週刊SPA!",
       "ヤングチャンピオン"
     ],
     "is_active": true,
-    "first_year": "2026",
+    "first_year": "2018",
     "last_year": "2026"
   },
   {
@@ -545,7 +528,8 @@
       "ヤングジャンプ",
       "週刊プレイボーイ",
       "週刊少年チャンピオン",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -558,7 +542,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングアニマル",
-      "FLASH"
+      "FLASH",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2006",
@@ -571,7 +556,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -626,7 +612,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -709,7 +696,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2002",
@@ -722,7 +710,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -735,7 +724,8 @@
       "FRIDAY",
       "ヤングガンガン",
       "週刊プレイボーイ",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -753,14 +743,6 @@
     ],
     "is_active": true,
     "first_year": "2018",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Bamboo-e-Book",
-    "name": "Bamboo e-Book",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2023",
     "last_year": "2026"
   },
   {
@@ -812,7 +794,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -837,7 +820,8 @@
     "name": "涼森れむ",
     "top_brands": [
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -877,7 +861,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "FLASH"
+      "FLASH",
+      "週刊現代",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -889,7 +875,9 @@
     "top_brands": [
       "ヤングマガジン",
       "FLASH",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "週刊少年チャンピオン",
+      "月刊少年チャンピオン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -902,7 +890,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングマガジン",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2013",
@@ -915,7 +904,8 @@
       "FRIDAY",
       "週刊現代",
       "週刊大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -928,7 +918,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊実話"
+      "週刊実話",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -968,7 +959,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊SPA!",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -981,7 +974,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "FLASH",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -994,7 +988,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "ヤングキング"
+      "ヤングキング",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1006,20 +1001,6 @@
     "top_brands": [],
     "is_active": true,
     "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Nana-Owada",
-    "name": "Nana Owada",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2021",
     "last_year": "2026"
   },
   {
@@ -1043,7 +1024,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "FLASH",
-      "週刊現代"
+      "週刊現代",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2003",
@@ -1056,24 +1038,11 @@
       "FLASH",
       "FRIDAY",
       "週刊大衆",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2016",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Miku-Tanaka",
-    "name": "Miku Tanaka",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングガンガン",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2021",
     "last_year": "2026"
   },
   {
@@ -1083,7 +1052,8 @@
       "FLASH",
       "週刊少年マガジン",
       "ヤングジャンプ",
-      "週刊少年サンデー"
+      "週刊少年サンデー",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1110,7 +1080,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊少年マガジン"
+      "週刊少年マガジン",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1139,14 +1110,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "Sena-Shinonome",
-    "name": "Sena Shinonome",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "花咲楓香",
     "name": "花咲楓香",
     "top_brands": [
@@ -1167,7 +1130,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "BUBKA",
-      "週刊SPA!"
+      "週刊SPA!",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1180,21 +1144,8 @@
       "FLASH",
       "週刊ポスト",
       "週刊プレイボーイ",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Risa-Yukihira",
-    "name": "Risa Yukihira",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "週刊SPA!"
+      "ヤングチャンピオン",
+      "ヤングチャンピオン烈"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -1207,25 +1158,12 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2012",
     "last_year": "2026"
-  },
-  {
-    "slug": "Shinozaki-Ai",
-    "name": "Shinozaki Ai",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "ヤングジャンプ"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2025"
   },
   {
     "slug": "矢野ななか",
@@ -1242,27 +1180,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Nene-Shida",
-    "name": "Nene Shida",
-    "top_brands": [
-      "FRIDAY",
-      "週刊SPA!",
-      "ヤングマガジン",
-      "FLASH",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2015",
-    "last_year": "2026"
-  },
-  {
     "slug": "山田南実",
     "name": "山田南実",
     "top_brands": [
       "FRIDAY",
       "ヤングジャンプ",
       "FLASH",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1330,7 +1255,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "EX大衆"
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1343,7 +1270,8 @@
       "週刊実話",
       "FLASH",
       "週刊ポスト",
-      "FRIDAY"
+      "FRIDAY",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -1356,7 +1284,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1369,7 +1298,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊少年マガジン"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -1396,7 +1326,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1407,7 +1338,9 @@
     "name": "馬場ふみか",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -1420,7 +1353,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングアニマル",
-      "週刊現代"
+      "週刊現代",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -1461,7 +1395,8 @@
       "FRIDAY",
       "週刊SPA!",
       "週刊ポスト",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -1474,7 +1409,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2011",
@@ -1509,77 +1445,17 @@
     "last_year": "2026"
   },
   {
-    "slug": "Umi-Shinonome",
-    "name": "Umi Shinonome",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026"
-  },
-  {
     "slug": "由良ゆら",
     "name": "由良ゆら",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングチャンピオン",
+      "FRIDAY",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2018",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Yuka-Kohinata",
-    "name": "Yuka Kohinata",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Ayana-Haduki",
-    "name": "Ayana Haduki",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Nashiko-Momotsuki",
-    "name": "Nashiko Momotsuki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングマガジン",
-      "週刊少年チャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Runa-Toyoda",
-    "name": "Runa Toyoda",
-    "top_brands": [
-      "FRIDAY",
-      "ヤングマガジン",
-      "FLASH",
-      "BOMB",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
     "last_year": "2026"
   },
   {
@@ -1588,7 +1464,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "FLASH",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1600,7 +1478,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "ヤングガンガン",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -1662,18 +1542,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "Moe-Iori",
-    "name": "Moe Iori",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2026"
-  },
-  {
     "slug": "山田あい",
     "name": "山田あい",
     "top_brands": [
@@ -1694,37 +1562,12 @@
       "FLASH",
       "週刊ポスト",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2017",
     "last_year": "2026"
-  },
-  {
-    "slug": "Mio-Ishikawa",
-    "name": "Mio Ishikawa",
-    "top_brands": [
-      "FLASH",
-      "FRIDAY",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Sawaguchi-Aihua",
-    "name": "Sawaguchi Aihua",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングマガジン",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2025"
   },
   {
     "slug": "中田花奈",
@@ -1789,7 +1632,8 @@
       "FLASH",
       "FRIDAY",
       "週刊ポスト",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1802,7 +1646,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングジャンプ",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1843,7 +1688,8 @@
       "FLASH",
       "週刊SPA!",
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2024,25 +1870,12 @@
       "ヤングマガジン",
       "週刊ビッグコミックスピリッツ",
       "FLASH",
-      "週刊少年サンデー"
+      "週刊少年サンデー",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2016",
     "last_year": "2026"
-  },
-  {
-    "slug": "Nagao-Maria",
-    "name": "Nagao Maria",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊大衆",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2025"
   },
   {
     "slug": "フォトマガジン",
@@ -2107,24 +1940,11 @@
       "FRIDAY",
       "EX-MAX!",
       "週刊プレイボーイ",
-      "ヤングキング"
+      "ヤングキング",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2022",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Yuno-Ohara",
-    "name": "Yuno Ohara",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "EX大衆"
-    ],
-    "is_active": true,
-    "first_year": "2015",
     "last_year": "2026"
   },
   {
@@ -2147,24 +1967,12 @@
     "top_brands": [
       "週刊プレイボーイ",
       "週刊SPA!",
-      "BOMB"
+      "BOMB",
+      "ヤングマガジン",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2022",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Tomaru-Sayaka",
-    "name": "Tomaru Sayaka",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "ヤングチャンピオン",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2015",
     "last_year": "2026"
   },
   {
@@ -2222,21 +2030,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "ヘア",
-    "name": "ヘア",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
     "slug": "山田かな",
     "name": "山田かな",
     "top_brands": [
       "FLASH",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2249,7 +2050,8 @@
       "EX-MAX!",
       "週刊実話",
       "週刊プレイボーイ",
-      "ヤングキング"
+      "ヤングキング",
+      "sabra"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -2290,7 +2092,8 @@
       "FRIDAY",
       "ヤングマガジン",
       "ヤングガンガン",
-      "週刊現代"
+      "週刊現代",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2023",
@@ -2358,7 +2161,9 @@
     "top_brands": [
       "ヤングジャンプ",
       "週刊プレイボーイ",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングアニマル",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2375,27 +2180,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Hazuki-Tsubasa",
-    "name": "Hazuki Tsubasa",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "週刊大衆",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026"
-  },
-  {
     "slug": "小坂菜緒",
     "name": "小坂菜緒",
     "top_brands": [
       "週刊少年サンデー",
       "週刊少年マガジン",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -2449,36 +2241,12 @@
     "top_brands": [
       "週刊プレイボーイ",
       "ヤングガンガン",
-      "ヤングキングBULL"
+      "ヤングキングBULL",
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Tomomi-Morisaki",
-    "name": "Tomomi Morisaki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "EX-MAX!"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Aoi-Fujino",
-    "name": "Aoi Fujino",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "EX-MAX!",
-      "FLASH",
-      "週刊少年マガジン"
-    ],
-    "is_active": true,
-    "first_year": "2022",
     "last_year": "2026"
   },
   {
@@ -2523,41 +2291,15 @@
     "last_year": "2026"
   },
   {
-    "slug": "Ayano-Sumita",
-    "name": "Ayano Sumita",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2025"
-  },
-  {
     "slug": "有村架純",
     "name": "有村架純",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2011",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Nanako-Kurosaki",
-    "name": "Nanako Kurosaki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "BOMB",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2022",
     "last_year": "2026"
   },
   {
@@ -2580,7 +2322,8 @@
     "top_brands": [
       "FRIDAY",
       "週刊ビッグコミックスピリッツ",
-      "FLASH"
+      "FLASH",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -2592,7 +2335,9 @@
     "top_brands": [
       "週刊実話",
       "週刊大衆",
-      "FLASH"
+      "FLASH",
+      "週刊アサヒ芸能",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -2675,7 +2420,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FRIDAY",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -2716,7 +2462,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FRIDAY",
-      "週刊現代"
+      "週刊現代",
+      "ヤングキング"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -2729,7 +2476,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "EX大衆",
-      "週刊実話"
+      "週刊実話",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2764,44 +2512,18 @@
     "last_year": "2026"
   },
   {
-    "slug": "Sakurako-Okubo",
-    "name": "Sakurako Okubo",
-    "top_brands": [
-      "FLASH",
-      "FRIDAY",
-      "週刊SPA!",
-      "週刊プレイボーイ",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026"
-  },
-  {
     "slug": "遠藤さくら",
     "name": "遠藤さくら",
     "top_brands": [
       "週刊少年サンデー",
       "週刊少年マガジン",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2019",
     "last_year": "2026"
-  },
-  {
-    "slug": "Rina-Hashimoto",
-    "name": "Rina Hashimoto",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2025"
   },
   {
     "slug": "小島瑠璃子",
@@ -2810,7 +2532,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "BUBKA"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -2822,7 +2545,9 @@
     "top_brands": [
       "ヤングジャンプ",
       "週刊ポスト",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "FLASH",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -2863,7 +2588,8 @@
       "週刊SPA!",
       "FRIDAY",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -2876,7 +2602,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2011",
@@ -2903,7 +2630,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングジャンプ",
-      "ヤングキング"
+      "ヤングキング",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -2916,22 +2644,11 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Kikuchi-Hina",
-    "name": "Kikuchi Hina",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "ヤングマガジン"
-    ],
-    "is_active": true,
-    "first_year": "2021",
     "last_year": "2026"
   },
   {
@@ -2993,7 +2710,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングチャンピオン",
-      "ヤングキング"
+      "ヤングキング",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -3048,7 +2766,8 @@
       "FLASH",
       "FRIDAY",
       "週刊現代",
-      "週刊実話"
+      "週刊実話",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -3061,7 +2780,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングアニマル",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2013",
@@ -3079,21 +2799,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Anju-Kouzuki",
-    "name": "Anju Kouzuki",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "あかせあかり",
     "name": "あかせあかり",
     "top_brands": [
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3111,14 +2824,6 @@
     ],
     "is_active": true,
     "first_year": "2018",
-    "last_year": "2026"
-  },
-  {
-    "slug": "激写美女",
-    "name": "激写美女",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2024",
     "last_year": "2026"
   },
   {
@@ -3156,7 +2861,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "週刊文春"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -3168,7 +2874,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "月刊ヤングマガジン",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2023",
@@ -3179,7 +2887,10 @@
     "name": "小鳥遊るい",
     "top_brands": [
       "週刊プレイボーイ",
-      "FRIDAY"
+      "FRIDAY",
+      "FLASH",
+      "ヤングチャンピオン",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3192,7 +2903,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "週刊ポスト",
-      "週刊アサヒ芸能"
+      "週刊アサヒ芸能",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3205,7 +2917,8 @@
       "FRIDAY",
       "ヤングマガジン",
       "ヤングキング",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "sabra"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -3314,18 +3027,13 @@
     "name": "近藤沙瑛子",
     "top_brands": [
       "FRIDAY",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "EX大衆",
+      "ヤングジャンプ",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2021",
-    "last_year": "2026"
-  },
-  {
-    "slug": "Miruku-Kawamura",
-    "name": "Miruku Kawamura",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
     "last_year": "2026"
   },
   {
@@ -3371,7 +3079,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3420,19 +3129,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "Miyu-Murashima",
-    "name": "Miyu Murashima",
-    "top_brands": [
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "FRIDAY"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2026"
-  },
-  {
     "slug": "橘和奈",
     "name": "橘和奈",
     "top_brands": [
@@ -3453,7 +3149,8 @@
       "ヤングマガジン",
       "週刊現代",
       "週刊少年サンデー",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -3474,25 +3171,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Mio-Kudo",
-    "name": "Mio Kudo",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
     "slug": "佐山すずか",
     "name": "佐山すずか",
     "top_brands": [
       "ヤングガンガン",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングマガジン",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -3519,7 +3205,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "ヤングマガジン",
-      "FLASH"
+      "FLASH",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -3554,27 +3241,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Misumi-Shiochi",
-    "name": "Misumi Shiochi",
-    "top_brands": [
-      "FRIDAY",
-      "週刊大衆",
-      "FLASH",
-      "週刊ポスト",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
     "slug": "片山萌美",
     "name": "片山萌美",
     "top_brands": [
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊現代"
+      "週刊現代",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -3587,7 +3261,8 @@
       "週刊プレイボーイ",
       "ヤングアニマル",
       "FLASH",
-      "ENTAME"
+      "ENTAME",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -3628,7 +3303,8 @@
       "週刊プレイボーイ",
       "週刊少年マガジン",
       "週刊ビッグコミックスピリッツ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3662,25 +3338,14 @@
     "last_year": "2026"
   },
   {
-    "slug": "Miho-Machiyama",
-    "name": "Miho Machiyama",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2026"
-  },
-  {
     "slug": "京佳",
     "name": "京佳",
     "top_brands": [
       "FRIDAY",
       "FLASH",
       "週刊SPA!",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -3705,7 +3370,8 @@
       "週刊少年マガジン",
       "週刊少年サンデー",
       "BUBKA",
-      "週刊少年チャンピオン"
+      "週刊少年チャンピオン",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3754,19 +3420,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "North-to-Zhuxi",
-    "name": "North to Zhuxi",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026"
-  },
-  {
     "slug": "井口裕香",
     "name": "井口裕香",
     "top_brands": [
@@ -3787,7 +3440,8 @@
       "FRIDAY",
       "ヤングジャンプ",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3808,7 +3462,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "EX大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3835,7 +3490,8 @@
       "FRIDAY",
       "FLASH",
       "週刊SPA!",
-      "ヤングマガジン"
+      "ヤングマガジン",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -3862,7 +3518,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "週刊大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -3879,19 +3536,6 @@
     ],
     "is_active": true,
     "first_year": "2017",
-    "last_year": "2024"
-  },
-  {
-    "slug": "Rina-Asakawa",
-    "name": "Rina Asakawa",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "FRIDAY",
-      "週刊SPA!",
-      "ヤンマガWeb"
-    ],
-    "is_active": true,
-    "first_year": "2022",
     "last_year": "2024"
   },
   {
@@ -3914,7 +3558,9 @@
     "top_brands": [
       "週刊プレイボーイ",
       "ヤングアニマル",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "FRIDAY"
     ],
     "is_active": false,
     "first_year": "2013",
@@ -3940,7 +3586,517 @@
     "top_brands": [
       "FLASH",
       "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "篠田麻里子",
+    "name": "篠田麻里子",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "BOMB"
+    ],
+    "is_active": true,
+    "first_year": "2008",
+    "last_year": "2026"
+  },
+  {
+    "slug": "天使もえ",
+    "name": "天使もえ",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊実話",
+      "週刊ポスト",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "斎藤愛莉",
+    "name": "斎藤愛莉",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026"
+  },
+  {
+    "slug": "福岡みなみ",
+    "name": "福岡みなみ",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊ポスト",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2019",
+    "last_year": "2026"
+  },
+  {
+    "slug": "宮脇咲良",
+    "name": "宮脇咲良",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "ヤングアニマル",
+      "FLASH",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "川口春奈",
+    "name": "川口春奈",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "ヤングチャンピオン",
+      "FLASH",
+      "BOMB"
+    ],
+    "is_active": true,
+    "first_year": "2011",
+    "last_year": "2025"
+  },
+  {
+    "slug": "和田海佑",
+    "name": "和田海佑",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊現代",
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ",
+      "月刊ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "姫野ひなの",
+    "name": "姫野ひなの",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングチャンピオン",
+      "ヤングジャンプ",
+      "ヤングキングBULL"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "中西アルノ",
+    "name": "中西アルノ",
+    "top_brands": [
+      "週刊少年マガジン",
+      "EX大衆",
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "吉澤遥奈",
+    "name": "吉澤遥奈",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "綾瀬はるか",
+    "name": "綾瀬はるか",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊現代",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026"
+  },
+  {
+    "slug": "向井地美音",
+    "name": "向井地美音",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "ENTAME"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "小倉優子",
+    "name": "小倉優子",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026"
+  },
+  {
+    "slug": "山崎あみ",
+    "name": "山崎あみ",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングジャンプ",
+      "週刊現代"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "高見奈央",
+    "name": "高見奈央",
+    "top_brands": [
+      "ヤングアニマル",
+      "ヤングガンガン",
+      "ヤングマガジン",
+      "ヤングチャンピオン",
       "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2026"
+  },
+  {
+    "slug": "大塚びる",
+    "name": "大塚びる",
+    "top_brands": [
+      "FRIDAY",
+      "週刊実話",
+      "週刊大衆",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2025"
+  },
+  {
+    "slug": "おのののか",
+    "name": "おのののか",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "FLASH",
+      "FRIDAY",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2025"
+  },
+  {
+    "slug": "山地まり",
+    "name": "山地まり",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2024"
+  },
+  {
+    "slug": "江籠裕奈",
+    "name": "江籠裕奈",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊SPA!",
+      "BUBKA",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "レジェンド女優列伝",
+    "name": "レジェンド女優列伝",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2023",
+    "last_year": "2026"
+  },
+  {
+    "slug": "池本しおり",
+    "name": "池本しおり",
+    "top_brands": [
+      "週刊SPA!",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングガンガン",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "山下瞳月",
+    "name": "山下瞳月",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊少年マガジン",
+      "週刊少年サンデー",
+      "月刊エンタメ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "脊山麻理子",
+    "name": "脊山麻理子",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "週刊大衆",
+      "FLASH",
+      "週刊ポスト"
+    ],
+    "is_active": true,
+    "first_year": "2012",
+    "last_year": "2026"
+  },
+  {
+    "slug": "架乃ゆら",
+    "name": "架乃ゆら",
+    "top_brands": [
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2019",
+    "last_year": "2026"
+  },
+  {
+    "slug": "かとゆり",
+    "name": "かとゆり",
+    "top_brands": [
+      "FLASH",
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ",
+      "週刊プレイボーイ",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "桜木心菜",
+    "name": "桜木心菜",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "ヤングチャンピオン烈",
+      "週刊実話",
+      "ヤングチャンピオン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "ときちゃん",
+    "name": "ときちゃん",
+    "top_brands": [
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!",
+      "FLASH",
+      "週刊ポスト",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "後藤真希",
+    "name": "後藤真希",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2001",
+    "last_year": "2026"
+  },
+  {
+    "slug": "安倍乙",
+    "name": "安倍乙",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "ヤングガンガン",
+      "週刊現代",
+      "週刊少年マガジン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2025"
+  },
+  {
+    "slug": "初裸",
+    "name": "初裸",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2025"
+  },
+  {
+    "slug": "椿野ゆうこ",
+    "name": "椿野ゆうこ",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "週刊SPA!",
+      "ヤングジャンプ",
+      "ヤングガンガン"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2026"
+  },
+  {
+    "slug": "波多野結衣",
+    "name": "波多野結衣",
+    "top_brands": [
+      "週刊大衆",
+      "週刊実話"
+    ],
+    "is_active": true,
+    "first_year": "2015",
+    "last_year": "2026"
+  },
+  {
+    "slug": "香月杏珠",
+    "name": "香月杏珠",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2026",
+    "last_year": "2026"
+  },
+  {
+    "slug": "けんけん",
+    "name": "けんけん",
+    "top_brands": [
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026"
+  },
+  {
+    "slug": "あやみ旬果",
+    "name": "あやみ旬果",
+    "top_brands": [
+      "ヤングアニマル",
+      "週刊プレイボーイ",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026"
+  },
+  {
+    "slug": "蛭田愛梨",
+    "name": "蛭田愛梨",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングチャンピオン",
+      "ヤンマガWeb",
+      "ヤングマガジン",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2026"
+  },
+  {
+    "slug": "賀喜遥香",
+    "name": "賀喜遥香",
+    "top_brands": [
+      "週刊少年マガジン",
+      "週刊少年サンデー",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "筒井あやめ",
+    "name": "筒井あやめ",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊少年マガジン",
+      "週刊少年チャンピオン",
+      "週刊少年サンデー",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "百瀬まりな",
+    "name": "百瀬まりな",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "月刊ヤングマガジン",
+      "マンスリーガール"
     ],
     "is_active": true,
     "first_year": "2018",

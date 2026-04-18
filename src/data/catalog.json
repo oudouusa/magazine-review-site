@@ -23,7 +23,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "ヤングマガジン",
-      "FLASH"
+      "FLASH",
+      "週刊少年マガジン"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -124,7 +125,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -236,7 +238,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ENTAME"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -269,7 +272,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングジャンプ",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -302,7 +306,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -318,7 +323,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -334,7 +340,8 @@
       "FRIDAY",
       "FLASH",
       "ヤングアニマル",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -372,17 +379,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E6%9F%8F%E6%9C%A8%E3%81%95%E3%82%8A%E3%81%AA%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E6%9F%8F%E6%9C%A8%E3%81%95%E3%82%8A%E3%81%AA%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%9F%8F%E6%9C%A8%E3%81%95%E3%82%8A%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Sarina-Kashiwagi",
-    "name": "Sarina Kashiwagi",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Sarina%20Kashiwagi%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Sarina%20Kashiwagi%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Sarina%20Kashiwagi%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "澄田綾乃",
@@ -441,7 +437,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊SPA!",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -456,7 +454,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -500,29 +500,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%8D%97%E3%81%BF%E3%82%86%E3%81%8B%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Hina-Kikuchi",
-    "name": "Hina Kikuchi",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "FLASH",
-      "週刊SPA!",
-      "ヤングマガジン"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Hina%20Kikuchi%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Hina%20Kikuchi%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Hina%20Kikuchi%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "森咲智美",
     "name": "森咲智美",
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊プレイボーイ",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -538,7 +523,8 @@
       "FLASH",
       "週刊大衆",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -571,7 +557,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -579,19 +566,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E4%B9%85%E4%BF%9D%E6%A1%9C%E5%AD%90%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E4%B9%85%E4%BF%9D%E6%A1%9C%E5%AD%90%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E4%B9%85%E4%BF%9D%E6%A1%9C%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Koharu-Nishino",
-    "name": "Koharu Nishino",
-    "top_brands": [
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Koharu%20Nishino%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Koharu%20Nishino%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Koharu%20Nishino%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "上西怜",
@@ -668,7 +642,8 @@
       "ヤングジャンプ",
       "週刊プレイボーイ",
       "週刊少年チャンピオン",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -684,7 +659,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングアニマル",
-      "FLASH"
+      "FLASH",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2006",
@@ -700,7 +676,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -767,7 +744,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -868,7 +846,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2002",
@@ -884,7 +863,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊現代"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -900,7 +880,8 @@
       "FRIDAY",
       "ヤングガンガン",
       "週刊プレイボーイ",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -925,17 +906,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E5%8C%97%E5%90%91%E7%8F%A0%E5%A4%95%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E5%8C%97%E5%90%91%E7%8F%A0%E5%A4%95%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%8C%97%E5%90%91%E7%8F%A0%E5%A4%95%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Bamboo-e-Book",
-    "name": "Bamboo e-Book",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Bamboo%20e-Book%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Bamboo%20e-Book%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Bamboo%20e-Book%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "いけちゃん",
@@ -995,7 +965,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1026,7 +997,8 @@
     "name": "涼森れむ",
     "top_brands": [
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -1075,7 +1047,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "FLASH"
+      "FLASH",
+      "週刊現代",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -1090,7 +1064,9 @@
     "top_brands": [
       "ヤングマガジン",
       "FLASH",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "週刊少年チャンピオン",
+      "月刊少年チャンピオン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1106,7 +1082,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングマガジン",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2013",
@@ -1122,7 +1099,8 @@
       "FRIDAY",
       "週刊現代",
       "週刊大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -1138,7 +1116,8 @@
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊実話"
+      "週刊実話",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -1187,7 +1166,9 @@
     "top_brands": [
       "FRIDAY",
       "FLASH",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊SPA!",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -1203,7 +1184,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "FLASH",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1219,7 +1201,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "ヤングキング"
+      "ヤングキング",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1238,23 +1221,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E8%A5%BF%E9%87%8E%E5%B0%8F%E6%98%A5%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E8%A5%BF%E9%87%8E%E5%B0%8F%E6%98%A5%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E8%A5%BF%E9%87%8E%E5%B0%8F%E6%98%A5%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Nana-Owada",
-    "name": "Nana Owada",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Nana%20Owada%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Nana%20Owada%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Nana%20Owada%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "小倉優香",
@@ -1280,7 +1246,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "FLASH",
-      "週刊現代"
+      "週刊現代",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2003",
@@ -1296,7 +1263,8 @@
       "FLASH",
       "FRIDAY",
       "週刊大衆",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1306,30 +1274,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E4%B8%89%E4%B8%8A%E6%82%A0%E4%BA%9C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Miku-Tanaka",
-    "name": "Miku Tanaka",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングガンガン",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Miku%20Tanaka%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Miku%20Tanaka%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Miku%20Tanaka%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "与田祐希",
     "name": "与田祐希",
     "top_brands": [
       "FLASH",
       "週刊少年マガジン",
       "ヤングジャンプ",
-      "週刊少年サンデー"
+      "週刊少年サンデー",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1362,7 +1314,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊少年マガジン"
+      "週刊少年マガジン",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1400,17 +1353,6 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%9D%B1%E9%9B%B2%E3%81%9B%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Sena-Shinonome",
-    "name": "Sena Shinonome",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Sena%20Shinonome%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Sena%20Shinonome%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Sena%20Shinonome%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "花咲楓香",
     "name": "花咲楓香",
     "top_brands": [
@@ -1434,7 +1376,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "BUBKA",
-      "週刊SPA!"
+      "週刊SPA!",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1450,7 +1393,8 @@
       "FLASH",
       "週刊ポスト",
       "週刊プレイボーイ",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "ヤングチャンピオン烈"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -1460,30 +1404,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%82%E3%81%BE%E3%81%A4%E3%81%BE%E3%82%8A%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Risa-Yukihira",
-    "name": "Risa Yukihira",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Risa%20Yukihira%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Risa%20Yukihira%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Risa%20Yukihira%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "星名美津紀",
     "name": "星名美津紀",
     "top_brands": [
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -1491,23 +1419,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E6%98%9F%E5%90%8D%E7%BE%8E%E6%B4%A5%E7%B4%80%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E6%98%9F%E5%90%8D%E7%BE%8E%E6%B4%A5%E7%B4%80%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%98%9F%E5%90%8D%E7%BE%8E%E6%B4%A5%E7%B4%80%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Shinozaki-Ai",
-    "name": "Shinozaki Ai",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "ヤングジャンプ"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2025",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Shinozaki%20Ai%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Shinozaki%20Ai%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Shinozaki%20Ai%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "矢野ななか",
@@ -1527,30 +1438,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E7%9F%A2%E9%87%8E%E3%81%AA%E3%81%AA%E3%81%8B%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Nene-Shida",
-    "name": "Nene Shida",
-    "top_brands": [
-      "FRIDAY",
-      "週刊SPA!",
-      "ヤングマガジン",
-      "FLASH",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2015",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Nene%20Shida%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Nene%20Shida%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Nene%20Shida%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "山田南実",
     "name": "山田南実",
     "top_brands": [
       "FRIDAY",
       "ヤングジャンプ",
       "FLASH",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1633,7 +1528,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "EX大衆"
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1649,7 +1546,8 @@
       "週刊実話",
       "FLASH",
       "週刊ポスト",
-      "FRIDAY"
+      "FRIDAY",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -1665,7 +1563,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -1681,7 +1580,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊少年マガジン"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -1714,7 +1614,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1728,7 +1629,9 @@
     "name": "馬場ふみか",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -1744,7 +1647,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングアニマル",
-      "週刊現代"
+      "週刊現代",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -1794,7 +1698,8 @@
       "FRIDAY",
       "週刊SPA!",
       "週刊ポスト",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -1810,7 +1715,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2011",
@@ -1854,28 +1760,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%A3%AE%E8%84%87%E6%A2%A8%E3%80%85%E5%A4%8F%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Umi-Shinonome",
-    "name": "Umi Shinonome",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Umi%20Shinonome%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Umi%20Shinonome%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Umi%20Shinonome%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "由良ゆら",
     "name": "由良ゆら",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングチャンピオン",
+      "FRIDAY",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -1885,73 +1777,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E7%94%B1%E8%89%AF%E3%82%86%E3%82%89%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Yuka-Kohinata",
-    "name": "Yuka Kohinata",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Yuka%20Kohinata%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Yuka%20Kohinata%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Yuka%20Kohinata%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Ayana-Haduki",
-    "name": "Ayana Haduki",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Ayana%20Haduki%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Ayana%20Haduki%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Ayana%20Haduki%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Nashiko-Momotsuki",
-    "name": "Nashiko Momotsuki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングマガジン",
-      "週刊少年チャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Nashiko%20Momotsuki%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Nashiko%20Momotsuki%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Nashiko%20Momotsuki%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Runa-Toyoda",
-    "name": "Runa Toyoda",
-    "top_brands": [
-      "FRIDAY",
-      "ヤングマガジン",
-      "FLASH",
-      "BOMB",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Runa%20Toyoda%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Runa%20Toyoda%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Runa%20Toyoda%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "根本凪",
     "name": "根本凪",
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "FLASH",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -1966,7 +1799,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊現代"
+      "週刊現代",
+      "ヤングガンガン",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -2043,21 +1878,6 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E7%B4%97%E5%80%89%E3%81%BE%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Moe-Iori",
-    "name": "Moe Iori",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Moe%20Iori%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Moe%20Iori%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Moe%20Iori%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "山田あい",
     "name": "山田あい",
     "top_brands": [
@@ -2081,7 +1901,8 @@
       "FLASH",
       "週刊ポスト",
       "FRIDAY",
-      "週刊実話"
+      "週刊実話",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -2089,38 +1910,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E5%9C%92%E9%83%BD%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E5%9C%92%E9%83%BD%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%9C%92%E9%83%BD%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Mio-Ishikawa",
-    "name": "Mio Ishikawa",
-    "top_brands": [
-      "FLASH",
-      "FRIDAY",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Mio%20Ishikawa%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Mio%20Ishikawa%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Mio%20Ishikawa%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Sawaguchi-Aihua",
-    "name": "Sawaguchi Aihua",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングマガジン",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2025",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Sawaguchi%20Aihua%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Sawaguchi%20Aihua%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Sawaguchi%20Aihua%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "中田花奈",
@@ -2197,7 +1986,8 @@
       "FLASH",
       "FRIDAY",
       "週刊ポスト",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -2213,7 +2003,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングジャンプ",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -2263,7 +2054,8 @@
       "FLASH",
       "週刊SPA!",
       "FRIDAY",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2483,7 +2275,8 @@
       "ヤングマガジン",
       "週刊ビッグコミックスピリッツ",
       "FLASH",
-      "週刊少年サンデー"
+      "週刊少年サンデー",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2016",
@@ -2491,23 +2284,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%BE%8E%E6%9C%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%BE%8E%E6%9C%88%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%BE%8E%E6%9C%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Nagao-Maria",
-    "name": "Nagao Maria",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊大衆",
-      "週刊プレイボーイ",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2025",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Nagao%20Maria%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Nagao%20Maria%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Nagao%20Maria%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "フォトマガジン",
@@ -2584,7 +2360,8 @@
       "FRIDAY",
       "EX-MAX!",
       "週刊プレイボーイ",
-      "ヤングキング"
+      "ヤングキング",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -2592,23 +2369,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E5%8E%9F%E3%81%A4%E3%82%80%E3%81%8E%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E5%8E%9F%E3%81%A4%E3%82%80%E3%81%8E%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%8E%9F%E3%81%A4%E3%82%80%E3%81%8E%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Yuno-Ohara",
-    "name": "Yuno Ohara",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "EX大衆"
-    ],
-    "is_active": true,
-    "first_year": "2015",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Yuno%20Ohara%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Yuno%20Ohara%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Yuno%20Ohara%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "岡田紗佳",
@@ -2633,7 +2393,9 @@
     "top_brands": [
       "週刊プレイボーイ",
       "週刊SPA!",
-      "BOMB"
+      "BOMB",
+      "ヤングマガジン",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -2641,23 +2403,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E9%87%8E%E7%9E%B3%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E9%87%8E%E7%9E%B3%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E9%87%8E%E7%9E%B3%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Tomaru-Sayaka",
-    "name": "Tomaru Sayaka",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "ヤングチャンピオン",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2015",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Tomaru%20Sayaka%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Tomaru%20Sayaka%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Tomaru%20Sayaka%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "熊田曜子",
@@ -2726,24 +2471,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E3%82%86%E3%81%8D%E3%81%BD%E3%82%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "ヘア",
-    "name": "ヘア",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%83%98%E3%82%A2%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%83%98%E3%82%A2%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%83%98%E3%82%A2%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "山田かな",
     "name": "山田かな",
     "top_brands": [
       "FLASH",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "週刊現代"
+      "週刊現代",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2759,7 +2494,8 @@
       "EX-MAX!",
       "週刊実話",
       "週刊プレイボーイ",
-      "ヤングキング"
+      "ヤングキング",
+      "sabra"
     ],
     "is_active": true,
     "first_year": "2017",
@@ -2809,7 +2545,8 @@
       "FRIDAY",
       "ヤングマガジン",
       "ヤングガンガン",
-      "週刊現代"
+      "週刊現代",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2023",
@@ -2892,7 +2629,9 @@
     "top_brands": [
       "ヤングジャンプ",
       "週刊プレイボーイ",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングアニマル",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -2915,30 +2654,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B2%B3%E5%90%88%E3%81%82%E3%81%99%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Hazuki-Tsubasa",
-    "name": "Hazuki Tsubasa",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊SPA!",
-      "週刊大衆",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Hazuki%20Tsubasa%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Hazuki%20Tsubasa%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Hazuki%20Tsubasa%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "小坂菜緒",
     "name": "小坂菜緒",
     "top_brands": [
       "週刊少年サンデー",
       "週刊少年マガジン",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3004,7 +2727,9 @@
     "top_brands": [
       "週刊プレイボーイ",
       "ヤングガンガン",
-      "ヤングキングBULL"
+      "ヤングキングBULL",
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3012,38 +2737,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E6%B9%8A%E3%81%BF%E3%81%8A%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E6%B9%8A%E3%81%BF%E3%81%8A%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E6%B9%8A%E3%81%BF%E3%81%8A%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Tomomi-Morisaki",
-    "name": "Tomomi Morisaki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "EX-MAX!"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Tomomi%20Morisaki%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Tomomi%20Morisaki%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Tomomi%20Morisaki%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Aoi-Fujino",
-    "name": "Aoi Fujino",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "EX-MAX!",
-      "FLASH",
-      "週刊少年マガジン"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Aoi%20Fujino%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Aoi%20Fujino%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Aoi%20Fujino%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "藤木由貴",
@@ -3096,28 +2789,12 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B0%B4%E5%B4%8E%E7%B6%BE%E5%A5%B3%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Ayano-Sumita",
-    "name": "Ayano Sumita",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2025",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Ayano%20Sumita%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Ayano%20Sumita%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Ayano%20Sumita%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "有村架純",
     "name": "有村架純",
     "top_brands": [
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2011",
@@ -3125,22 +2802,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Nanako-Kurosaki",
-    "name": "Nanako Kurosaki",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "BOMB",
-      "週刊プレイボーイ"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Nanako%20Kurosaki%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Nanako%20Kurosaki%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Nanako%20Kurosaki%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "高橋凛",
@@ -3165,7 +2826,8 @@
     "top_brands": [
       "FRIDAY",
       "週刊ビッグコミックスピリッツ",
-      "FLASH"
+      "FLASH",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3180,7 +2842,9 @@
     "top_brands": [
       "週刊実話",
       "週刊大衆",
-      "FLASH"
+      "FLASH",
+      "週刊アサヒ芸能",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3281,7 +2945,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FRIDAY",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -3331,7 +2996,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FRIDAY",
-      "週刊現代"
+      "週刊現代",
+      "ヤングキング"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -3347,7 +3013,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "EX大衆",
-      "週刊実話"
+      "週刊実話",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3391,29 +3058,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E9%AB%98%E9%B6%B4%E6%A1%83%E7%BE%BD%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Sakurako-Okubo",
-    "name": "Sakurako Okubo",
-    "top_brands": [
-      "FLASH",
-      "FRIDAY",
-      "週刊SPA!",
-      "週刊プレイボーイ",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2019",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Sakurako%20Okubo%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Sakurako%20Okubo%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Sakurako%20Okubo%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "遠藤さくら",
     "name": "遠藤さくら",
     "top_brands": [
       "週刊少年サンデー",
       "週刊少年マガジン",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3423,30 +3075,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E9%81%A0%E8%97%A4%E3%81%95%E3%81%8F%E3%82%89%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Rina-Hashimoto",
-    "name": "Rina Hashimoto",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "週刊SPA!",
-      "週刊ポスト"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2025",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Rina%20Hashimoto%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Rina%20Hashimoto%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Rina%20Hashimoto%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "小島瑠璃子",
     "name": "小島瑠璃子",
     "top_brands": [
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊ポスト"
+      "週刊ポスト",
+      "BUBKA"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -3461,7 +3097,9 @@
     "top_brands": [
       "ヤングジャンプ",
       "週刊ポスト",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "FLASH",
+      "週刊プレイボーイ"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -3511,7 +3149,8 @@
       "週刊SPA!",
       "FRIDAY",
       "ヤングジャンプ",
-      "FLASH"
+      "FLASH",
+      "EX-MAX!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3527,7 +3166,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "FLASH",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "ヤングアニマル"
     ],
     "is_active": true,
     "first_year": "2011",
@@ -3560,7 +3200,8 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングジャンプ",
-      "ヤングキング"
+      "ヤングキング",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -3576,7 +3217,8 @@
       "FLASH",
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3584,21 +3226,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Kikuchi-Hina",
-    "name": "Kikuchi Hina",
-    "top_brands": [
-      "FRIDAY",
-      "週刊プレイボーイ",
-      "ヤングマガジン"
-    ],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Kikuchi%20Hina%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Kikuchi%20Hina%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Kikuchi%20Hina%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "青山なぎさ",
@@ -3671,7 +3298,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングチャンピオン",
-      "ヤングキング"
+      "ヤングキング",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -3738,7 +3366,8 @@
       "FLASH",
       "FRIDAY",
       "週刊現代",
-      "週刊実話"
+      "週刊実話",
+      "週刊ポスト"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -3754,7 +3383,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "ヤングアニマル",
-      "FRIDAY"
+      "FRIDAY",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2013",
@@ -3778,24 +3408,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B0%B8%E5%B2%A1%E6%80%9C%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Anju-Kouzuki",
-    "name": "Anju Kouzuki",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Anju%20Kouzuki%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Anju%20Kouzuki%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Anju%20Kouzuki%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "あかせあかり",
     "name": "あかせあかり",
     "top_brands": [
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "週刊ビッグコミックスピリッツ"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3820,17 +3440,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E7%9C%9F%E5%B3%B6%E3%81%AA%E3%81%8A%E3%81%BF%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E7%9C%9F%E5%B3%B6%E3%81%AA%E3%81%8A%E3%81%BF%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E7%9C%9F%E5%B3%B6%E3%81%AA%E3%81%8A%E3%81%BF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "激写美女",
-    "name": "激写美女",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2024",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%BF%80%E5%86%99%E7%BE%8E%E5%A5%B3%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%BF%80%E5%86%99%E7%BE%8E%E5%A5%B3%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%BF%80%E5%86%99%E7%BE%8E%E5%A5%B3%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "佐々木萌香",
@@ -3873,7 +3482,8 @@
       "FLASH",
       "週刊プレイボーイ",
       "ヤングジャンプ",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "週刊文春"
     ],
     "is_active": true,
     "first_year": "2012",
@@ -3888,7 +3498,9 @@
     "top_brands": [
       "FRIDAY",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "月刊ヤングマガジン",
+      "ヤングマガジン"
     ],
     "is_active": true,
     "first_year": "2023",
@@ -3902,7 +3514,10 @@
     "name": "小鳥遊るい",
     "top_brands": [
       "週刊プレイボーイ",
-      "FRIDAY"
+      "FRIDAY",
+      "FLASH",
+      "ヤングチャンピオン",
+      "ヤングジャンプ"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -3918,7 +3533,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "週刊ポスト",
-      "週刊アサヒ芸能"
+      "週刊アサヒ芸能",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -3934,7 +3550,8 @@
       "FRIDAY",
       "ヤングマガジン",
       "ヤングキング",
-      "ヤングガンガン"
+      "ヤングガンガン",
+      "sabra"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -4067,7 +3684,10 @@
     "name": "近藤沙瑛子",
     "top_brands": [
       "FRIDAY",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "EX大衆",
+      "ヤングジャンプ",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -4075,17 +3695,6 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E8%BF%91%E8%97%A4%E6%B2%99%E7%91%9B%E5%AD%90%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E8%BF%91%E8%97%A4%E6%B2%99%E7%91%9B%E5%AD%90%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E8%BF%91%E8%97%A4%E6%B2%99%E7%91%9B%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
-    "slug": "Miruku-Kawamura",
-    "name": "Miruku Kawamura",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Miruku%20Kawamura%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Miruku%20Kawamura%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Miruku%20Kawamura%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
     "slug": "藤井星愛",
@@ -4139,7 +3748,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "FRIDAY",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -4200,22 +3810,6 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E4%BD%90%E8%97%A4%E7%BE%8E%E5%B8%8C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Miyu-Murashima",
-    "name": "Miyu Murashima",
-    "top_brands": [
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊プレイボーイ",
-      "FRIDAY"
-    ],
-    "is_active": true,
-    "first_year": "2017",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Miyu%20Murashima%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Miyu%20Murashima%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Miyu%20Murashima%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "橘和奈",
     "name": "橘和奈",
     "top_brands": [
@@ -4239,7 +3833,8 @@
       "ヤングマガジン",
       "週刊現代",
       "週刊少年サンデー",
-      "週刊ビッグコミックスピリッツ"
+      "週刊ビッグコミックスピリッツ",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -4266,28 +3861,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B7%9D%E5%8F%A3%E8%91%B5%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Mio-Kudo",
-    "name": "Mio Kudo",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "ヤングジャンプ",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Mio%20Kudo%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Mio%20Kudo%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Mio%20Kudo%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "佐山すずか",
     "name": "佐山すずか",
     "top_brands": [
       "ヤングガンガン",
       "週刊プレイボーイ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングマガジン",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2021",
@@ -4320,7 +3901,8 @@
       "週刊プレイボーイ",
       "ヤングジャンプ",
       "ヤングマガジン",
-      "FLASH"
+      "FLASH",
+      "BOMB"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -4364,30 +3946,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%82%E3%81%B9%E3%81%BF%E3%81%BB%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Misumi-Shiochi",
-    "name": "Misumi Shiochi",
-    "top_brands": [
-      "FRIDAY",
-      "週刊大衆",
-      "FLASH",
-      "週刊ポスト",
-      "週刊SPA!"
-    ],
-    "is_active": true,
-    "first_year": "2020",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Misumi%20Shiochi%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Misumi%20Shiochi%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Misumi%20Shiochi%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "片山萌美",
     "name": "片山萌美",
     "top_brands": [
       "週刊プレイボーイ",
       "FRIDAY",
       "FLASH",
-      "週刊現代"
+      "週刊現代",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2014",
@@ -4403,7 +3969,8 @@
       "週刊プレイボーイ",
       "ヤングアニマル",
       "FLASH",
-      "ENTAME"
+      "ENTAME",
+      "週刊大衆"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -4453,7 +4020,8 @@
       "週刊プレイボーイ",
       "週刊少年マガジン",
       "週刊ビッグコミックスピリッツ",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2019",
@@ -4496,28 +4064,14 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%B2%B8%E9%80%A2%E8%8A%B1%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Miho-Machiyama",
-    "name": "Miho Machiyama",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊大衆"
-    ],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Miho%20Machiyama%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Miho%20Machiyama%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Miho%20Machiyama%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "京佳",
     "name": "京佳",
     "top_brands": [
       "FRIDAY",
       "FLASH",
       "週刊SPA!",
-      "ヤングアニマル"
+      "ヤングアニマル",
+      "ヤングガンガン"
     ],
     "is_active": true,
     "first_year": "2015",
@@ -4548,7 +4102,8 @@
       "週刊少年マガジン",
       "週刊少年サンデー",
       "BUBKA",
-      "週刊少年チャンピオン"
+      "週刊少年チャンピオン",
+      "FLASH"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -4609,22 +4164,6 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E4%BA%95%E4%B8%8A%E5%92%8C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "North-to-Zhuxi",
-    "name": "North to Zhuxi",
-    "top_brands": [
-      "FRIDAY",
-      "FLASH",
-      "週刊プレイボーイ",
-      "ヤングチャンピオン"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2026",
-    "url_photobook": "https://www.amazon.co.jp/s?k=North%20to%20Zhuxi%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=North%20to%20Zhuxi%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=North%20to%20Zhuxi%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "井口裕香",
     "name": "井口裕香",
     "top_brands": [
@@ -4648,7 +4187,8 @@
       "FRIDAY",
       "ヤングジャンプ",
       "週刊プレイボーイ",
-      "週刊SPA!"
+      "週刊SPA!",
+      "ヤングチャンピオン"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -4675,7 +4215,8 @@
       "FRIDAY",
       "週刊プレイボーイ",
       "EX大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊AG"
     ],
     "is_active": true,
     "first_year": "2020",
@@ -4708,7 +4249,8 @@
       "FRIDAY",
       "FLASH",
       "週刊SPA!",
-      "ヤングマガジン"
+      "ヤングマガジン",
+      "EX大衆"
     ],
     "is_active": true,
     "first_year": "2022",
@@ -4741,7 +4283,8 @@
       "週刊プレイボーイ",
       "FLASH",
       "週刊大衆",
-      "週刊ポスト"
+      "週刊ポスト",
+      "週刊実話"
     ],
     "is_active": true,
     "first_year": "2010",
@@ -4767,22 +4310,6 @@
     "url_gravure": "https://www.amazon.co.jp/s?k=%E3%82%8F%E3%81%A1%E3%81%BF%E3%81%AA%E3%81%BF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   },
   {
-    "slug": "Rina-Asakawa",
-    "name": "Rina Asakawa",
-    "top_brands": [
-      "週刊プレイボーイ",
-      "FRIDAY",
-      "週刊SPA!",
-      "ヤンマガWeb"
-    ],
-    "is_active": true,
-    "first_year": "2022",
-    "last_year": "2024",
-    "url_photobook": "https://www.amazon.co.jp/s?k=Rina%20Asakawa%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
-    "url_kindle": "https://www.amazon.co.jp/s?k=Rina%20Asakawa%20Kindle&tag=magazinelab-22",
-    "url_gravure": "https://www.amazon.co.jp/s?k=Rina%20Asakawa%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
-  },
-  {
     "slug": "大場美奈",
     "name": "大場美奈",
     "top_brands": [
@@ -4805,7 +4332,9 @@
     "top_brands": [
       "週刊プレイボーイ",
       "ヤングアニマル",
-      "ヤングジャンプ"
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "FRIDAY"
     ],
     "is_active": false,
     "first_year": "2013",
@@ -4837,7 +4366,8 @@
     "top_brands": [
       "FLASH",
       "ヤングジャンプ",
-      "週刊プレイボーイ"
+      "週刊プレイボーイ",
+      "FRIDAY"
     ],
     "is_active": true,
     "first_year": "2018",
@@ -4845,5 +4375,631 @@
     "url_photobook": "https://www.amazon.co.jp/s?k=%E4%BC%8A%E9%81%94%E3%81%95%E3%82%86%E3%82%8A%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
     "url_kindle": "https://www.amazon.co.jp/s?k=%E4%BC%8A%E9%81%94%E3%81%95%E3%82%86%E3%82%8A%20Kindle&tag=magazinelab-22",
     "url_gravure": "https://www.amazon.co.jp/s?k=%E4%BC%8A%E9%81%94%E3%81%95%E3%82%86%E3%82%8A%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "篠田麻里子",
+    "name": "篠田麻里子",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "BOMB"
+    ],
+    "is_active": true,
+    "first_year": "2008",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E7%AF%A0%E7%94%B0%E9%BA%BB%E9%87%8C%E5%AD%90%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E7%AF%A0%E7%94%B0%E9%BA%BB%E9%87%8C%E5%AD%90%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E7%AF%A0%E7%94%B0%E9%BA%BB%E9%87%8C%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "天使もえ",
+    "name": "天使もえ",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊実話",
+      "週刊ポスト",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%A4%A9%E4%BD%BF%E3%82%82%E3%81%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%A4%A9%E4%BD%BF%E3%82%82%E3%81%88%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%A4%A9%E4%BD%BF%E3%82%82%E3%81%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "斎藤愛莉",
+    "name": "斎藤愛莉",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%96%8E%E8%97%A4%E6%84%9B%E8%8E%89%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%96%8E%E8%97%A4%E6%84%9B%E8%8E%89%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%96%8E%E8%97%A4%E6%84%9B%E8%8E%89%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "福岡みなみ",
+    "name": "福岡みなみ",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊ポスト",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2019",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E7%A6%8F%E5%B2%A1%E3%81%BF%E3%81%AA%E3%81%BF%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E7%A6%8F%E5%B2%A1%E3%81%BF%E3%81%AA%E3%81%BF%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E7%A6%8F%E5%B2%A1%E3%81%BF%E3%81%AA%E3%81%BF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "宮脇咲良",
+    "name": "宮脇咲良",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "ヤングアニマル",
+      "FLASH",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%AE%AE%E8%84%87%E5%92%B2%E8%89%AF%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%AE%AE%E8%84%87%E5%92%B2%E8%89%AF%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%AE%AE%E8%84%87%E5%92%B2%E8%89%AF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "川口春奈",
+    "name": "川口春奈",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "ヤングチャンピオン",
+      "FLASH",
+      "BOMB"
+    ],
+    "is_active": true,
+    "first_year": "2011",
+    "last_year": "2025",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B7%9D%E5%8F%A3%E6%98%A5%E5%A5%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B7%9D%E5%8F%A3%E6%98%A5%E5%A5%88%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B7%9D%E5%8F%A3%E6%98%A5%E5%A5%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "和田海佑",
+    "name": "和田海佑",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊現代",
+      "EX大衆",
+      "週刊ビッグコミックスピリッツ",
+      "月刊ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%92%8C%E7%94%B0%E6%B5%B7%E4%BD%91%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%92%8C%E7%94%B0%E6%B5%B7%E4%BD%91%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%92%8C%E7%94%B0%E6%B5%B7%E4%BD%91%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "姫野ひなの",
+    "name": "姫野ひなの",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊ビッグコミックスピリッツ",
+      "ヤングチャンピオン",
+      "ヤングジャンプ",
+      "ヤングキングBULL"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%A7%AB%E9%87%8E%E3%81%B2%E3%81%AA%E3%81%AE%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%A7%AB%E9%87%8E%E3%81%B2%E3%81%AA%E3%81%AE%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%A7%AB%E9%87%8E%E3%81%B2%E3%81%AA%E3%81%AE%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "中西アルノ",
+    "name": "中西アルノ",
+    "top_brands": [
+      "週刊少年マガジン",
+      "EX大衆",
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E8%A5%BF%E3%82%A2%E3%83%AB%E3%83%8E%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E8%A5%BF%E3%82%A2%E3%83%AB%E3%83%8E%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E8%A5%BF%E3%82%A2%E3%83%AB%E3%83%8E%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "吉澤遥奈",
+    "name": "吉澤遥奈",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%90%89%E6%BE%A4%E9%81%A5%E5%A5%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%90%89%E6%BE%A4%E9%81%A5%E5%A5%88%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%90%89%E6%BE%A4%E9%81%A5%E5%A5%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "綾瀬はるか",
+    "name": "綾瀬はるか",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊現代",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E7%B6%BE%E7%80%AC%E3%81%AF%E3%82%8B%E3%81%8B%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E7%B6%BE%E7%80%AC%E3%81%AF%E3%82%8B%E3%81%8B%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E7%B6%BE%E7%80%AC%E3%81%AF%E3%82%8B%E3%81%8B%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "向井地美音",
+    "name": "向井地美音",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "ENTAME"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%90%91%E4%BA%95%E5%9C%B0%E7%BE%8E%E9%9F%B3%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%90%91%E4%BA%95%E5%9C%B0%E7%BE%8E%E9%9F%B3%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%90%91%E4%BA%95%E5%9C%B0%E7%BE%8E%E9%9F%B3%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "小倉優子",
+    "name": "小倉優子",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B0%8F%E5%80%89%E5%84%AA%E5%AD%90%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B0%8F%E5%80%89%E5%84%AA%E5%AD%90%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B0%8F%E5%80%89%E5%84%AA%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "山崎あみ",
+    "name": "山崎あみ",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングジャンプ",
+      "週刊現代"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%B4%8E%E3%81%82%E3%81%BF%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%B4%8E%E3%81%82%E3%81%BF%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%B4%8E%E3%81%82%E3%81%BF%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "高見奈央",
+    "name": "高見奈央",
+    "top_brands": [
+      "ヤングアニマル",
+      "ヤングガンガン",
+      "ヤングマガジン",
+      "ヤングチャンピオン",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E9%AB%98%E8%A6%8B%E5%A5%88%E5%A4%AE%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E9%AB%98%E8%A6%8B%E5%A5%88%E5%A4%AE%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E9%AB%98%E8%A6%8B%E5%A5%88%E5%A4%AE%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "大塚びる",
+    "name": "大塚びる",
+    "top_brands": [
+      "FRIDAY",
+      "週刊実話",
+      "週刊大衆",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2025",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E5%A1%9A%E3%81%B3%E3%82%8B%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E5%A1%9A%E3%81%B3%E3%82%8B%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E5%A1%9A%E3%81%B3%E3%82%8B%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "おのののか",
+    "name": "おのののか",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "FLASH",
+      "FRIDAY",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2025",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%8A%E3%81%AE%E3%81%AE%E3%81%AE%E3%81%8B%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%8A%E3%81%AE%E3%81%AE%E3%81%AE%E3%81%8B%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%8A%E3%81%AE%E3%81%AE%E3%81%AE%E3%81%8B%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "山地まり",
+    "name": "山地まり",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングジャンプ",
+      "ヤングガンガン",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2013",
+    "last_year": "2024",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%9C%B0%E3%81%BE%E3%82%8A%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%9C%B0%E3%81%BE%E3%82%8A%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E5%9C%B0%E3%81%BE%E3%82%8A%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "江籠裕奈",
+    "name": "江籠裕奈",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊SPA!",
+      "BUBKA",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%B1%9F%E7%B1%A0%E8%A3%95%E5%A5%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%B1%9F%E7%B1%A0%E8%A3%95%E5%A5%88%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B1%9F%E7%B1%A0%E8%A3%95%E5%A5%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "レジェンド女優列伝",
+    "name": "レジェンド女優列伝",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2023",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%89%E5%A5%B3%E5%84%AA%E5%88%97%E4%BC%9D%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%89%E5%A5%B3%E5%84%AA%E5%88%97%E4%BC%9D%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%89%E5%A5%B3%E5%84%AA%E5%88%97%E4%BC%9D%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "池本しおり",
+    "name": "池本しおり",
+    "top_brands": [
+      "週刊SPA!",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングガンガン",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%B1%A0%E6%9C%AC%E3%81%97%E3%81%8A%E3%82%8A%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%B1%A0%E6%9C%AC%E3%81%97%E3%81%8A%E3%82%8A%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B1%A0%E6%9C%AC%E3%81%97%E3%81%8A%E3%82%8A%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "山下瞳月",
+    "name": "山下瞳月",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "週刊少年マガジン",
+      "週刊少年サンデー",
+      "月刊エンタメ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%9E%B3%E6%9C%88%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%9E%B3%E6%9C%88%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%B1%B1%E4%B8%8B%E7%9E%B3%E6%9C%88%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "脊山麻理子",
+    "name": "脊山麻理子",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "週刊大衆",
+      "FLASH",
+      "週刊ポスト"
+    ],
+    "is_active": true,
+    "first_year": "2012",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E8%84%8A%E5%B1%B1%E9%BA%BB%E7%90%86%E5%AD%90%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E8%84%8A%E5%B1%B1%E9%BA%BB%E7%90%86%E5%AD%90%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E8%84%8A%E5%B1%B1%E9%BA%BB%E7%90%86%E5%AD%90%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "架乃ゆら",
+    "name": "架乃ゆら",
+    "top_brands": [
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2019",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%9E%B6%E4%B9%83%E3%82%86%E3%82%89%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%9E%B6%E4%B9%83%E3%82%86%E3%82%89%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%9E%B6%E4%B9%83%E3%82%86%E3%82%89%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "かとゆり",
+    "name": "かとゆり",
+    "top_brands": [
+      "FLASH",
+      "ヤングジャンプ",
+      "週刊ビッグコミックスピリッツ",
+      "週刊プレイボーイ",
+      "ヤングアニマル"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%8B%E3%81%A8%E3%82%86%E3%82%8A%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%8B%E3%81%A8%E3%82%86%E3%82%8A%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%8B%E3%81%A8%E3%82%86%E3%82%8A%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "桜木心菜",
+    "name": "桜木心菜",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "ヤングチャンピオン烈",
+      "週刊実話",
+      "ヤングチャンピオン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%A1%9C%E6%9C%A8%E5%BF%83%E8%8F%9C%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%A1%9C%E6%9C%A8%E5%BF%83%E8%8F%9C%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%A1%9C%E6%9C%A8%E5%BF%83%E8%8F%9C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "ときちゃん",
+    "name": "ときちゃん",
+    "top_brands": [
+      "週刊ビッグコミックスピリッツ",
+      "週刊SPA!",
+      "FLASH",
+      "週刊ポスト",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%A8%E3%81%8D%E3%81%A1%E3%82%83%E3%82%93%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%A8%E3%81%8D%E3%81%A1%E3%82%83%E3%82%93%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%A8%E3%81%8D%E3%81%A1%E3%82%83%E3%82%93%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "後藤真希",
+    "name": "後藤真希",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2001",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%BE%8C%E8%97%A4%E7%9C%9F%E5%B8%8C%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%BE%8C%E8%97%A4%E7%9C%9F%E5%B8%8C%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%BE%8C%E8%97%A4%E7%9C%9F%E5%B8%8C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "安倍乙",
+    "name": "安倍乙",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "ヤングガンガン",
+      "週刊現代",
+      "週刊少年マガジン"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2025",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%AE%89%E5%80%8D%E4%B9%99%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%AE%89%E5%80%8D%E4%B9%99%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%AE%89%E5%80%8D%E4%B9%99%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "初裸",
+    "name": "初裸",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2025",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E5%88%9D%E8%A3%B8%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E5%88%9D%E8%A3%B8%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E5%88%9D%E8%A3%B8%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "椿野ゆうこ",
+    "name": "椿野ゆうこ",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "週刊SPA!",
+      "ヤングジャンプ",
+      "ヤングガンガン"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%A4%BF%E9%87%8E%E3%82%86%E3%81%86%E3%81%93%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%A4%BF%E9%87%8E%E3%82%86%E3%81%86%E3%81%93%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%A4%BF%E9%87%8E%E3%82%86%E3%81%86%E3%81%93%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "波多野結衣",
+    "name": "波多野結衣",
+    "top_brands": [
+      "週刊大衆",
+      "週刊実話"
+    ],
+    "is_active": true,
+    "first_year": "2015",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E6%B3%A2%E5%A4%9A%E9%87%8E%E7%B5%90%E8%A1%A3%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E6%B3%A2%E5%A4%9A%E9%87%8E%E7%B5%90%E8%A1%A3%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E6%B3%A2%E5%A4%9A%E9%87%8E%E7%B5%90%E8%A1%A3%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "香月杏珠",
+    "name": "香月杏珠",
+    "top_brands": [],
+    "is_active": true,
+    "first_year": "2026",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E9%A6%99%E6%9C%88%E6%9D%8F%E7%8F%A0%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E9%A6%99%E6%9C%88%E6%9D%8F%E7%8F%A0%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E9%A6%99%E6%9C%88%E6%9D%8F%E7%8F%A0%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "けんけん",
+    "name": "けんけん",
+    "top_brands": [
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2022",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%91%E3%82%93%E3%81%91%E3%82%93%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%91%E3%82%93%E3%81%91%E3%82%93%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%91%E3%82%93%E3%81%91%E3%82%93%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "あやみ旬果",
+    "name": "あやみ旬果",
+    "top_brands": [
+      "ヤングアニマル",
+      "週刊プレイボーイ",
+      "FLASH"
+    ],
+    "is_active": true,
+    "first_year": "2014",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E3%81%82%E3%82%84%E3%81%BF%E6%97%AC%E6%9E%9C%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E3%81%82%E3%82%84%E3%81%BF%E6%97%AC%E6%9E%9C%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E3%81%82%E3%82%84%E3%81%BF%E6%97%AC%E6%9E%9C%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "蛭田愛梨",
+    "name": "蛭田愛梨",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングチャンピオン",
+      "ヤンマガWeb",
+      "ヤングマガジン",
+      "週刊プレイボーイ"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E8%9B%AD%E7%94%B0%E6%84%9B%E6%A2%A8%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E8%9B%AD%E7%94%B0%E6%84%9B%E6%A2%A8%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E8%9B%AD%E7%94%B0%E6%84%9B%E6%A2%A8%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "賀喜遥香",
+    "name": "賀喜遥香",
+    "top_brands": [
+      "週刊少年マガジン",
+      "週刊少年サンデー",
+      "ヤングマガジン",
+      "ヤングジャンプ",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E8%B3%80%E5%96%9C%E9%81%A5%E9%A6%99%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E8%B3%80%E5%96%9C%E9%81%A5%E9%A6%99%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E8%B3%80%E5%96%9C%E9%81%A5%E9%A6%99%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "筒井あやめ",
+    "name": "筒井あやめ",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊少年マガジン",
+      "週刊少年チャンピオン",
+      "週刊少年サンデー",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E7%AD%92%E4%BA%95%E3%81%82%E3%82%84%E3%82%81%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E7%AD%92%E4%BA%95%E3%81%82%E3%82%84%E3%82%81%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E7%AD%92%E4%BA%95%E3%81%82%E3%82%84%E3%82%81%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
+  },
+  {
+    "slug": "百瀬まりな",
+    "name": "百瀬まりな",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "月刊ヤングマガジン",
+      "マンスリーガール"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026",
+    "url_photobook": "https://www.amazon.co.jp/s?k=%E7%99%BE%E7%80%AC%E3%81%BE%E3%82%8A%E3%81%AA%20%E5%86%99%E7%9C%9F%E9%9B%86&tag=magazinelab-22",
+    "url_kindle": "https://www.amazon.co.jp/s?k=%E7%99%BE%E7%80%AC%E3%81%BE%E3%82%8A%E3%81%AA%20Kindle&tag=magazinelab-22",
+    "url_gravure": "https://www.amazon.co.jp/s?k=%E7%99%BE%E7%80%AC%E3%81%BE%E3%82%8A%E3%81%AA%20%E3%82%B0%E3%83%A9%E3%83%93%E3%82%A2&tag=magazinelab-22"
   }
 ]

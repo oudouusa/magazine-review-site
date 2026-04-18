@@ -16,6 +16,7 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
 
 NOISE_PERFORMERS = {
     "日号", "月号", "雑誌", "カット", "号", "＋", "未定",
+    "ヘア", "激写美女",
 }
 
 GROUP_PATTERN_SUFFIXES = ("46", "48", "46G", "48G")
@@ -126,7 +127,7 @@ def _is_valid_performer(name: str) -> bool:
         return False
     if any(name.endswith(sfx) for sfx in GROUP_PATTERN_SUFFIXES):
         return False
-    if name.isascii() and " " not in name:
+    if name.isascii():
         return False
     return True
 
@@ -274,7 +275,7 @@ def generate_performers_full(conn: sqlite3.Connection) -> list[dict]:
               AND mc.brand IS NOT NULL
             GROUP BY mc.brand
             ORDER BY cnt DESC
-            LIMIT 6
+            LIMIT 20
         """, (name,)).fetchall()
 
         top_brands = [b["brand"] for b in gravure_brands if _is_gravure_brand(b["brand"])][:5]
