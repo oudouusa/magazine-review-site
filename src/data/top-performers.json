@@ -33,7 +33,7 @@
     "name": "東雲うみ",
     "appearance_count": 281,
     "cover_count": 165,
-    "brand_count": 48,
+    "brand_count": 47,
     "first_date": "2018-01-01",
     "last_date": "2026-04-06T13:52:18+00:00",
     "top_brands": [
@@ -48,7 +48,7 @@
     "name": "田中美久",
     "appearance_count": 272,
     "cover_count": 187,
-    "brand_count": 46,
+    "brand_count": 47,
     "first_date": "2018-01-01",
     "last_date": "2026-04-06T13:52:08+00:00",
     "top_brands": [
@@ -63,7 +63,7 @@
     "name": "沢口愛華",
     "appearance_count": 252,
     "cover_count": 182,
-    "brand_count": 34,
+    "brand_count": 35,
     "first_date": "2018-01-01",
     "last_date": "2026-04-07T14:03:26+00:00",
     "top_brands": [
@@ -78,7 +78,7 @@
     "name": "桃月なしこ",
     "appearance_count": 248,
     "cover_count": 180,
-    "brand_count": 40,
+    "brand_count": 42,
     "first_date": "2018-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -91,8 +91,8 @@
   },
   {
     "name": "本郷柚巴",
-    "appearance_count": 237,
-    "cover_count": 139,
+    "appearance_count": 236,
+    "cover_count": 138,
     "brand_count": 43,
     "first_date": "2018-01-01",
     "last_date": "2026-04-13",
@@ -251,9 +251,9 @@
   },
   {
     "name": "天羽希純",
-    "appearance_count": 161,
-    "cover_count": 103,
-    "brand_count": 38,
+    "appearance_count": 162,
+    "cover_count": 104,
+    "brand_count": 37,
     "first_date": "2018-01-01",
     "last_date": "2026-04-13",
     "top_brands": [
@@ -268,15 +268,15 @@
     "name": "都丸紗也華",
     "appearance_count": 161,
     "cover_count": 93,
-    "brand_count": 24,
+    "brand_count": 25,
     "first_date": "2014-01-01",
     "last_date": "2026-04-08T20:30:38+00:00",
     "top_brands": [
       "FRIDAY",
       "FLASH",
       "週刊プレイボーイ",
-      "週刊SPA!",
-      "ヤングチャンピオン"
+      "ヤングチャンピオン",
+      "週刊SPA!"
     ]
   },
   {
@@ -328,7 +328,7 @@
     "name": "似鳥沙也加",
     "appearance_count": 135,
     "cover_count": 89,
-    "brand_count": 27,
+    "brand_count": 30,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04 04:53:13",
     "top_brands": [
@@ -379,7 +379,7 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "ヤングジャンプ",
-      "週刊SPA!"
+      "未分類"
     ]
   },
   {
@@ -459,7 +459,7 @@
   },
   {
     "name": "南みゆか",
-    "appearance_count": 113,
+    "appearance_count": 114,
     "cover_count": 42,
     "brand_count": 28,
     "first_date": "2018-01-01",
@@ -564,7 +564,7 @@
     "name": "上西怜",
     "appearance_count": 103,
     "cover_count": 49,
-    "brand_count": 28,
+    "brand_count": 29,
     "first_date": "2018-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -572,7 +572,7 @@
       "FLASH",
       "週刊プレイボーイ",
       "ヤングマガジン",
-      "週刊SPA!"
+      "BUBKA"
     ]
   },
   {
@@ -639,7 +639,7 @@
     "name": "小池里奈",
     "appearance_count": 99,
     "cover_count": 36,
-    "brand_count": 18,
+    "brand_count": 19,
     "first_date": "2006-10-02",
     "last_date": "2026-04-15T21:19:23+00:00",
     "top_brands": [
@@ -669,7 +669,7 @@
     "name": "蓬莱舞",
     "appearance_count": 96,
     "cover_count": 31,
-    "brand_count": 31,
+    "brand_count": 30,
     "first_date": "2018-01-01",
     "last_date": "2026-04-07",
     "top_brands": [
@@ -726,18 +726,18 @@
     ]
   },
   {
-    "name": "乃木坂46",
-    "appearance_count": 93,
-    "cover_count": 43,
-    "brand_count": 20,
-    "first_date": "2011-01-01",
-    "last_date": "2025-07-15",
+    "name": "福井梨莉華",
+    "appearance_count": 92,
+    "cover_count": 39,
+    "brand_count": 32,
+    "first_date": "2020-03-20",
+    "last_date": "2026-04-17T14:16:57+00:00",
     "top_brands": [
-      "週刊プレイボーイ",
-      "EX大衆",
+      "ヤングマガジン",
       "FRIDAY",
-      "ヤングジャンプ",
-      "ENTAME"
+      "週刊少年チャンピオン",
+      "週刊プレイボーイ",
+      "未分類"
     ]
   }
 ]

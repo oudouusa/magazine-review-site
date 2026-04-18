@@ -16,6 +16,8 @@ NOISE_PERFORMERS = {
     "日号", "月号", "雑誌", "カット", "号", "＋", "未定",
 }
 
+GROUP_PATTERN_SUFFIXES = ("46", "48", "46G", "48G")
+
 GRAVURE_BRANDS = {
     "週刊プレイボーイ", "ヤングジャンプ", "週刊ポスト", "週刊SPA!",
     "週刊ビッグコミックスピリッツ", "週刊実話", "ヤングマガジン",
@@ -24,8 +26,20 @@ GRAVURE_BRANDS = {
     "FRIDAY", "FLASH", "月刊ヤングマガジン", "月刊少年チャンピオン",
     "ENTAME", "月刊エンタメ", "マンスリーガール", "ヤングチャンピオン烈",
     "BOMB", "BUBKA", "EX大衆", "ヤングアニマル", "ヤングガンガン",
-    "ヤングキング", "サブラ", "sabra",
+    "ヤングキング", "ヤングキングBULL", "サブラ", "sabra",
+    "グラビアプレス", "EX-MAX!", "EX MAX", "ヤングチャンピオン",
+    "グランジャンプ", "スポーツ報知", "月刊FANZA",
 }
+
+GRAVURE_BRAND_PREFIXES = (
+    "週刊", "ヤング", "月刊", "FLASH", "FRIDAY", "BOMB", "BUBKA",
+)
+
+
+def _is_gravure_brand(brand: str) -> bool:
+    if brand in GRAVURE_BRANDS:
+        return True
+    return any(brand.startswith(pfx) for pfx in GRAVURE_BRAND_PREFIXES)
 
 
 def get_db():
@@ -73,6 +87,8 @@ def _is_valid_performer(name: str) -> bool:
         return False
     if len(name) <= 1:
         return False
+    if any(name.endswith(sfx) for sfx in GROUP_PATTERN_SUFFIXES):
+        return False
     if name.isascii() and " " not in name:
         return False
     return True
@@ -116,15 +132,15 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
 
 
 def generate_recent_releases(conn: sqlite3.Connection) -> list[dict]:
-    brand_placeholders = ",".join("?" * len(GRAVURE_BRANDS))
-    rows = conn.execute(f"""
+    rows = conn.execute("""
         SELECT id, brand, title, date, publication_kind
         FROM magazine_cards
         WHERE date >= date('now', '-30 days')
-          AND brand IN ({brand_placeholders})
+          AND brand != '未分類'
+          AND cadence IS NOT NULL
         ORDER BY date DESC
-        LIMIT 100
-    """, list(GRAVURE_BRANDS)).fetchall()
+        LIMIT 200
+    """).fetchall()
 
     return [
         {
@@ -135,7 +151,8 @@ def generate_recent_releases(conn: sqlite3.Connection) -> list[dict]:
             "publication_kind": r["publication_kind"] or "magazine",
         }
         for r in rows
-    ]
+        if _is_gravure_brand(r["brand"])
+    ][:100]
 
 
 def generate_series_stats(conn: sqlite3.Connection) -> list[dict]:

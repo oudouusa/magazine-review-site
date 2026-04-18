@@ -17,7 +17,7 @@
     "name": "ヤングジャンプ",
     "cadence": "weekly",
     "publisher": "集英社",
-    "total_issues": 572,
+    "total_issues": 571,
     "latest_issue_date": "2026-04-16",
     "recent_performers": [
       "えなこ",
@@ -44,22 +44,22 @@
   {
     "name": "週刊SPA!",
     "cadence": "weekly",
-    "publisher": "扶桑社",
-    "total_issues": 295,
+    "publisher": "",
+    "total_issues": 287,
     "latest_issue_date": "2026-04-14",
     "recent_performers": [
       "日号",
       "えなこ",
       "相楽伊織",
-      "根本凪",
-      "都丸紗也華"
+      "豊田ルナ",
+      "根本凪"
     ]
   },
   {
     "name": "週刊ビッグコミックスピリッツ",
     "cadence": "weekly",
     "publisher": "小学館",
-    "total_issues": 262,
+    "total_issues": 260,
     "latest_issue_date": "2026-04-15T21:19:23+00:00",
     "recent_performers": [
       "大原優乃",
@@ -84,20 +84,6 @@
     ]
   },
   {
-    "name": "ヤングマガジン",
-    "cadence": "weekly",
-    "publisher": "講談社",
-    "total_issues": 235,
-    "latest_issue_date": "2026-04-20",
-    "recent_performers": [
-      "沢口愛華",
-      "本郷柚巴",
-      "桃月なしこ",
-      "牧野真莉愛",
-      "豊田ルナ"
-    ]
-  },
-  {
     "name": "週刊少年マガジン",
     "cadence": "weekly",
     "publisher": "講談社",
@@ -109,6 +95,20 @@
       "田中美久",
       "東雲うみ",
       "森田ひかる"
+    ]
+  },
+  {
+    "name": "ヤングマガジン",
+    "cadence": "weekly",
+    "publisher": "講談社",
+    "total_issues": 225,
+    "latest_issue_date": "2026-04-20",
+    "recent_performers": [
+      "沢口愛華",
+      "本郷柚巴",
+      "桃月なしこ",
+      "牧野真莉愛",
+      "豊田ルナ"
     ]
   },
   {
@@ -143,8 +143,8 @@
     "name": "週刊現代",
     "cadence": "weekly",
     "publisher": "",
-    "total_issues": 124,
-    "latest_issue_date": "2026-03-02",
+    "total_issues": 126,
+    "latest_issue_date": "2026-04-13",
     "recent_performers": [
       "雪平莉左",
       "志田音々",
@@ -224,6 +224,20 @@
     ]
   },
   {
+    "name": "週刊アスキー",
+    "cadence": "weekly",
+    "publisher": "",
+    "total_issues": 27,
+    "latest_issue_date": "2026-04-14",
+    "recent_performers": [
+      "黒江こはる",
+      "麻倉瑞季",
+      "谷田ラナ",
+      "稲光亜依",
+      "榎本ゆいな"
+    ]
+  },
+  {
     "name": "週刊アサヒ芸能",
     "cadence": "weekly",
     "publisher": "",
@@ -238,17 +252,17 @@
     ]
   },
   {
-    "name": "週刊アスキー",
+    "name": "週刊文春",
     "cadence": "weekly",
     "publisher": "",
-    "total_issues": 24,
-    "latest_issue_date": "2026-03-03",
+    "total_issues": 22,
+    "latest_issue_date": "2026-04-09",
     "recent_performers": [
-      "黒江こはる",
-      "麻倉瑞季",
-      "谷田ラナ",
-      "稲光亜依",
-      "榎本ゆいな"
+      "原色美女図鑑",
+      "木南晴夏",
+      "山本美月",
+      "尾碕真花",
+      "大原優乃"
     ]
   },
   {
@@ -266,25 +280,11 @@
     ]
   },
   {
-    "name": "週刊文春",
-    "cadence": "weekly",
-    "publisher": "文藝春秋",
-    "total_issues": 20,
-    "latest_issue_date": "2026-02-19",
-    "recent_performers": [
-      "原色美女図鑑",
-      "木南晴夏",
-      "山本美月",
-      "尾碕真花",
-      "大原優乃"
-    ]
-  },
-  {
     "name": "月刊アームズマガジン",
     "cadence": "monthly",
     "publisher": "",
-    "total_issues": 16,
-    "latest_issue_date": "2026-02-27",
+    "total_issues": 17,
+    "latest_issue_date": "2026-03-27",
     "recent_performers": [
       "藤井彩加",
       "藤井マリー",
@@ -333,20 +333,6 @@
       "和泉芳怜",
       "週刊",
       "Makino Marie"
-    ]
-  },
-  {
-    "name": "FRIDAY",
-    "cadence": "weekly",
-    "publisher": "講談社",
-    "total_issues": 10,
-    "latest_issue_date": "2026-04-17",
-    "recent_performers": [
-      "志田音々",
-      "菊地姫奈",
-      "永尾まりや",
-      "小日向ゆか",
-      "街山みほ"
     ]
   },
   {
