@@ -10,6 +10,7 @@ interface Props {
 const { title, description, ogImage } = Astro.props;
 const siteTitle = "グラビア雑誌ガイド";
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -20,40 +21,94 @@ const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
     <meta name="description" content={description} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:url" content={canonicalURL} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <title>{fullTitle}</title>
   </head>
-  <body class="min-h-screen flex flex-col bg-white text-primary font-sans">
-    <header class="border-b border-gray-200">
-      <nav class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold hover:text-accent transition-colors">
-          グラビア雑誌ガイド
+  <body class="min-h-screen flex flex-col bg-white" style="color: #1a1a2e; font-family: 'Noto Sans JP', sans-serif;">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b" style="border-color: #e5e7eb;">
+      <nav class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        <a href="/" class="flex items-center gap-2 shrink-0">
+          <span class="text-lg sm:text-xl font-black tracking-tight" style="background: linear-gradient(135deg, #e94560 0%, #c73350 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            グラビア雑誌ガイド
+          </span>
         </a>
-        <ul class="flex gap-6 text-sm">
-          <li><a href="/" class="hover:text-accent transition-colors">ホーム</a></li>
-          <li><a href="/articles/weekly-gravure-guide" class="hover:text-accent transition-colors">週刊誌</a></li>
-          <li><a href="/articles/monthly-gravure-guide" class="hover:text-accent transition-colors">月刊誌</a></li>
-          <li><a href="/articles/beginners-guide" class="hover:text-accent transition-colors">入門</a></li>
+        <ul class="flex items-center gap-1 sm:gap-2 text-sm flex-wrap justify-end">
+          <li>
+            <a href="/" class="px-2 sm:px-3 py-1.5 rounded-md hover:bg-surface transition-colors font-medium text-xs sm:text-sm">
+              ホーム
+            </a>
+          </li>
+          <li>
+            <a href="/articles/weekly-gravure-guide" class="px-2 sm:px-3 py-1.5 rounded-md hover:bg-surface transition-colors font-medium text-xs sm:text-sm">
+              週刊誌
+            </a>
+          </li>
+          <li>
+            <a href="/articles/monthly-gravure-guide" class="px-2 sm:px-3 py-1.5 rounded-md hover:bg-surface transition-colors font-medium text-xs sm:text-sm">
+              月刊誌
+            </a>
+          </li>
+          <li>
+            <a href="/articles/beginners-guide" class="px-2 sm:px-3 py-1.5 rounded-md hover:bg-surface transition-colors font-medium text-xs sm:text-sm">
+              入門
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
 
-    <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full">
+    <!-- Page content -->
+    <main class="flex-1">
       <slot />
     </main>
 
-    <footer class="border-t border-gray-200 mt-auto">
-      <div class="max-w-4xl mx-auto px-4 py-6 text-center text-sm text-muted">
-        <p>&copy; {new Date().getFullYear()} グラビア雑誌ガイド</p>
+    <!-- Footer -->
+    <footer style="background: #1a1a2e; color: #e5e7eb;" class="mt-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+          <div>
+            <h3 class="font-black text-white mb-3" style="background: linear-gradient(135deg, #e94560, #c73350); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+              グラビア雑誌ガイド
+            </h3>
+            <p class="text-sm" style="color: #9ca3af;">
+              グラビア雑誌・デジタル写真集の購入ガイド。週刊誌・月刊誌の徹底比較から新刊情報まで。
+            </p>
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm mb-3">人気記事</h4>
+            <ul class="space-y-2 text-sm" style="color: #9ca3af;">
+              <li><a href="/articles/weekly-gravure-guide" class="hover:text-white transition-colors">週刊グラビア雑誌 完全ガイド</a></li>
+              <li><a href="/articles/digital-photobook-vs-magazine" class="hover:text-white transition-colors">デジタル写真集と雑誌の違い</a></li>
+              <li><a href="/articles/series-comparison" class="hover:text-white transition-colors">写真集シリーズ徹底比較</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm mb-3">カテゴリー</h4>
+            <ul class="space-y-2 text-sm" style="color: #9ca3af;">
+              <li><a href="/articles/beginners-guide" class="hover:text-white transition-colors">入門ガイド</a></li>
+              <li><a href="/articles/release-calendar" class="hover:text-white transition-colors">新刊カレンダー</a></li>
+              <li><a href="/articles/popular-performers-photobooks" class="hover:text-white transition-colors">人気タレント写真集</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="pt-6 text-center text-xs" style="border-top: 1px solid #374151; color: #6b7280;">
+          <p>
+            &copy; {new Date().getFullYear()} グラビア雑誌ガイド — Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。
+          </p>
+        </div>
       </div>
     </footer>
   </body>

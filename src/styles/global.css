@@ -5,6 +5,45 @@
   --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
   --color-primary: #1a1a2e;
   --color-accent: #e94560;
+  --color-accent-dark: #c73350;
   --color-surface: #f8f9fa;
+  --color-surface-alt: #f0f2f5;
   --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+}
+
+/* Category badge colors */
+.badge-guide {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.badge-calendar {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.badge-comparison {
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+.badge-beginner {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+/* Prose customizations */
+.prose table {
+  font-size: 0.875rem;
+}
+.prose table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+.prose table td,
+.prose table th {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+.prose table tr:hover td {
+  background-color: #f9fafb;
 }

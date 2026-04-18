@@ -2,6 +2,9 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ArticleCard from "../components/ArticleCard.astro";
+import brandsData from "../data/brands.json";
+import performersData from "../data/top-performers.json";
+import releasesData from "../data/recent-releases.json";
 
 const articles = await getCollection("articles");
 const sorted = articles.sort((a, b) => a.data.order - b.data.order);
@@ -12,28 +15,105 @@ const categoryLabels: Record<string, string> = {
   comparison: "比較",
   beginner: "入門",
 };
+
+const stats = [
+  { value: `${brandsData.length}誌`, label: "収録ブランド" },
+  { value: `${performersData.length}人`, label: "人気タレント" },
+  { value: `${releasesData.length}件`, label: "直近の新刊" },
+  { value: "10本", label: "ガイド記事" },
+];
+
+const featuredArticles = sorted.slice(0, 6);
+const moreArticles = sorted.slice(6);
 ---
 
 <BaseLayout
   title="グラビア雑誌ガイド"
   description="グラビア雑誌・写真集の総合ガイド。週刊誌・月刊誌の比較、新刊カレンダー、購入ガイドなど。"
 >
-  <section>
-    <h1 class="text-3xl font-bold mb-2">グラビア雑誌ガイド</h1>
-    <p class="text-muted mb-8">
-      グラビア雑誌・デジタル写真集の選び方から新刊情報まで、まとめてお届けします。
-    </p>
+  <!-- Hero -->
+  <section style="background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1a1a2e 100%);" class="relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, #e94560 0%, transparent 60%), radial-gradient(circle at 80% 20%, #7c3aed 0%, transparent 60%);"></div>
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-6"
+           style="background: rgba(233,69,96,0.2); color: #f87171; border: 1px solid rgba(233,69,96,0.3);">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+        毎週更新中
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white mb-4 leading-tight">
+        グラビア雑誌・写真集の<br class="hidden sm:block" />
+        <span style="background: linear-gradient(135deg, #e94560, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          完全ガイド
+        </span>
+      </h1>
+      <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto" style="color: #d1d5db;">
+        週刊誌・月刊誌・デジタル写真集の選び方から、新刊情報・人気タレントランキングまで。データベース収録の実データで詳しく解説します。
+      </p>
+      <a
+        href="/articles/beginners-guide"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white transition-all hover:scale-105 hover:shadow-xl"
+        style="background: linear-gradient(135deg, #e94560, #c73350); box-shadow: 0 4px 20px rgba(233,69,96,0.4);"
+      >
+        入門ガイドを読む
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
   </section>
 
-  <section class="space-y-2">
-    {sorted.map((article) => (
-      <ArticleCard
-        title={article.data.title}
-        description={article.data.description}
-        href={`/articles/${article.id}`}
-        date={article.data.pubDate.toISOString()}
-        category={categoryLabels[article.data.category]}
-      />
-    ))}
+  <!-- Stats strip -->
+  <section style="background: #f8f9fa; border-bottom: 1px solid #e5e7eb;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
+        {stats.map((s) => (
+          <div class="py-2">
+            <div class="text-2xl sm:text-3xl font-black" style="color: #e94560;">{s.value}</div>
+            <div class="text-xs sm:text-sm mt-0.5" style="color: #6b7280;">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
+
+  <!-- Article grid -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+
+    <!-- Featured articles -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl sm:text-2xl font-black" style="color: #1a1a2e;">ガイド記事</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
+      {featuredArticles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          description={article.data.description}
+          href={`/articles/${article.id}`}
+          date={article.data.pubDate.toISOString()}
+          category={categoryLabels[article.data.category]}
+          categoryKey={article.data.category}
+        />
+      ))}
+    </div>
+
+    {moreArticles.length > 0 && (
+      <>
+        <div class="flex items-center gap-3 mb-6">
+          <h2 class="text-xl sm:text-2xl font-black" style="color: #1a1a2e;">その他の記事</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {moreArticles.map((article) => (
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              href={`/articles/${article.id}`}
+              date={article.data.pubDate.toISOString()}
+              category={categoryLabels[article.data.category]}
+              categoryKey={article.data.category}
+            />
+          ))}
+        </div>
+      </>
+    )}
+  </div>
 </BaseLayout>
