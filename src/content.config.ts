@@ -8,7 +8,7 @@ const articles = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    category: z.enum(["guide", "calendar", "comparison", "beginner"]),
+    category: z.enum(["guide", "calendar", "comparison", "beginner", "money"]),
     order: z.number(),
   }),
 });

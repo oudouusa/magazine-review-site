@@ -30,6 +30,10 @@
   background-color: #ffedd5;
   color: #9a3412;
 }
+.badge-money {
+  background-color: #fef9c3;
+  color: #854d0e;
+}
 
 /* Prose customizations */
 .prose table {
