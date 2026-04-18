@@ -1,9 +1,6 @@
 [
   {
     "name": "えなこ",
-    "appearance_count": 500,
-    "cover_count": 350,
-    "brand_count": 54,
     "first_date": "2017-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -16,9 +13,6 @@
   },
   {
     "name": "菊地姫奈",
-    "appearance_count": 300,
-    "cover_count": 199,
-    "brand_count": 49,
     "first_date": "2014-06-24",
     "last_date": "2026-04-15T21:31:23+00:00",
     "top_brands": [
@@ -31,9 +25,6 @@
   },
   {
     "name": "東雲うみ",
-    "appearance_count": 281,
-    "cover_count": 165,
-    "brand_count": 47,
     "first_date": "2018-01-01",
     "last_date": "2026-04-06T13:52:18+00:00",
     "top_brands": [
@@ -46,9 +37,6 @@
   },
   {
     "name": "田中美久",
-    "appearance_count": 272,
-    "cover_count": 187,
-    "brand_count": 47,
     "first_date": "2018-01-01",
     "last_date": "2026-04-06T13:52:08+00:00",
     "top_brands": [
@@ -61,9 +49,6 @@
   },
   {
     "name": "沢口愛華",
-    "appearance_count": 252,
-    "cover_count": 182,
-    "brand_count": 35,
     "first_date": "2018-01-01",
     "last_date": "2026-04-07T14:03:26+00:00",
     "top_brands": [
@@ -76,9 +61,6 @@
   },
   {
     "name": "桃月なしこ",
-    "appearance_count": 248,
-    "cover_count": 180,
-    "brand_count": 42,
     "first_date": "2018-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -91,9 +73,6 @@
   },
   {
     "name": "本郷柚巴",
-    "appearance_count": 236,
-    "cover_count": 138,
-    "brand_count": 43,
     "first_date": "2018-01-01",
     "last_date": "2026-04-13",
     "top_brands": [
@@ -101,14 +80,11 @@
       "ヤングマガジン",
       "週刊プレイボーイ",
       "FLASH",
-      "月刊ヤングマガジン"
+      "漫画アクション"
     ]
   },
   {
     "name": "志田音々",
-    "appearance_count": 224,
-    "cover_count": 127,
-    "brand_count": 34,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04 04:53:05",
     "top_brands": [
@@ -121,9 +97,6 @@
   },
   {
     "name": "篠崎愛",
-    "appearance_count": 208,
-    "cover_count": 140,
-    "brand_count": 24,
     "first_date": "2010-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -136,9 +109,6 @@
   },
   {
     "name": "雪平莉左",
-    "appearance_count": 196,
-    "cover_count": 138,
-    "brand_count": 37,
     "first_date": "2020-03-21",
     "last_date": "2026-04-08T20:30:26+00:00",
     "top_brands": [
@@ -151,9 +121,6 @@
   },
   {
     "name": "豊田ルナ",
-    "appearance_count": 192,
-    "cover_count": 108,
-    "brand_count": 31,
     "first_date": "2018-01-01",
     "last_date": "2026-04-15T21:19:23+00:00",
     "top_brands": [
@@ -166,9 +133,6 @@
   },
   {
     "name": "伊織もえ",
-    "appearance_count": 182,
-    "cover_count": 122,
-    "brand_count": 31,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04 04:32:17",
     "top_brands": [
@@ -181,24 +145,18 @@
   },
   {
     "name": "大原優乃",
-    "appearance_count": 171,
-    "cover_count": 95,
-    "brand_count": 24,
     "first_date": "2017-01-01",
     "last_date": "2026-04-04 04:53:19",
     "top_brands": [
       "週刊プレイボーイ",
       "FLASH",
       "週刊ビッグコミックスピリッツ",
-      "FRIDAY",
-      "ヤングアニマル"
+      "グラビアザテレビジョン",
+      "FRIDAY"
     ]
   },
   {
     "name": "永尾まりや",
-    "appearance_count": 166,
-    "cover_count": 76,
-    "brand_count": 28,
     "first_date": "2012-01-01",
     "last_date": "2026-04-04 04:49:21",
     "top_brands": [
@@ -211,9 +169,6 @@
   },
   {
     "name": "白濱美兎",
-    "appearance_count": 165,
-    "cover_count": 62,
-    "brand_count": 41,
     "first_date": "2015-01-01",
     "last_date": "2026-04-15T21:25:03+00:00",
     "top_brands": [
@@ -226,9 +181,6 @@
   },
   {
     "name": "天羽希純",
-    "appearance_count": 162,
-    "cover_count": 104,
-    "brand_count": 37,
     "first_date": "2018-01-01",
     "last_date": "2026-04-13",
     "top_brands": [
@@ -241,9 +193,6 @@
   },
   {
     "name": "都丸紗也華",
-    "appearance_count": 161,
-    "cover_count": 93,
-    "brand_count": 25,
     "first_date": "2014-01-01",
     "last_date": "2026-04-08T20:30:38+00:00",
     "top_brands": [
@@ -256,9 +205,6 @@
   },
   {
     "name": "相楽伊織",
-    "appearance_count": 154,
-    "cover_count": 91,
-    "brand_count": 36,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04T18:33:08+00:00",
     "top_brands": [
@@ -266,14 +212,11 @@
       "週刊プレイボーイ",
       "FRIDAY",
       "週刊SPA!",
-      "ヤングガンガン"
+      "漫画アクション"
     ]
   },
   {
     "name": "大和田南那",
-    "appearance_count": 153,
-    "cover_count": 83,
-    "brand_count": 24,
     "first_date": "2014-01-01",
     "last_date": "2026-04-04 04:53:20",
     "top_brands": [
@@ -286,9 +229,6 @@
   },
   {
     "name": "小日向ゆか",
-    "appearance_count": 149,
-    "cover_count": 83,
-    "brand_count": 24,
     "first_date": "2020-03-17",
     "last_date": "2026-04-04 04:45:40",
     "top_brands": [
@@ -301,9 +241,6 @@
   },
   {
     "name": "似鳥沙也加",
-    "appearance_count": 135,
-    "cover_count": 89,
-    "brand_count": 30,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04 04:53:13",
     "top_brands": [
@@ -316,9 +253,6 @@
   },
   {
     "name": "柏木さりな",
-    "appearance_count": 127,
-    "cover_count": 126,
-    "brand_count": 4,
     "first_date": "2026-04-03 10:53:38",
     "last_date": "2026-04-04 04:53:10",
     "top_brands": [
@@ -327,9 +261,6 @@
   },
   {
     "name": "澄田綾乃",
-    "appearance_count": 127,
-    "cover_count": 36,
-    "brand_count": 39,
     "first_date": "2019-07-04",
     "last_date": "2026-04-04 04:46:59",
     "top_brands": [
@@ -342,9 +273,6 @@
   },
   {
     "name": "斎藤恭代",
-    "appearance_count": 125,
-    "cover_count": 50,
-    "brand_count": 43,
     "first_date": "2018-01-01",
     "last_date": "2026-04-16 17:39:10",
     "top_brands": [
@@ -357,9 +285,6 @@
   },
   {
     "name": "榎原依那",
-    "appearance_count": 124,
-    "cover_count": 84,
-    "brand_count": 27,
     "first_date": "2018-01-01",
     "last_date": "2026-04-15T21:25:18+00:00",
     "top_brands": [
@@ -372,9 +297,6 @@
   },
   {
     "name": "風吹ケイ",
-    "appearance_count": 124,
-    "cover_count": 77,
-    "brand_count": 28,
     "first_date": "2020-03-25",
     "last_date": "2026-04-04 04:46:14",
     "top_brands": [
@@ -387,9 +309,6 @@
   },
   {
     "name": "黒嵜菜々子",
-    "appearance_count": 120,
-    "cover_count": 66,
-    "brand_count": 25,
     "first_date": "2021-02-01",
     "last_date": "2026-04-17T14:17:08+00:00",
     "top_brands": [
@@ -402,9 +321,6 @@
   },
   {
     "name": "橋本梨菜",
-    "appearance_count": 118,
-    "cover_count": 37,
-    "brand_count": 26,
     "first_date": "2015-01-01",
     "last_date": "2026-04-04 04:40:33",
     "top_brands": [
@@ -417,9 +333,6 @@
   },
   {
     "name": "南みゆか",
-    "appearance_count": 114,
-    "cover_count": 42,
-    "brand_count": 28,
     "first_date": "2018-01-01",
     "last_date": "2026-04-15T21:19:23+00:00",
     "top_brands": [
@@ -432,9 +345,6 @@
   },
   {
     "name": "森咲智美",
-    "appearance_count": 113,
-    "cover_count": 64,
-    "brand_count": 23,
     "first_date": "2014-11-14",
     "last_date": "2026-04-04 04:43:40",
     "top_brands": [
@@ -447,9 +357,6 @@
   },
   {
     "name": "石川澪",
-    "appearance_count": 108,
-    "cover_count": 80,
-    "brand_count": 20,
     "first_date": "2021-03-03",
     "last_date": "2026-04-15T21:25:03+00:00",
     "top_brands": [
@@ -462,9 +369,6 @@
   },
   {
     "name": "奥山かずさ",
-    "appearance_count": 105,
-    "cover_count": 81,
-    "brand_count": 15,
     "first_date": "2015-01-01",
     "last_date": "2026-04-04 04:53:02",
     "top_brands": [
@@ -477,9 +381,6 @@
   },
   {
     "name": "大久保桜子",
-    "appearance_count": 105,
-    "cover_count": 52,
-    "brand_count": 27,
     "first_date": "2018-07-13",
     "last_date": "2026-04-04 04:47:29",
     "top_brands": [
@@ -492,9 +393,6 @@
   },
   {
     "name": "上西怜",
-    "appearance_count": 103,
-    "cover_count": 49,
-    "brand_count": 29,
     "first_date": "2018-01-01",
     "last_date": "2026-04-21",
     "top_brands": [
@@ -507,9 +405,6 @@
   },
   {
     "name": "三田悠貴",
-    "appearance_count": 102,
-    "cover_count": 30,
-    "brand_count": 28,
     "first_date": "2019-07-04",
     "last_date": "2026-04-06T13:51:27+00:00",
     "top_brands": [
@@ -522,24 +417,18 @@
   },
   {
     "name": "篠崎こころ",
-    "appearance_count": 102,
-    "cover_count": 25,
-    "brand_count": 32,
     "first_date": "2015-01-01",
     "last_date": "2026-04-04 04:35:06",
     "top_brands": [
       "ヤングアニマル",
+      "漫画アクション",
       "ヤングガンガン",
       "週刊プレイボーイ",
-      "ヤングジャンプ",
-      "FRIDAY"
+      "ヤングジャンプ"
     ]
   },
   {
     "name": "高崎かなみ",
-    "appearance_count": 100,
-    "cover_count": 35,
-    "brand_count": 26,
     "first_date": "2019-12-06",
     "last_date": "2026-04-07",
     "top_brands": [
@@ -552,9 +441,6 @@
   },
   {
     "name": "十味",
-    "appearance_count": 99,
-    "cover_count": 56,
-    "brand_count": 30,
     "first_date": "2018-01-01",
     "last_date": "2026-04-20",
     "top_brands": [
@@ -562,14 +448,11 @@
       "週刊プレイボーイ",
       "週刊少年チャンピオン",
       "週刊ビッグコミックスピリッツ",
-      "ヤングアニマル"
+      "漫画アクション"
     ]
   },
   {
     "name": "小池里奈",
-    "appearance_count": 99,
-    "cover_count": 36,
-    "brand_count": 19,
     "first_date": "2006-10-02",
     "last_date": "2026-04-15T21:19:23+00:00",
     "top_brands": [
@@ -582,9 +465,6 @@
   },
   {
     "name": "天木じゅん",
-    "appearance_count": 98,
-    "cover_count": 29,
-    "brand_count": 26,
     "first_date": "2014-01-01",
     "last_date": "2026-04-04 04:35:20",
     "top_brands": [
@@ -597,9 +477,6 @@
   },
   {
     "name": "蓬莱舞",
-    "appearance_count": 96,
-    "cover_count": 31,
-    "brand_count": 30,
     "first_date": "2018-01-01",
     "last_date": "2026-04-07",
     "top_brands": [
@@ -612,9 +489,6 @@
   },
   {
     "name": "新谷姫加",
-    "appearance_count": 95,
-    "cover_count": 46,
-    "brand_count": 21,
     "first_date": "2018-01-01",
     "last_date": "2026-04-06T13:51:27+00:00",
     "top_brands": [
@@ -627,9 +501,6 @@
   },
   {
     "name": "浅川梨奈",
-    "appearance_count": 95,
-    "cover_count": 54,
-    "brand_count": 19,
     "first_date": "2015-01-01",
     "last_date": "2026-04-06T13:51:06+00:00",
     "top_brands": [
@@ -642,9 +513,6 @@
   },
   {
     "name": "染谷有香",
-    "appearance_count": 94,
-    "cover_count": 46,
-    "brand_count": 13,
     "first_date": "2014-01-01",
     "last_date": "2026-04-15T21:24:39+00:00",
     "top_brands": [
@@ -657,9 +525,6 @@
   },
   {
     "name": "福井梨莉華",
-    "appearance_count": 92,
-    "cover_count": 39,
-    "brand_count": 32,
     "first_date": "2020-03-20",
     "last_date": "2026-04-17T14:16:57+00:00",
     "top_brands": [
@@ -672,9 +537,6 @@
   },
   {
     "name": "武田玲奈",
-    "appearance_count": 92,
-    "cover_count": 57,
-    "brand_count": 16,
     "first_date": "2015-01-01",
     "last_date": "2026-04-06T13:51:06+00:00",
     "top_brands": [
@@ -687,9 +549,6 @@
   },
   {
     "name": "柏木由紀",
-    "appearance_count": 92,
-    "cover_count": 60,
-    "brand_count": 14,
     "first_date": "2010-01-01",
     "last_date": "2026-04-03 10:55:22",
     "top_brands": [
@@ -702,9 +561,6 @@
   },
   {
     "name": "ちとせよしの",
-    "appearance_count": 91,
-    "cover_count": 29,
-    "brand_count": 29,
     "first_date": "2019-11-15",
     "last_date": "2026-04-10",
     "top_brands": [
@@ -717,9 +573,6 @@
   },
   {
     "name": "桑島海空",
-    "appearance_count": 90,
-    "cover_count": 53,
-    "brand_count": 23,
     "first_date": "2018-01-01",
     "last_date": "2026-04-04 04:32:06",
     "top_brands": [
@@ -732,9 +585,6 @@
   },
   {
     "name": "鈴木ふみ奈",
-    "appearance_count": 89,
-    "cover_count": 24,
-    "brand_count": 21,
     "first_date": "2002-11-17",
     "last_date": "2026-04-15T21:25:31+00:00",
     "top_brands": [

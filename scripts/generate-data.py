@@ -40,6 +40,8 @@ GRAVURE_BRANDS = {
     "ヤングキング", "ヤングキングBULL", "サブラ", "sabra",
     "グラビアプレス", "EX-MAX!", "EX MAX", "ヤングチャンピオン",
     "グランジャンプ", "スポーツ報知", "月刊FANZA",
+    "漫画アクション", "グラビアザテレビジョン", "漫画ゴラク",
+    "ビッグコミックスペリオール", "ヤングアニマル嵐",
 }
 
 GRAVURE_BRAND_PREFIXES = (
@@ -161,9 +163,6 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
 
         performers.append({
             "name": r["performer_name"],
-            "appearance_count": r["appearance_count"],
-            "cover_count": r["cover_count"],
-            "brand_count": r["brand_count"],
             "first_date": r["first_date"] or "",
             "last_date": r["last_date"] or "",
             "top_brands": top_brands,
