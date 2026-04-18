@@ -325,21 +325,6 @@
     ]
   },
   {
-    "name": "日号",
-    "appearance_count": 147,
-    "cover_count": 147,
-    "brand_count": 8,
-    "first_date": "2020-03-16",
-    "last_date": "2026-04-04 04:51:45",
-    "top_brands": [
-      "週刊実話",
-      "週刊大衆",
-      "週刊SPA!",
-      "FRIDAY",
-      "週刊ポスト"
-    ]
-  },
-  {
     "name": "似鳥沙也加",
     "appearance_count": 135,
     "cover_count": 89,
@@ -470,21 +455,6 @@
       "週刊プレイボーイ",
       "アサ芸Secret",
       "週刊SPA!"
-    ]
-  },
-  {
-    "name": "月号",
-    "appearance_count": 115,
-    "cover_count": 109,
-    "brand_count": 30,
-    "first_date": "2011-06-23",
-    "last_date": "2026-03-15T18:21:24+00:00",
-    "top_brands": [
-      "BUBKA",
-      "BRODY",
-      "月刊FANZA",
-      "Exciting Max",
-      "EX大衆"
     ]
   },
   {
@@ -738,6 +708,36 @@
       "ヤングマガジン",
       "ヤングアニマル",
       "FRIDAY"
+    ]
+  },
+  {
+    "name": "染谷有香",
+    "appearance_count": 94,
+    "cover_count": 46,
+    "brand_count": 13,
+    "first_date": "2014-01-01",
+    "last_date": "2026-04-15T21:24:39+00:00",
+    "top_brands": [
+      "FLASH",
+      "FRIDAY",
+      "Photobook",
+      "週刊プレイボーイ",
+      "未分類"
+    ]
+  },
+  {
+    "name": "乃木坂46",
+    "appearance_count": 93,
+    "cover_count": 43,
+    "brand_count": 20,
+    "first_date": "2011-01-01",
+    "last_date": "2025-07-15",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "EX大衆",
+      "FRIDAY",
+      "ヤングジャンプ",
+      "ENTAME"
     ]
   }
 ]

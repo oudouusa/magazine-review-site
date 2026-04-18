@@ -1,93 +1,9 @@
 [
   {
-    "id": 1000035284,
-    "brand": "AKANE MAGAZINE",
-    "title": "【4/30発売】「AKANE MAGAZINE 2026年 5月号」表紙：有村架純 / 山田杏奈 井桁弘恵 南琴奈 etc.",
-    "date": "2026-04-30",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035366,
-    "brand": "25ans ヴァンサンカン",
-    "title": "【4/28発売】「25ans（ヴァンサンカン） 2026年 6月号」表紙：白石聖",
-    "date": "2026-04-28",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000015024,
-    "brand": "cyan spring 2026",
-    "title": "【4/27発売】「cyan issue 44 spring 2026」表紙：MAYUKA（NiziU） 南琴奈 ふみの",
-    "date": "2026-04-27",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035182,
-    "brand": "ドラゴンエイジ",
-    "title": "【4/27発売】「ヤングドラゴンエイジ VOL.34」表紙：奥ゆい / 三宅美羽 小鹿なお",
-    "date": "2026-04-27",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 35240,
     "brand": "週刊実話",
     "title": "週刊実話 2026.04.23 No.3456 根尾あかり 坂井美桜 莉々はるか 榊原萌 姫森あむ 樹智子 他",
     "date": "2026-04-23",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000007465,
-    "brand": "CanCam キャンキャン 通常版",
-    "title": "【4/23発売】「CanCam 2026年 6月号」表紙：山下美月 × 加藤史帆",
-    "date": "2026-04-23",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035062,
-    "brand": "BRODY",
-    "title": "【4/23発売】「BRODY 2026年 6月号」表紙：藤嶌果歩（日向坂46）",
-    "date": "2026-04-23",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035365,
-    "brand": "SPUR 特別版",
-    "title": "【4/23発売】「SPUR 2026年 6月号」表紙：HANA",
-    "date": "2026-04-23",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035375,
-    "brand": "ViVi ヴィヴィ ViVi",
-    "title": "【4/23発売】「ViVi 2026年 6月号」表紙：せいら",
-    "date": "2026-04-23",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035203,
-    "brand": "2026年MAQUIA マキア 年 増刊",
-    "title": "【4/22発売】「MAQUIA 2026年 6月号」表紙：小嶋陽菜",
-    "date": "2026-04-22",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035219,
-    "brand": "美的 増刊",
-    "title": "【4/22発売】「美的 2026年 6月号」表紙：畑芽育 / SANA（TWICE）",
-    "date": "2026-04-22",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035251,
-    "brand": "週刊アスキー特別編集 週アス2026May",
-    "title": "【4/22発売】「週刊アスキー特別編集 週アス2026May」表紙：ALLY（WHITE SCORPION）",
-    "date": "2026-04-22",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035282,
-    "brand": "VOCE ヴォーチェ 通常版",
-    "title": "【4/22発売】「VOCE 2026年 6月号 増刊 / SPECIAL / SPECIAL増刊」表紙：出口夏希",
-    "date": "2026-04-22",
     "publication_kind": "magazine"
   },
   {
@@ -105,65 +21,9 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000008356,
-    "brand": "NAILEX 増刊 仮",
-    "title": "【4/21発売】「NAILON ISSUE 03」表紙：早瀬ノエル（FRUITS ZIPPER）",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000015043,
-    "brand": "Model Graphix モデルグラフィックス 増刊 女性フィギュアSTART BOOK",
-    "title": "【4/21発売】「女性フィギュア START BOOK Vol.1」付録：東雲うみ バニーガールフィギュア",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035127,
-    "brand": "漫画アクション",
-    "title": "【4/21発売】「漫画アクション 2026年 No.9」表紙：えなこ / いくみ",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035128,
-    "brand": "Tokyo Calendar",
-    "title": "【4/21発売】「東京カレンダー 2026年 6月号」表紙：戸田恵梨香 / 川﨑桜（乃木坂46） 永作博美",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035183,
-    "brand": "日経マネー",
-    "title": "【4/21発売】「日経マネー 2026年 6月号」表紙：野呂佳代",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035204,
-    "brand": "ダイヤモンドZAi ザイ おかねの新常識&処方箋101/人気株500激辛診断/全上場銘柄の理論株価",
-    "title": "【4/21発売】「ダイヤモンドZAi 2026年 6月号」表紙：石田ニコル",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035281,
-    "brand": "ヤングチャンピオン",
-    "title": "【4/21発売】「ヤングチャンピオン烈 2026年 No.5」表紙：篠崎愛 / 紗倉まな",
-    "date": "2026-04-21",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035184,
-    "brand": "non-no",
-    "title": "【4/20発売】「non-no 2026年 6月号」表紙：井上和（乃木坂46）",
-    "date": "2026-04-20",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035199,
-    "brand": "リンネル",
-    "title": "【4/20発売】「リンネル 2026年 6月号」表紙：佐藤栞里",
+    "id": 1000035205,
+    "brand": "ヤングマガジン",
+    "title": "【4/20発売】「週刊ヤングマガジン 2026年 No.21」表紙：桃月なしこ / 林美希 Mayuri",
     "date": "2026-04-20",
     "publication_kind": "magazine"
   },
@@ -175,30 +35,9 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000035205,
-    "brand": "ヤングマガジン",
-    "title": "【4/20発売】「週刊ヤングマガジン 2026年 No.21」表紙：桃月なしこ / 林美希 Mayuri",
-    "date": "2026-04-20",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 1000035283,
     "brand": "週刊プレイボーイ",
     "title": "【4/20発売】「週刊プレイボーイ 2026年 5/4号 No.18」表紙：十味",
-    "date": "2026-04-20",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035302,
-    "brand": "ヤングキングBULL",
-    "title": "【4/20発売】「ヤングキングBULL 2026年 10号」表紙：和田海佑",
-    "date": "2026-04-20",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035374,
-    "brand": "madame FIGARO japon フィガロ ジャポン",
-    "title": "【4/20発売】「フィガロジャポン 2026年 6月号」表紙：MOMO（TWICE）",
     "date": "2026-04-20",
     "publication_kind": "magazine"
   },
@@ -238,34 +77,6 @@
     "publication_kind": "photobook"
   },
   {
-    "id": 35340,
-    "brand": "girls!",
-    "title": "Exciting Girls デジタル写真集 高梨瑞樹 vol.4",
-    "date": "2026-04-17T14:23:34+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35342,
-    "brand": "girls!",
-    "title": "Exciting Girls 高梨瑞街 デジタル写真集 vol.3",
-    "date": "2026-04-17T14:23:26+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35343,
-    "brand": "girls!",
-    "title": "Exciting Girls 高梨瑞街 デジタル写真集 vol.2",
-    "date": "2026-04-17T14:23:18+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35341,
-    "brand": "girls!",
-    "title": "Exciting Girls 高梨瑞街 デジタル写真集 vol.1",
-    "date": "2026-04-17T14:17:13+00:00",
-    "publication_kind": "photobook"
-  },
-  {
     "id": 35344,
     "brand": "BUBKA",
     "title": "BUBKAデジタル写真集 黒嵜菜々子 あのん ロサリオ恵奈 蓼沼優衣 200ページ超特装版",
@@ -277,20 +88,6 @@
     "brand": "BUBKA",
     "title": "BUBKAデジタル写真集 椿野ゆうこ 部屋とセーラー服と私",
     "date": "2026-04-17T14:17:02+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35349,
-    "brand": "Photobook",
-    "title": "[Photobook] 翔田千里 グラビア写真集 Glossy & Fleurs",
-    "date": "2026-04-17T14:16:51+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35348,
-    "brand": "girls!",
-    "title": "[Photobook] GIRLS graph. デジタル写真集 沢美沙樹『背伸びと本音』",
-    "date": "2026-04-17T14:16:44+00:00",
     "publication_kind": "photobook"
   },
   {
@@ -308,102 +105,11 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000015072,
-    "brand": "美ST",
-    "title": "【4/17発売】「美ST 2026年 6月号」表紙：加藤あい",
-    "date": "2026-04-17",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035063,
-    "brand": "グラビアプレス",
-    "title": "【4/17発売】「グラビアプレス Vol.16」表紙：久留島優果・高雄さやか（STU48） / 佐藤海里・藤崎未夢（NGT48）",
-    "date": "2026-04-17",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 1000035185,
     "brand": "ヤングガンガン",
     "title": "【4/17発売】「ヤングガンガン 2026年 No.9」表紙：池田瑛紗（乃木坂46） / 田村真佑（乃木坂46）",
     "date": "2026-04-17",
     "publication_kind": "magazine"
-  },
-  {
-    "id": 35257,
-    "brand": "Photobook",
-    "title": "[Photobook] 松岡すずがアナタの初めて奪ってあげる！",
-    "date": "2026-04-16T17:10:56+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35258,
-    "brand": "Photobook",
-    "title": "[Photobook] 松岡すず デジタル写真集 松岡すずがびしょびしょ！よだれ、愛液、汗…まみれの濃厚性交",
-    "date": "2026-04-16T17:10:51+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35259,
-    "brand": "Photobook",
-    "title": "[Photobook] 辻本杏 アダルトデジタル写真集『あなたの笑顔が見たいから』",
-    "date": "2026-04-16T17:06:32+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35261,
-    "brand": "Photobook",
-    "title": "[Photobook] 旅女 -たびじょ- 沖縄編 グラビア写真集",
-    "date": "2026-04-16T17:06:26+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35262,
-    "brand": "Photobook",
-    "title": "[Photobook] 九野ひなの 全部脱いでもよかと？",
-    "date": "2026-04-16T17:06:23+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35266,
-    "brand": "Photobook",
-    "title": "[Photobook] 痴女覚醒エッチ 愛沢かりん",
-    "date": "2026-04-16T17:06:11+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35265,
-    "brand": "Photobook",
-    "title": "[Photobook] 朝日奈かれん かれん可憐に舞う オフィシャルヌード写真集",
-    "date": "2026-04-16T17:06:07+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35264,
-    "brand": "Photobook",
-    "title": "[Photobook] 草壁めい デジタル写真集 北海道発！ミニマム声優の卵ちゃん",
-    "date": "2026-04-16T17:06:02+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35267,
-    "brand": "Photobook",
-    "title": "[Photobook] 爆乳妻の誘惑 ドスケベ妻が夫の留守に浮気三昧… 西條るり 濃密グラビア写真集",
-    "date": "2026-04-16T17:05:58+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35268,
-    "brand": "Photobook",
-    "title": "[Photobook] ゼロイチ学園 シーズン２ 十味",
-    "date": "2026-04-16T17:05:52+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35269,
-    "brand": "ヤングチャンピオン",
-    "title": "[Photobook] えなこ「えなこランド」【ヤングチャンピオンデジグラ】",
-    "date": "2026-04-16T17:05:47+00:00",
-    "publication_kind": "photobook"
   },
   {
     "id": 3000035271,
@@ -420,6 +126,13 @@
     "publication_kind": "digital_photobook"
   },
   {
+    "id": 1000035280,
+    "brand": "ENTAME",
+    "title": "【4/16発売】「Weekly Pocket ENTAME 2026年 4/16・23 合併号 No.21」表紙：石浜芽衣（虹のコンキスタドール）",
+    "date": "2026-04-16",
+    "publication_kind": "magazine"
+  },
+  {
     "id": 1000035060,
     "brand": "ヤングジャンプ",
     "title": "【4/16発売】「週刊ヤングジャンプ 2026年 No.20」グラビア：芳賀礼（NMB48） 姫野ひなの・姫野ゆめの（#Mooove!） 中川陽葵",
@@ -434,27 +147,6 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000035250,
-    "brand": "週刊文春 2026年 3",
-    "title": "【4/16発売】「週刊文春 2026年 4/23号」グラビア：中村アン",
-    "date": "2026-04-16",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035280,
-    "brand": "ENTAME",
-    "title": "【4/16発売】「Weekly Pocket ENTAME 2026年 4/16・23 合併号 No.21」表紙：石浜芽衣（虹のコンキスタドール）",
-    "date": "2026-04-16",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 35231,
-    "brand": "Photobook",
-    "title": "[9784065393406] Hina Kikuchi 菊地姫奈 – 「memory」豪華版 [MP4/1.01GB]",
-    "date": "2026-04-15T21:31:23+00:00",
-    "publication_kind": "photobook"
-  },
-  {
     "id": 35230,
     "brand": "FRIDAY",
     "title": "FRIDAYデジタル写真集 長谷川かすみ「秘密」",
@@ -462,73 +154,10 @@
     "publication_kind": "photobook"
   },
   {
-    "id": 35232,
-    "brand": "Photobook",
-    "title": "[Photobook]【乳首】見せない（見えてます）星野あかり",
-    "date": "2026-04-15T21:31:13+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35235,
-    "brand": "Photobook",
-    "title": "[Photobook] 白石茉莉奈がオレのカノジョだったら",
-    "date": "2026-04-15T21:30:58+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35236,
-    "brand": "Photobook",
-    "title": "[Photobook] 白木優子 解禁お宝写真集",
-    "date": "2026-04-15T21:30:54+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35237,
-    "brand": "Photobook",
-    "title": "[Photobook] 奥田咲がオレのカノジョだったら。巨乳の女の子は好きですか？",
-    "date": "2026-04-15T21:30:49+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35238,
-    "brand": "Photobook",
-    "title": "[Photobook] 愛音まりあ、性欲の限界 Limit of Libido 尽きるまで…絶頂の向こう側へ",
-    "date": "2026-04-15T21:30:44+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35239,
-    "brand": "Photobook",
-    "title": "[Photobook] 愛音まりあ みんなの憧れの美人社員を媚薬でやりたい放題",
-    "date": "2026-04-15T21:30:35+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35249,
-    "brand": "Photobook",
-    "title": "[Photobook] [福田もか。のサークル (福田もか。)] 小料理屋の美人女将が常連の僕だけに見せた 夜の顔…",
-    "date": "2026-04-15T21:25:47+00:00",
-    "publication_kind": "photobook"
-  },
-  {
-    "id": 35241,
-    "brand": "EX-MAX!",
-    "title": "EX MAX！SPECIAL 2026 vol.207 河北彩花 萌名 宮越虹海 霧島聖子 村上りいな 冴島なな 鈴木ふみ奈 苔苔 新田柚花 輪湖チロル 須能咲良 仲村まにろ 白川のぞみ 光葉かのん 鈴原りこ",
-    "date": "2026-04-15T21:25:31+00:00",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 35243,
     "brand": "ヤングマガジン",
     "title": "【4/6発売】「週刊ヤングマガジン 2026年 No.19」表紙：榎原依那 / 市倉侑季奈 戸塚真琳 碧 タグラン南",
     "date": "2026-04-15T21:25:18+00:00",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 35244,
-    "brand": "ヤングキングBULL",
-    "title": "【4/6発売】「ヤングキングBULL 2026年 9号」表紙：桃月なしこ / 百田汐里",
-    "date": "2026-04-15T21:25:03+00:00",
     "publication_kind": "magazine"
   },
   {
@@ -560,20 +189,6 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000015071,
-    "brand": "EX イーエックス 大衆",
-    "title": "【4/15発売】「EX大衆 2026年 5・6月号」表紙：中西アルノ（乃木坂46）",
-    "date": "2026-04-15",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035059,
-    "brand": "グランドジャンプ",
-    "title": "【4/15発売】「グランドジャンプ 2026年 No.10」グラビア：刈川くるみ",
-    "date": "2026-04-15",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 1000035131,
     "brand": "週刊少年マガジン",
     "title": "【4/15発売】「週刊少年マガジン 2026年 20号」表紙：守屋麗奈 / 谷口愛季 浅井恋乃未（櫻坂46）",
@@ -581,23 +196,9 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000035200,
-    "brand": "ナチュリラ 2026春夏",
-    "title": "【4/15発売】「ナチュリラ 2026春夏」表紙：永作博美",
-    "date": "2026-04-15",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 3000035168,
-    "brand": "Graphis Gals",
-    "title": "MIxTURE 002 Part01",
-    "date": "2026-04-14 04:39:39",
-    "publication_kind": "digital_photobook"
-  },
-  {
-    "id": 3000035169,
-    "brand": "Graphis Gals",
-    "title": "MIxTURE 002 Part02",
+    "id": 3000035171,
+    "brand": "FRIDAY",
+    "title": "this Way Vol.2 超豪華版 Part02",
     "date": "2026-04-14 04:39:39",
     "publication_kind": "digital_photobook"
   },
@@ -609,13 +210,6 @@
     "publication_kind": "digital_photobook"
   },
   {
-    "id": 3000035171,
-    "brand": "FRIDAY",
-    "title": "this Way Vol.2 超豪華版 Part02",
-    "date": "2026-04-14 04:39:39",
-    "publication_kind": "digital_photobook"
-  },
-  {
     "id": 3000035181,
     "brand": "週刊ポスト",
     "title": "ラブホテルで抱きたい愛乳",
@@ -623,9 +217,9 @@
     "publication_kind": "digital_photobook"
   },
   {
-    "id": 3000035160,
-    "brand": "sabra",
-    "title": "DX 揺れるG捜査線 Part01",
+    "id": 3000035166,
+    "brand": "BUBKA",
+    "title": "BUBKA S",
     "date": "2026-04-14 01:39:46",
     "publication_kind": "digital_photobook"
   },
@@ -637,16 +231,9 @@
     "publication_kind": "digital_photobook"
   },
   {
-    "id": 3000035166,
-    "brand": "BUBKA",
-    "title": "BUBKA S",
-    "date": "2026-04-14 01:39:46",
-    "publication_kind": "digital_photobook"
-  },
-  {
-    "id": 3000035167,
-    "brand": "YK PHOTO ALBUM",
-    "title": "YK PHOTO ALBUM",
+    "id": 3000035160,
+    "brand": "sabra",
+    "title": "DX 揺れるG捜査線 Part01",
     "date": "2026-04-14 01:39:46",
     "publication_kind": "digital_photobook"
   },
@@ -658,32 +245,11 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000035064,
-    "brand": "ヤングチャンピオン",
-    "title": "【4/14発売】「ヤングチャンピオン 2026年 No.9」表紙：大村杏（SKE48） / 甲斐心愛（STU48） / アイドルDVD",
-    "date": "2026-04-14",
-    "publication_kind": "magazine"
-  },
-  {
-    "id": 1000035129,
-    "brand": "週刊アスキーNo.1591 発行 週刊アスキー",
-    "title": "【4/14発売】「週刊アスキー No.1591」表紙：ALLY（WHITE SCORPION）",
-    "date": "2026-04-14",
-    "publication_kind": "magazine"
-  },
-  {
     "id": 1000035130,
     "brand": "週刊SPA!",
     "title": "【4/14発売】「週刊SPA! 2026年 4/21号」表紙：麻倉瑞季 / 星宮すみれ 林ゆめ 伊藤実希（SKE48）",
     "date": "2026-04-14",
     "publication_kind": "magazine"
-  },
-  {
-    "id": 35234,
-    "brand": "Photobook",
-    "title": "[Photobook]【デジタル限定】本間日陽写真集「ピュアか、小悪魔か。」 (2026-04-13)",
-    "date": "2026-04-13",
-    "publication_kind": "digital_photobook"
   },
   {
     "id": 1000007470,
@@ -693,10 +259,444 @@
     "publication_kind": "magazine"
   },
   {
-    "id": 1000015044,
-    "brand": "SCALE AVIATION スケールアヴィエーション",
-    "title": "【4/13発売】「Scale Aviation 2026年 5月号」グラビア：熊田曜子",
+    "id": 1000035077,
+    "brand": "ヤングキング",
+    "title": "【4/13発売】「ヤングキング 2026年 9号」表紙：幸田あかり",
     "date": "2026-04-13",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000035066,
+    "brand": "ヤングマガジン",
+    "title": "【4/13発売】「週刊ヤングマガジン 2026年 No.20」表紙：本郷柚巴 / 滝沢京花 池田レイラ 夏芽すず",
+    "date": "2026-04-13",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000035278,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【4/13発売】「週刊ビッグコミックスピリッツ 2026年 No.21」表紙：冴木柚葉",
+    "date": "2026-04-13",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000035076,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【4/13発売】「週刊ビッグコミックスピリッツ 2026年 No.20」表紙：森脇梨々夏",
+    "date": "2026-04-13",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000035017,
+    "brand": "週刊プレイボーイ",
+    "title": "【4/13発売】「週刊プレイボーイ 2026年 4/27号 No.17」表紙：天羽希純 / 奥村桃夏 鷲見友美ジェナ etc.",
+    "date": "2026-04-13",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 35070,
+    "brand": "FRIDAY",
+    "title": "FRIDAY GOLD グラビアムック 2025 Winter",
+    "date": "2026-04-11T22:04:17+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 35047,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 阿部凜 北国の新エース！",
+    "date": "2026-04-10T18:08:41+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 35048,
+    "brand": "FLASH",
+    "title": "FLASHデジタル写真集 矢野ななか All about summer",
+    "date": "2026-04-10T18:08:37+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 35049,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook]【デジタル限定】千歳まち写真集「クールビューティなヒール」週プレ PHOTO BOOK",
+    "date": "2026-04-10T18:08:31+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 35050,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook]【デジタル限定】ゆうちゃみ写真集「ギャルと清楚の二刀流！！」週プレ PHOTO BOOK",
+    "date": "2026-04-10T18:08:25+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 35051,
+    "brand": "ヤングジャンプ",
+    "title": "[Photobook]【デジタル限定 YJ PHOTO BOOK】鈴木聖写真集「触れてはいけない」",
+    "date": "2026-04-10T18:08:15+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 35263,
+    "brand": "ENTAME",
+    "title": "[Photobook] 江籠裕奈デジタル写真集 ドキッ！ ENTAME36℃デジタル写真集 (2026-04-10)",
+    "date": "2026-04-10",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 1000035065,
+    "brand": "ヤングアニマル",
+    "title": "【4/10発売】「ヤングアニマル 2026年 No.8」表紙：ちとせよしの（あまいものつめあわせ） / ちゅきめろでぃ",
+    "date": "2026-04-10",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000007501,
+    "brand": "BOMB",
+    "title": "【4/9発売】「BOMB 2026年 5月号」表紙：菅原咲月（乃木坂46）",
+    "date": "2026-04-09",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34987,
+    "brand": "週刊実話",
+    "title": "週刊実話ザ・タブー グラビア＆カラーだけ！2024年総集編 Part1",
+    "date": "2026-04-08T20:37:36+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34979,
+    "brand": "FLASH",
+    "title": "FLASHデジタル写真集 都丸紗也華 ストライク☆バスト！",
+    "date": "2026-04-08T20:30:38+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34980,
+    "brand": "BUBKA",
+    "title": "BUBKAデジタル写真集 吉澤遥奈「Pureness」",
+    "date": "2026-04-08T20:30:33+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34981,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook] 雪平莉左『週プレ プラス！』アザーカット集「冬に泳ぐ。～prologue～」 週プレ PHOTO BOOK",
+    "date": "2026-04-08T20:30:26+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 1000014972,
+    "brand": "週刊少年マガジン",
+    "title": "【4/8発売】「週刊少年マガジン 2026年 19号」グラビア：寺本莉緒 晴こころ",
+    "date": "2026-04-08",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34966,
+    "brand": "ヤングジャンプ",
+    "title": "【4/2発売】「週刊ヤングジャンプ 2026年 No.18」表紙：主人公（金丸紗希） / 大原円香 美澄衿依",
+    "date": "2026-04-07T14:04:03+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34967,
+    "brand": "ヤングガンガン",
+    "title": "【4/3発売】「ヤングガンガン 2026年 No.8」表紙：井口裕香 / 兵頭美波（アップアップガールズ（2））",
+    "date": "2026-04-07T14:03:52+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34968,
+    "brand": "週刊少年サンデー",
+    "title": "【3/25発売】「週刊少年サンデー 2026年 17号」表紙：山下瞳月（櫻坂46）",
+    "date": "2026-04-07T14:03:38+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34969,
+    "brand": "週刊少年サンデー",
+    "title": "【3/11発売】「週刊少年サンデー 2026年 15号」表紙：遠藤彩加里・林仁愛（Juice=Juice）",
+    "date": "2026-04-07T14:03:32+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34970,
+    "brand": "週刊少年マガジン",
+    "title": "【3/25発売】「週刊少年マガジン 2026年 17号」表紙：沢口愛華 / 永岡ゆきね 晴こころ 江下晏梨",
+    "date": "2026-04-07T14:03:26+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34971,
+    "brand": "週刊少年マガジン",
+    "title": "【3/18発売】「週刊少年マガジン 2026年 16号」表紙：正源司陽子（日向坂46）",
+    "date": "2026-04-07T14:03:21+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34972,
+    "brand": "週刊少年マガジン",
+    "title": "【3/11発売】「週刊少年マガジン 2026年 15号」表紙：藤吉夏鈴（櫻坂46）",
+    "date": "2026-04-07T14:03:11+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34973,
+    "brand": "週刊少年マガジン",
+    "title": "【3/4発売】「週刊少年マガジン 2026年 14号」表紙：瀬戸口心月（乃木坂46）",
+    "date": "2026-04-07T13:58:27+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34974,
+    "brand": "週刊少年チャンピオン",
+    "title": "【3/26発売】「週刊少年チャンピオン 2026年 17号」表紙：溝端葵",
+    "date": "2026-04-07T13:58:23+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34975,
+    "brand": "週刊少年チャンピオン",
+    "title": "【3/19発売】「週刊少年チャンピオン 2026年 16号」表紙：的野美青（櫻坂46）",
+    "date": "2026-04-07T13:58:15+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34976,
+    "brand": "月刊少年チャンピオン",
+    "title": "[Gekkan Shonen Champion] 2026 No.04",
+    "date": "2026-04-07T13:58:08+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000015016,
+    "brand": "FLASH",
+    "title": "【4/7発売】「FLASH 2026年 4/21・28 合併号」表紙：冴木柚葉 / 白戸ゆめの 桃月なしこ 小日向優花 池本しおり etc.",
+    "date": "2026-04-07",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 35071,
+    "brand": "FLASH",
+    "title": "[FLASH] 2026.04.07 No.1806 あまつまりな 加藤愛梨  蓬莱舞 五木ゆうり 松田美里 紫堂るい 成海有紗 浜辺ゆりな",
+    "date": "2026-04-07",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34951,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 白川のぞみ 白蜜桃 vol.3 オール未公開100カット超完全版",
+    "date": "2026-04-06T14:05:23+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34953,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 白川のぞみ 白蜜桃 vol.2",
+    "date": "2026-04-06T14:05:18+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34955,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 白川のぞみ 白蜜桃 vol.1",
+    "date": "2026-04-06T13:59:02+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34952,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 阿部なつき blooming",
+    "date": "2026-04-06T13:58:55+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34927,
+    "brand": "ヤングジャンプ",
+    "title": "【3/26発売】「週刊ヤングジャンプ 2026年 No.17」表紙：制コレ24 稲光亜依・仙北谷ハンナ・小森香乃・百田汐里 / 伊達さゆり あゆの",
+    "date": "2026-04-06T13:57:58+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34928,
+    "brand": "ヤングジャンプ",
+    "title": "【3/19発売】「週刊ヤングジャンプ 2026年 No.16」表紙：七瀬なな / 緑川春菜 長野雅（イイトコドリ） 刈川くるみ",
+    "date": "2026-04-06T13:57:34+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34929,
+    "brand": "ヤングジャンプ",
+    "title": "【3/12発売】「週刊ヤングジャンプ 2026年 No.15」表紙：稲光亜依 / 小森香乃 百田汐里 仙北谷ハンナ / 山﨑賢人 × 山田杏奈",
+    "date": "2026-04-06T13:52:29+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34930,
+    "brand": "ヤングジャンプ",
+    "title": "【3/5発売】「週刊ヤングジャンプ 2026年 No.14」表紙：刈川くるみ / 後藤まつり（アイテムはてるてるのみ） 島田菜津美（Sweet Alley）",
+    "date": "2026-04-06T13:52:18+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34931,
+    "brand": "ヤングジャンプ",
+    "title": "【2/26発売】「週刊ヤングジャンプ 2026年 No.13」表紙：佐藤綺星（AKB48） / ねお 野咲美優 天川星夏",
+    "date": "2026-04-06T13:52:08+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34932,
+    "brand": "ヤングジャンプ",
+    "title": "【2/19発売】「週刊ヤングジャンプ 2026年 No.12」表紙：えなこ / いくみ 南みゆか（Sophià la Mode）",
+    "date": "2026-04-06T13:51:57+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34923,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【3/30発売】「週刊ビッグコミックスピリッツ 2026年 No.18」表紙：姫野ひなの（#Mooove!）",
+    "date": "2026-04-06T13:51:41+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34924,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【3/23発売】「週刊ビッグコミックスピリッツ 2026年 No.17」表紙：新谷姫加",
+    "date": "2026-04-06T13:51:27+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34925,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【3/16発売】「週刊ビッグコミックスピリッツ 2026年 No.16」表紙：十味",
+    "date": "2026-04-06T13:51:15+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34926,
+    "brand": "週刊ビッグコミックスピリッツ",
+    "title": "【3/9発売】「週刊ビッグコミックスピリッツ 2026年 No.15」表紙：SORA / YUKA KANAMI（ROKUSAN ANGEL）",
+    "date": "2026-04-06T13:51:06+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000008399,
+    "brand": "月刊少年チャンピオン",
+    "title": "【4/6発売】「月刊少年チャンピオン 2026年 5月号」表紙：十味",
+    "date": "2026-04-06",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 1000014967,
+    "brand": "週刊プレイボーイ",
+    "title": "【4/6発売】「週刊プレイボーイ 2026年 4/20号 No.16」表紙：髙野真央 / 上西怜 麻倉瑞季 伊藤優衣 水原ゆき etc.",
+    "date": "2026-04-06",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34908,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 橘和奈 ヴァージン・フライト！ vol.3",
+    "date": "2026-04-05T19:49:10+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34912,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 橘和奈 ヴァージン・フライト！ vol.2",
+    "date": "2026-04-05T19:49:05+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34911,
+    "brand": "FRIDAY",
+    "title": "FRIDAYデジタル写真集 橘和奈 ヴァージン・フライト！ vol.1",
+    "date": "2026-04-05T19:49:00+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34910,
+    "brand": "FLASH",
+    "title": "FLASHデジタル写真集 桃月なしこ Queen of Beauty",
+    "date": "2026-04-05T19:48:55+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34909,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook]【デジタル限定】滝裕可里写真集「Sweet Inspiration」 (週プレ PHOTO BOOK)",
+    "date": "2026-04-05T19:48:48+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34918,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook] 福田ルミカ『週プレ プラス！』アザーカット集「君の夏、19歳。~prologue~」 (週プレ PHOTO BOOK)",
+    "date": "2026-04-05T19:44:20+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34920,
+    "brand": "週刊SPA!",
+    "title": "[Photobook] 菜那セシル「透き通った肢体」SPA！デジタル写真集",
+    "date": "2026-04-05T19:44:15+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34893,
+    "brand": "FLASH",
+    "title": "FLASHデジタル写真集 東雲うみ むにむに。",
+    "date": "2026-04-04T18:39:16+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34895,
+    "brand": "週刊プレイボーイ",
+    "title": "[Photobook]【デジタル限定】相楽伊織写真集「Our Life」 (週プレ PHOTO BOOK)",
+    "date": "2026-04-04T18:33:08+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34896,
+    "brand": "週刊ポスト",
+    "title": "[Photobook] 週刊ポストデジタル写真集 あまつまりな 湿った夏の艶めき",
+    "date": "2026-04-04T18:33:03+00:00",
+    "publication_kind": "photobook"
+  },
+  {
+    "id": 34939,
+    "brand": "ヤングマガジン",
+    "title": "【3/30発売】「週刊ヤングマガジン 2026年 No.18」表紙：一ノ瀬瑠菜 / 尾茂井奏良 太田しずく",
+    "date": "2026-04-04T18:27:26+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34940,
+    "brand": "ヤングマガジン",
+    "title": "【3/23発売】「週刊ヤングマガジン 2026年 No.17」表紙：寺本莉緒 / 松山玲菜（RoLuANGEL） 冨永実里",
+    "date": "2026-04-04T18:27:16+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34941,
+    "brand": "ヤングマガジン",
+    "title": "【3/16発売】「週刊ヤングマガジン 2026年 No.16」表紙：牧野真莉愛 / 高鶴桃羽 筒井結愛 まるやそら",
+    "date": "2026-04-04T18:27:07+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34937,
+    "brand": "ヤングガンガン",
+    "title": "【3/19発売】「ヤングガンガン 2026年 No.7」表紙：佐々木ほのか / 本田あやね",
+    "date": "2026-04-04T18:26:51+00:00",
+    "publication_kind": "magazine"
+  },
+  {
+    "id": 34938,
+    "brand": "ヤングガンガン",
+    "title": "[Young Gangan] 2026 No.06",
+    "date": "2026-04-04T18:26:41+00:00",
     "publication_kind": "magazine"
   }
 ]

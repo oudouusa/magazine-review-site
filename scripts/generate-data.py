@@ -12,6 +12,22 @@ DB_PATH = os.environ.get(
 OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
 
 
+NOISE_PERFORMERS = {
+    "日号", "月号", "雑誌", "カット", "号", "＋", "未定",
+}
+
+GRAVURE_BRANDS = {
+    "週刊プレイボーイ", "ヤングジャンプ", "週刊ポスト", "週刊SPA!",
+    "週刊ビッグコミックスピリッツ", "週刊実話", "ヤングマガジン",
+    "週刊少年マガジン", "週刊少年チャンピオン", "週刊大衆", "週刊現代",
+    "週刊少年サンデー", "週刊アサヒ芸能", "週刊文春", "ヤンマガWeb",
+    "FRIDAY", "FLASH", "月刊ヤングマガジン", "月刊少年チャンピオン",
+    "ENTAME", "月刊エンタメ", "マンスリーガール", "ヤングチャンピオン烈",
+    "BOMB", "BUBKA", "EX大衆", "ヤングアニマル", "ヤングガンガン",
+    "ヤングキング", "サブラ", "sabra",
+}
+
+
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -52,6 +68,16 @@ def generate_brands(conn: sqlite3.Connection) -> list[dict]:
     return brands
 
 
+def _is_valid_performer(name: str) -> bool:
+    if name in NOISE_PERFORMERS:
+        return False
+    if len(name) <= 1:
+        return False
+    if name.isascii() and " " not in name:
+        return False
+    return True
+
+
 def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
     rows = conn.execute("""
         SELECT performer_name, appearance_count, cover_count, brand_count,
@@ -59,11 +85,13 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
         FROM performer_stats
         WHERE appearance_count >= 20
         ORDER BY appearance_count DESC
-        LIMIT 50
+        LIMIT 100
     """).fetchall()
 
     performers = []
     for r in rows:
+        if not _is_valid_performer(r["performer_name"]):
+            continue
         top_brands = conn.execute("""
             SELECT brand, COUNT(*) as cnt
             FROM performer_magazine_links
@@ -82,18 +110,21 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
             "last_date": r["last_date"] or "",
             "top_brands": [b["brand"] for b in top_brands],
         })
+        if len(performers) >= 50:
+            break
     return performers
 
 
 def generate_recent_releases(conn: sqlite3.Connection) -> list[dict]:
-    rows = conn.execute("""
+    brand_placeholders = ",".join("?" * len(GRAVURE_BRANDS))
+    rows = conn.execute(f"""
         SELECT id, brand, title, date, publication_kind
         FROM magazine_cards
         WHERE date >= date('now', '-30 days')
-          AND brand != '未分類'
+          AND brand IN ({brand_placeholders})
         ORDER BY date DESC
         LIMIT 100
-    """).fetchall()
+    """, list(GRAVURE_BRANDS)).fetchall()
 
     return [
         {
