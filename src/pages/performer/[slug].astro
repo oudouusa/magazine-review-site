@@ -55,18 +55,14 @@ const description = `${name}のグラビア写真集・雑誌まとめ。${top_b
         {description}
       </p>
       <div class="flex flex-wrap items-center gap-3 text-xs" style="color: #9ca3af;">
-        {is_active ? (
+        {is_active && (
           <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-green-300 bg-green-900/40">
             <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
             活動中
           </span>
-        ) : (
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full" style="color: #9ca3af; background: rgba(75,85,99,0.3);">
-            活動終了
-          </span>
         )}
         {first_year && performer.last_year && !is_active ? (
-          <span>活動期間: {first_year}〜{performer.last_year}年</span>
+          <span>確認期間: {first_year}〜{performer.last_year}年</span>
         ) : first_year ? (
           <span>デビュー: {first_year}年〜</span>
         ) : null}
