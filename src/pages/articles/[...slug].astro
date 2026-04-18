@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={article.data.title} description={article.data.description}>
+  <article class="prose prose-lg max-w-none">
+    <header class="mb-8 not-prose">
+      <h1 class="text-3xl font-bold mb-2">{article.data.title}</h1>
+      <div class="flex items-center gap-4 text-sm text-muted">
+        <time datetime={article.data.pubDate.toISOString()}>
+          {article.data.pubDate.toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+        {article.data.updatedDate && (
+          <span>
+            （更新:
+            {article.data.updatedDate.toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            ）
+          </span>
+        )}
+      </div>
+    </header>
+
+    <Content />
+  </article>
+
+  <nav class="mt-12 pt-8 border-t border-gray-200">
+    <a href="/" class="text-accent hover:underline">&larr; 記事一覧に戻る</a>
+  </nav>
+</BaseLayout>

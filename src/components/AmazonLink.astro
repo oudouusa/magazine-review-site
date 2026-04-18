@@ -1,0 +1,19 @@
+---
+interface Props {
+  asin: string;
+  title: string;
+}
+
+const { asin, title } = Astro.props;
+const url = `https://www.amazon.co.jp/dp/${asin}`;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="inline-flex items-center gap-1 text-accent hover:underline"
+>
+  {title}
+  <span class="text-xs text-muted">（Amazon）</span>
+</a>

@@ -1,17 +1,39 @@
 ---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleCard from "../components/ArticleCard.astro";
 
+const articles = await getCollection("articles");
+const sorted = articles.sort((a, b) => a.data.order - b.data.order);
+
+const categoryLabels: Record<string, string> = {
+  guide: "ガイド",
+  calendar: "カレンダー",
+  comparison: "比較",
+  beginner: "入門",
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="グラビア雑誌ガイド"
+  description="グラビア雑誌・写真集の総合ガイド。週刊誌・月刊誌の比較、新刊カレンダー、購入ガイドなど。"
+>
+  <section>
+    <h1 class="text-3xl font-bold mb-2">グラビア雑誌ガイド</h1>
+    <p class="text-muted mb-8">
+      グラビア雑誌・デジタル写真集の選び方から新刊情報まで、まとめてお届けします。
+    </p>
+  </section>
+
+  <section class="space-y-2">
+    {sorted.map((article) => (
+      <ArticleCard
+        title={article.data.title}
+        description={article.data.description}
+        href={`/articles/${article.id}`}
+        date={article.data.pubDate.toISOString()}
+        category={categoryLabels[article.data.category]}
+      />
+    ))}
+  </section>
+</BaseLayout>

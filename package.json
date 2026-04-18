@@ -13,8 +13,10 @@
     "generate-data": "python scripts/generate-data.py"
   },
   "dependencies": {
-    "astro": "^6.1.7",
     "@astrojs/mdx": "^5.0.0",
-    "@astrojs/sitemap": "^3.0.0"
+    "@astrojs/sitemap": "^3.0.0",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.7",
+    "tailwindcss": "^4.2.2"
   }
 }

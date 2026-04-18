@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-surface: #f8f9fa;
+  --color-muted: #6b7280;
+}

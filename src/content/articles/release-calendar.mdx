@@ -1,0 +1,93 @@
+---
+title: "グラビア雑誌 新刊カレンダー"
+description: "直近のグラビア雑誌・写真集の新刊情報をまとめてお届け。週刊プレイボーイ、ヤングジャンプなど主要誌の最新号をチェック。"
+pubDate: 2026-04-18
+category: calendar
+order: 4
+---
+
+import releaseData from "../../data/recent-releases.json";
+
+グラビア雑誌や写真集の新刊をまとめてチェックできるカレンダーです。最新のデータベースから、直近に発売された主要タイトルを一覧にしています。
+
+## 直近の新刊一覧
+
+以下は直近 30 日間に発売されたグラビア雑誌・写真集の一部です（全 {releaseData.length} 件）。
+
+export const grouped = releaseData.reduce((acc, item) => {
+  const key = item.publication_kind === "magazine" ? "雑誌" : "写真集";
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(item);
+  return acc;
+}, {});
+
+### 雑誌の新刊
+
+<div class="overflow-x-auto">
+<table>
+<thead>
+<tr><th>タイトル</th><th>ブランド</th><th>発売日</th></tr>
+</thead>
+<tbody>
+{(grouped["雑誌"] || []).slice(0, 20).map((item) => (
+<tr>
+<td>{item.title}</td>
+<td>{item.brand}</td>
+<td>{item.date?.slice(0, 10)}</td>
+</tr>
+))}
+</tbody>
+</table>
+</div>
+
+### 写真集の新刊
+
+<div class="overflow-x-auto">
+<table>
+<thead>
+<tr><th>タイトル</th><th>ブランド</th><th>発売日</th></tr>
+</thead>
+<tbody>
+{(grouped["写真集"] || []).slice(0, 20).map((item) => (
+<tr>
+<td>{item.title}</td>
+<td>{item.brand}</td>
+<td>{item.date?.slice(0, 10)}</td>
+</tr>
+))}
+</tbody>
+</table>
+</div>
+
+## 主要週刊誌の発売日
+
+| 雑誌名 | 発売曜日 | 出版社 |
+|--------|---------|--------|
+| 週刊プレイボーイ | 月曜日 | 集英社 |
+| ヤングジャンプ | 木曜日 | 集英社 |
+| ヤングマガジン | 月曜日 | 講談社 |
+| 週刊少年マガジン | 水曜日 | 講談社 |
+| 週刊SPA! | 火曜日 | 扶桑社 |
+| FLASH | 火曜日 | 光文社 |
+
+## 新刊のチェック方法
+
+新刊を見逃さないためのおすすめの方法を紹介します。
+
+### Kindle の「欲しいものリスト」
+
+Amazon Kindle で好きなシリーズや雑誌を「欲しいものリスト」に追加しておくと、新刊が出たときにメールで通知を受け取れます。
+
+### 出版社の公式サイト
+
+集英社や講談社の公式サイトでは、発売スケジュールが事前に公開されています。表紙のタレント情報も確認できることが多いです。
+
+### 書店のメルマガ
+
+楽天ブックスや Amazon では、フォローしているジャンルの新刊情報をメールで配信しています。
+
+## まとめ
+
+グラビア雑誌は毎週・毎月大量に発売されるため、すべてをチェックするのは大変。このカレンダーを参考に、気になるタイトルを効率的に見つけてください。
+
+このページは定期的に更新しています。

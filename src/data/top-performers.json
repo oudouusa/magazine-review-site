@@ -1,0 +1,743 @@
+[
+  {
+    "name": "えなこ",
+    "appearance_count": 500,
+    "cover_count": 350,
+    "brand_count": 54,
+    "first_date": "2017-01-01",
+    "last_date": "2026-04-21",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングジャンプ",
+      "FLASH",
+      "ヤングアニマル",
+      "週刊少年チャンピオン"
+    ]
+  },
+  {
+    "name": "菊地姫奈",
+    "appearance_count": 300,
+    "cover_count": 199,
+    "brand_count": 49,
+    "first_date": "2014-06-24",
+    "last_date": "2026-04-15T21:31:23+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "Photobook",
+      "週プレ PHOTO BOOK"
+    ]
+  },
+  {
+    "name": "東雲うみ",
+    "appearance_count": 281,
+    "cover_count": 165,
+    "brand_count": 48,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-06T13:52:18+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "ヤングキング",
+      "ヤングジャンプ",
+      "ヤングアニマル"
+    ]
+  },
+  {
+    "name": "田中美久",
+    "appearance_count": 272,
+    "cover_count": 187,
+    "brand_count": 46,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-06T13:52:08+00:00",
+    "top_brands": [
+      "FLASH",
+      "FRIDAY",
+      "ヤングチャンピオン",
+      "ヤングガンガン",
+      "週刊プレイボーイ"
+    ]
+  },
+  {
+    "name": "沢口愛華",
+    "appearance_count": 252,
+    "cover_count": 182,
+    "brand_count": 34,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-07T14:03:26+00:00",
+    "top_brands": [
+      "ヤングマガジン",
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊少年マガジン"
+    ]
+  },
+  {
+    "name": "桃月なしこ",
+    "appearance_count": 248,
+    "cover_count": 180,
+    "brand_count": 40,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-21",
+    "top_brands": [
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊少年チャンピオン",
+      "ヤングガンガン"
+    ]
+  },
+  {
+    "name": "本郷柚巴",
+    "appearance_count": 237,
+    "cover_count": 139,
+    "brand_count": 43,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-13",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "FLASH",
+      "漫画アクション"
+    ]
+  },
+  {
+    "name": "Asami Kondou",
+    "appearance_count": 226,
+    "cover_count": 55,
+    "brand_count": 2,
+    "first_date": "2026-04-04 04:21:12",
+    "last_date": "2026-04-04 04:53:19",
+    "top_brands": [
+      "Minisuka.tv",
+      "Girlz-High"
+    ]
+  },
+  {
+    "name": "志田音々",
+    "appearance_count": 224,
+    "cover_count": 127,
+    "brand_count": 34,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-04 04:53:05",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "Photobook",
+      "FLASH"
+    ]
+  },
+  {
+    "name": "篠崎愛",
+    "appearance_count": 208,
+    "cover_count": 140,
+    "brand_count": 24,
+    "first_date": "2010-01-01",
+    "last_date": "2026-04-21",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングチャンピオン",
+      "週刊プレイボーイ",
+      "別冊ヤングチャンピオン",
+      "ヤングアニマル"
+    ]
+  },
+  {
+    "name": "雪平莉左",
+    "appearance_count": 196,
+    "cover_count": 138,
+    "brand_count": 37,
+    "first_date": "2020-03-21",
+    "last_date": "2026-04-08T20:30:26+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングジャンプ",
+      "FLASH",
+      "週刊プレイボーイ",
+      "Photobook"
+    ]
+  },
+  {
+    "name": "豊田ルナ",
+    "appearance_count": 192,
+    "cover_count": 108,
+    "brand_count": 31,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-15T21:19:23+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "ヤングマガジン",
+      "Photobook",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "近藤あさみ",
+    "appearance_count": 188,
+    "cover_count": 188,
+    "brand_count": 3,
+    "first_date": "2026-04-03 10:53:23",
+    "last_date": "2026-04-04 04:53:04",
+    "top_brands": [
+      "Minisuka.tv",
+      "Girlz-High",
+      "未分類"
+    ]
+  },
+  {
+    "name": "伊織もえ",
+    "appearance_count": 182,
+    "cover_count": 122,
+    "brand_count": 31,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-04 04:32:17",
+    "top_brands": [
+      "ヤングジャンプ",
+      "FLASH",
+      "FRIDAY",
+      "ヤングガンガン",
+      "ヤングチャンピオン"
+    ]
+  },
+  {
+    "name": "大原優乃",
+    "appearance_count": 171,
+    "cover_count": 95,
+    "brand_count": 24,
+    "first_date": "2017-01-01",
+    "last_date": "2026-04-04 04:53:19",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊ビッグコミックスピリッツ",
+      "グラビアザテレビジョン",
+      "FRIDAY"
+    ]
+  },
+  {
+    "name": "永尾まりや",
+    "appearance_count": 166,
+    "cover_count": 76,
+    "brand_count": 28,
+    "first_date": "2012-01-01",
+    "last_date": "2026-04-04 04:49:21",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "Photobook",
+      "アサ芸Secret"
+    ]
+  },
+  {
+    "name": "白濱美兎",
+    "appearance_count": 165,
+    "cover_count": 62,
+    "brand_count": 41,
+    "first_date": "2015-01-01",
+    "last_date": "2026-04-15T21:25:03+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "ヤングガンガン"
+    ]
+  },
+  {
+    "name": "天羽希純",
+    "appearance_count": 161,
+    "cover_count": 103,
+    "brand_count": 38,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-13",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "Photobook",
+      "FLASH",
+      "ヤングジャンプ",
+      "ヤングガンガン"
+    ]
+  },
+  {
+    "name": "都丸紗也華",
+    "appearance_count": 161,
+    "cover_count": 93,
+    "brand_count": 24,
+    "first_date": "2014-01-01",
+    "last_date": "2026-04-08T20:30:38+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "週刊SPA!",
+      "ヤングチャンピオン"
+    ]
+  },
+  {
+    "name": "相楽伊織",
+    "appearance_count": 154,
+    "cover_count": 91,
+    "brand_count": 36,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-04T18:33:08+00:00",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "Photobook",
+      "FRIDAY",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "大和田南那",
+    "appearance_count": 153,
+    "cover_count": 83,
+    "brand_count": 24,
+    "first_date": "2014-01-01",
+    "last_date": "2026-04-04 04:53:20",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "Photobook",
+      "週刊プレイボーイ",
+      "未分類"
+    ]
+  },
+  {
+    "name": "小日向ゆか",
+    "appearance_count": 149,
+    "cover_count": 83,
+    "brand_count": 24,
+    "first_date": "2020-03-17",
+    "last_date": "2026-04-04 04:45:40",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "アサ芸Secret",
+      "未分類",
+      "ヤングアニマル"
+    ]
+  },
+  {
+    "name": "日号",
+    "appearance_count": 147,
+    "cover_count": 147,
+    "brand_count": 8,
+    "first_date": "2020-03-16",
+    "last_date": "2026-04-04 04:51:45",
+    "top_brands": [
+      "週刊実話",
+      "週刊大衆",
+      "週刊SPA!",
+      "FRIDAY",
+      "週刊ポスト"
+    ]
+  },
+  {
+    "name": "似鳥沙也加",
+    "appearance_count": 135,
+    "cover_count": 89,
+    "brand_count": 27,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-04 04:53:13",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングキングBULL",
+      "週刊プレイボーイ",
+      "FLASH",
+      "FRIDAY GOLD"
+    ]
+  },
+  {
+    "name": "柏木さりな",
+    "appearance_count": 127,
+    "cover_count": 126,
+    "brand_count": 4,
+    "first_date": "2026-04-03 10:53:38",
+    "last_date": "2026-04-04 04:53:10",
+    "top_brands": [
+      "Minisuka.tv",
+      "Girlz-High",
+      "Season",
+      "FRIDAY"
+    ]
+  },
+  {
+    "name": "Sarina Kashiwagi",
+    "appearance_count": 127,
+    "cover_count": 1,
+    "brand_count": 4,
+    "first_date": "2026-04-04 04:25:16",
+    "last_date": "2026-04-04 04:53:10",
+    "top_brands": [
+      "Minisuka.tv",
+      "Girlz-High",
+      "Beautiful Girl's Excitement: Ishikawa Mio Digital Photo Collection",
+      "Bamboo e-Book Hazuki Miura Miraculous 98cm Bust"
+    ]
+  },
+  {
+    "name": "澄田綾乃",
+    "appearance_count": 127,
+    "cover_count": 36,
+    "brand_count": 39,
+    "first_date": "2019-07-04",
+    "last_date": "2026-04-04 04:46:59",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "ヤングジャンプ",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "斎藤恭代",
+    "appearance_count": 125,
+    "cover_count": 50,
+    "brand_count": 43,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-16 17:39:10",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "Photobook",
+      "FRIDAY",
+      "FLASH",
+      "週刊ビッグコミックスピリッツ"
+    ]
+  },
+  {
+    "name": "榎原依那",
+    "appearance_count": 124,
+    "cover_count": 84,
+    "brand_count": 27,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-15T21:25:18+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "未分類",
+      "ヤングチャンピオン"
+    ]
+  },
+  {
+    "name": "風吹ケイ",
+    "appearance_count": 124,
+    "cover_count": 77,
+    "brand_count": 28,
+    "first_date": "2020-03-25",
+    "last_date": "2026-04-04 04:46:14",
+    "top_brands": [
+      "Photobook",
+      "FRIDAY",
+      "未分類",
+      "FLASH",
+      "girls!"
+    ]
+  },
+  {
+    "name": "黒嵜菜々子",
+    "appearance_count": 120,
+    "cover_count": 66,
+    "brand_count": 25,
+    "first_date": "2021-02-01",
+    "last_date": "2026-04-17T14:17:08+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "Photobook",
+      "strike!",
+      "未分類"
+    ]
+  },
+  {
+    "name": "橋本梨菜",
+    "appearance_count": 118,
+    "cover_count": 37,
+    "brand_count": 26,
+    "first_date": "2015-01-01",
+    "last_date": "2026-04-04 04:40:33",
+    "top_brands": [
+      "FLASH",
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "アサ芸Secret",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "月号",
+    "appearance_count": 115,
+    "cover_count": 109,
+    "brand_count": 30,
+    "first_date": "2011-06-23",
+    "last_date": "2026-03-15T18:21:24+00:00",
+    "top_brands": [
+      "BUBKA",
+      "BRODY",
+      "月刊FANZA",
+      "Exciting Max",
+      "EX大衆"
+    ]
+  },
+  {
+    "name": "南みゆか",
+    "appearance_count": 113,
+    "cover_count": 42,
+    "brand_count": 28,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-15T21:19:23+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "ヤングマガジン",
+      "週刊プレイボーイ",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "Hina Kikuchi",
+    "appearance_count": 113,
+    "cover_count": 18,
+    "brand_count": 40,
+    "first_date": "2020-04-05",
+    "last_date": "2026-04-04 04:47:23",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!",
+      "ヤングマガジン"
+    ]
+  },
+  {
+    "name": "森咲智美",
+    "appearance_count": 113,
+    "cover_count": 64,
+    "brand_count": 23,
+    "first_date": "2014-11-14",
+    "last_date": "2026-04-04 04:43:40",
+    "top_brands": [
+      "FRIDAY",
+      "Photobook",
+      "FLASH",
+      "週刊ポスト",
+      "アサ芸Secret"
+    ]
+  },
+  {
+    "name": "石川澪",
+    "appearance_count": 108,
+    "cover_count": 80,
+    "brand_count": 20,
+    "first_date": "2021-03-03",
+    "last_date": "2026-04-15T21:25:03+00:00",
+    "top_brands": [
+      "Photobook",
+      "未分類",
+      "FLASH",
+      "週刊大衆",
+      "FRIDAY"
+    ]
+  },
+  {
+    "name": "奥山かずさ",
+    "appearance_count": 105,
+    "cover_count": 81,
+    "brand_count": 15,
+    "first_date": "2015-01-01",
+    "last_date": "2026-04-04 04:53:02",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "Photobook",
+      "ヤングマガジン",
+      "週刊ビッグコミックスピリッツ"
+    ]
+  },
+  {
+    "name": "大久保桜子",
+    "appearance_count": 105,
+    "cover_count": 52,
+    "brand_count": 27,
+    "first_date": "2018-07-13",
+    "last_date": "2026-04-04 04:47:29",
+    "top_brands": [
+      "FLASH",
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "Photobook",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "Koharu Nishino",
+    "appearance_count": 104,
+    "cover_count": 34,
+    "brand_count": 3,
+    "first_date": "2026-04-04 04:22:28",
+    "last_date": "2026-04-04 04:44:53",
+    "top_brands": [
+      "Minisuka.tv",
+      "Girlz-High",
+      "ヤングチャンピオン"
+    ]
+  },
+  {
+    "name": "上西怜",
+    "appearance_count": 103,
+    "cover_count": 49,
+    "brand_count": 28,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-21",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングマガジン",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "三田悠貴",
+    "appearance_count": 102,
+    "cover_count": 30,
+    "brand_count": 28,
+    "first_date": "2019-07-04",
+    "last_date": "2026-04-06T13:51:27+00:00",
+    "top_brands": [
+      "FRIDAY",
+      "FLASH",
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "篠崎こころ",
+    "appearance_count": 102,
+    "cover_count": 25,
+    "brand_count": 32,
+    "first_date": "2015-01-01",
+    "last_date": "2026-04-04 04:35:06",
+    "top_brands": [
+      "ヤングアニマル",
+      "漫画アクション",
+      "ヤングガンガン",
+      "週刊プレイボーイ",
+      "ヤングジャンプ"
+    ]
+  },
+  {
+    "name": "高崎かなみ",
+    "appearance_count": 100,
+    "cover_count": 35,
+    "brand_count": 26,
+    "first_date": "2019-12-06",
+    "last_date": "2026-04-07",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!",
+      "Photobook",
+      "ヤングガンガン"
+    ]
+  },
+  {
+    "name": "十味",
+    "appearance_count": 99,
+    "cover_count": 56,
+    "brand_count": 30,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-20",
+    "top_brands": [
+      "ヤングジャンプ",
+      "週刊プレイボーイ",
+      "週刊少年チャンピオン",
+      "週刊ビッグコミックスピリッツ",
+      "漫画アクション"
+    ]
+  },
+  {
+    "name": "小池里奈",
+    "appearance_count": 99,
+    "cover_count": 36,
+    "brand_count": 18,
+    "first_date": "2006-10-02",
+    "last_date": "2026-04-15T21:19:23+00:00",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "ヤングアニマル",
+      "Photobook",
+      "UTB"
+    ]
+  },
+  {
+    "name": "天木じゅん",
+    "appearance_count": 98,
+    "cover_count": 29,
+    "brand_count": 26,
+    "first_date": "2014-01-01",
+    "last_date": "2026-04-04 04:35:20",
+    "top_brands": [
+      "FLASH",
+      "週刊プレイボーイ",
+      "Photobook",
+      "FRIDAY",
+      "ヤングアニマル"
+    ]
+  },
+  {
+    "name": "蓬莱舞",
+    "appearance_count": 96,
+    "cover_count": 31,
+    "brand_count": 31,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-07",
+    "top_brands": [
+      "ヤングジャンプ",
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "FLASH",
+      "週刊SPA!"
+    ]
+  },
+  {
+    "name": "新谷姫加",
+    "appearance_count": 95,
+    "cover_count": 46,
+    "brand_count": 21,
+    "first_date": "2018-01-01",
+    "last_date": "2026-04-06T13:51:27+00:00",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FRIDAY",
+      "ヤングアニマル",
+      "未分類",
+      "ヤングジャンプ"
+    ]
+  },
+  {
+    "name": "浅川梨奈",
+    "appearance_count": 95,
+    "cover_count": 54,
+    "brand_count": 19,
+    "first_date": "2015-01-01",
+    "last_date": "2026-04-06T13:51:06+00:00",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングアニマル",
+      "FRIDAY"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  date: string;
+  category?: string;
+}
+
+const { title, description, href, date, category } = Astro.props;
+---
+
+<article class="group">
+  <a href={href} class="block p-4 -mx-4 rounded-lg hover:bg-surface transition-colors">
+    {category && (
+      <span class="text-xs font-medium text-accent uppercase tracking-wide">{category}</span>
+    )}
+    <h2 class="text-lg font-bold mt-1 group-hover:text-accent transition-colors">{title}</h2>
+    <p class="text-sm text-muted mt-1 line-clamp-2">{description}</p>
+    <time class="text-xs text-muted mt-2 block" datetime={date}>
+      {new Date(date).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}
+    </time>
+  </a>
+</article>

@@ -1,0 +1,60 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+const siteTitle = "グラビア雑誌ガイド";
+const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content={siteTitle} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-primary font-sans">
+    <header class="border-b border-gray-200">
+      <nav class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold hover:text-accent transition-colors">
+          グラビア雑誌ガイド
+        </a>
+        <ul class="flex gap-6 text-sm">
+          <li><a href="/" class="hover:text-accent transition-colors">ホーム</a></li>
+          <li><a href="/articles/weekly-gravure-guide" class="hover:text-accent transition-colors">週刊誌</a></li>
+          <li><a href="/articles/monthly-gravure-guide" class="hover:text-accent transition-colors">月刊誌</a></li>
+          <li><a href="/articles/beginners-guide" class="hover:text-accent transition-colors">入門</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full">
+      <slot />
+    </main>
+
+    <footer class="border-t border-gray-200 mt-auto">
+      <div class="max-w-4xl mx-auto px-4 py-6 text-center text-sm text-muted">
+        <p>&copy; {new Date().getFullYear()} グラビア雑誌ガイド</p>
+      </div>
+    </footer>
+  </body>
+</html>
