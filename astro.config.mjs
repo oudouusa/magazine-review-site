@@ -5,6 +5,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { visit } from 'unist-util-visit';
 
+import cloudflare from '@astrojs/cloudflare';
+
 function rehypeAmazonRel() {
   /** @param {import('hast').Root} tree */
   return (tree) => {
@@ -21,13 +23,17 @@ function rehypeAmazonRel() {
 export default defineConfig({
   site: 'https://magazine.happyharem.com',
   output: 'static',
+
   integrations: [
     mdx({
       rehypePlugins: [rehypeAmazonRel],
     }),
     sitemap(),
   ],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: cloudflare()
 });
