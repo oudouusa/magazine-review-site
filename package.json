@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "generate-data": "python scripts/generate-data.py"
@@ -19,5 +19,8 @@
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.7",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }
