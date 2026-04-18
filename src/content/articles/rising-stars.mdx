@@ -21,7 +21,7 @@ import performerData from "../../data/performers-full.json";
 ## 若手注目ランキング
 
 export const youngTalents = performerData
-  .filter(p => p.first_date >= "2023-01-01" && p.top_brands.length >= 2)
+  .filter(p => p.first_year >= "2023" && p.top_brands.length >= 2)
   .slice(0, 10);
 
 {youngTalents.length > 0 ? (
@@ -34,7 +34,7 @@ export const youngTalents = performerData
 {youngTalents.map(p => (
 <tr>
 <td><strong>{p.name}</strong></td>
-<td>{p.first_date?.slice(0, 7)}</td>
+<td>{p.first_year}</td>
 <td>{p.top_brands.slice(0, 3).join("、")}</td>
 </tr>
 ))}
