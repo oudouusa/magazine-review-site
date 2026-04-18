@@ -154,14 +154,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "近藤あさみ",
-    "name": "近藤あさみ",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "伊織もえ",
     "name": "伊織もえ",
     "top_brands": [
@@ -996,14 +988,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "西野小春",
-    "name": "西野小春",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "小倉優香",
     "name": "小倉優香",
     "top_brands": [
@@ -1099,14 +1083,6 @@
     ],
     "is_active": true,
     "first_year": "2020",
-    "last_year": "2026"
-  },
-  {
-    "slug": "東雲せな",
-    "name": "東雲せな",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
     "last_year": "2026"
   },
   {
@@ -3037,14 +3013,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "藤井星愛",
-    "name": "藤井星愛",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "黒木ひかり",
     "name": "黒木ひかり",
     "top_brands": [
@@ -3448,14 +3416,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "平山えゆ",
-    "name": "平山えゆ",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
-    "last_year": "2026"
-  },
-  {
     "slug": "伊織いお",
     "name": "伊織いお",
     "top_brands": [
@@ -3854,14 +3814,6 @@
     "last_year": "2026"
   },
   {
-    "slug": "レジェンド女優列伝",
-    "name": "レジェンド女優列伝",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2023",
-    "last_year": "2026"
-  },
-  {
     "slug": "池本しおり",
     "name": "池本しおり",
     "top_brands": [
@@ -3984,14 +3936,6 @@
     "last_year": "2025"
   },
   {
-    "slug": "初裸",
-    "name": "初裸",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2021",
-    "last_year": "2025"
-  },
-  {
     "slug": "椿野ゆうこ",
     "name": "椿野ゆうこ",
     "top_brands": [
@@ -4014,14 +3958,6 @@
     ],
     "is_active": true,
     "first_year": "2015",
-    "last_year": "2026"
-  },
-  {
-    "slug": "香月杏珠",
-    "name": "香月杏珠",
-    "top_brands": [],
-    "is_active": true,
-    "first_year": "2026",
     "last_year": "2026"
   },
   {
@@ -4100,6 +4036,116 @@
     ],
     "is_active": true,
     "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "篠原みなみ",
+    "name": "篠原みなみ",
+    "top_brands": [
+      "ヤングマガジン",
+      "ヤングキング",
+      "ヤングアニマル",
+      "週刊プレイボーイ",
+      "ヤングガンガン"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2025"
+  },
+  {
+    "slug": "大島優子",
+    "name": "大島優子",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "ヤングジャンプ",
+      "FLASH",
+      "BOMB",
+      "ヤングマガジン"
+    ],
+    "is_active": true,
+    "first_year": "2010",
+    "last_year": "2026"
+  },
+  {
+    "slug": "阿部なつき",
+    "name": "阿部なつき",
+    "top_brands": [
+      "週刊プレイボーイ",
+      "FLASH",
+      "FRIDAY",
+      "ヤングジャンプ",
+      "週刊少年チャンピオン"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "渡邉理佐",
+    "name": "渡邉理佐",
+    "top_brands": [
+      "週刊少年マガジン",
+      "週刊プレイボーイ",
+      "FLASH",
+      "ヤングマガジン",
+      "ヤングジャンプ"
+    ],
+    "is_active": true,
+    "first_year": "2016",
+    "last_year": "2026"
+  },
+  {
+    "slug": "夜道雪",
+    "name": "夜道雪",
+    "top_brands": [
+      "FRIDAY",
+      "週刊プレイボーイ",
+      "EX大衆"
+    ],
+    "is_active": true,
+    "first_year": "2021",
+    "last_year": "2026"
+  },
+  {
+    "slug": "宮本彩希",
+    "name": "宮本彩希",
+    "top_brands": [
+      "ヤングチャンピオン",
+      "ヤングガンガン",
+      "ヤングアニマル",
+      "ヤングジャンプ",
+      "ヤングキング"
+    ],
+    "is_active": true,
+    "first_year": "2020",
+    "last_year": "2026"
+  },
+  {
+    "slug": "南あみ",
+    "name": "南あみ",
+    "top_brands": [
+      "ヤングジャンプ",
+      "ヤングキング",
+      "ヤングガンガン",
+      "ヤングアニマル",
+      "FRIDAY"
+    ],
+    "is_active": true,
+    "first_year": "2018",
+    "last_year": "2026"
+  },
+  {
+    "slug": "葉月くれあ",
+    "name": "葉月くれあ",
+    "top_brands": [
+      "ヤングマガジン",
+      "月刊ヤングマガジン",
+      "週刊少年マガジン",
+      "FLASH",
+      "週刊大衆"
+    ],
+    "is_active": true,
+    "first_year": "2024",
     "last_year": "2026"
   }
 ]

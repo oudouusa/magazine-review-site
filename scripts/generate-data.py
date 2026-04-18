@@ -280,6 +280,9 @@ def generate_performers_full(conn: sqlite3.Connection) -> list[dict]:
 
         top_brands = [b["brand"] for b in gravure_brands if _is_gravure_brand(b["brand"])][:5]
 
+        if not top_brands:
+            continue
+
         performers.append({
             "slug": slug,
             "name": name,
