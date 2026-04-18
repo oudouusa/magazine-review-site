@@ -146,14 +146,18 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
     for r in rows:
         if not _is_valid_performer(r["performer_name"]):
             continue
-        top_brands = conn.execute("""
+        top_brands_raw = conn.execute("""
             SELECT brand, COUNT(*) as cnt
             FROM performer_magazine_links
             WHERE performer_name = ?
             GROUP BY brand
             ORDER BY cnt DESC
-            LIMIT 5
+            LIMIT 20
         """, (r["performer_name"],)).fetchall()
+        top_brands = [b["brand"] for b in top_brands_raw if _is_gravure_brand(b["brand"])][:5]
+
+        if not top_brands:
+            continue
 
         performers.append({
             "name": r["performer_name"],
@@ -162,7 +166,7 @@ def generate_top_performers(conn: sqlite3.Connection) -> list[dict]:
             "brand_count": r["brand_count"],
             "first_date": r["first_date"] or "",
             "last_date": r["last_date"] or "",
-            "top_brands": [b["brand"] for b in top_brands],
+            "top_brands": top_brands,
         })
         if len(performers) >= 50:
             break
