@@ -30,6 +30,7 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URL || `file:${path.resolve(dirname, "../data/model-hub.db")}`,
     },
+    push: true,
   }),
   upload: {
     limits: {
