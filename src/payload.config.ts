@@ -4,11 +4,11 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { Users } from "./collections/Users.js";
-import { Models } from "./collections/Models.js";
-import { Magazines } from "./collections/Magazines.js";
-import { Features } from "./collections/Features.js";
-import { Media } from "./collections/Media.js";
+import { Users } from "./collections/Users";
+import { Models } from "./collections/Models";
+import { Magazines } from "./collections/Magazines";
+import { Features } from "./collections/Features";
+import { Media } from "./collections/Media";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

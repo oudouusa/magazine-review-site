@@ -6,9 +6,11 @@ type Args = {
   searchParams: Promise<{ [key: string]: string | string[] }>;
 };
 
+const configPromise = import("@payload-config").then((m) => m.default);
+
 export const generateMetadata = ({ params, searchParams }: Args) =>
-  generatePageMetadata({ config: import("@payload-config"), params, searchParams });
+  generatePageMetadata({ config: configPromise, params, searchParams });
 
 export default function Page({ params, searchParams }: Args) {
-  return RootPage({ config: import("@payload-config"), params, searchParams, importMap });
+  return RootPage({ config: configPromise, params, searchParams, importMap });
 }
