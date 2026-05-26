@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   MODEL HUB — Design Tokens
+   ===================================================================== */
+
+/* ---------- Sakura theme (default) ---------- */
+:root,
+[data-theme="sakura"] {
+  --bg: #fbf8f6;
+  --bg-2: #f5ece8;
+  --paper: #ffffff;
+  --paper-2: #faf6f3;
+  --ink: #2a1f24;
+  --ink-2: #5b4e54;
+  --ink-3: #8e8087;
+  --line: #ece5e2;
+  --line-2: #f4eeeb;
+  --primary: #6c5b8c;
+  --primary-2: #efeaf6;
+  --rose: #e8a8b8;
+  --rose-2: #f5d4dc;
+  --rose-3: #fbe9ee;
+  --plum: #7a4a5a;
+  --amber: #c98a3a;
+  --leaf: #6b8f6b;
+  --hero-grad: linear-gradient(120deg, #fdf2f1 0%, #f8eeee 50%, #f3e9f0 100%);
+  --hero-glow1: rgba(232, 168, 184, 0.45);
+  --hero-glow2: rgba(245, 212, 220, 0.55);
+  --pr: #c98a3a;
+}
+
+[data-theme="navy"] {
+  --bg: #f6f4ef;
+  --bg-2: #ecead8;
+  --paper: #fefdf9;
+  --paper-2: #f5f1e6;
+  --ink: #16223a;
+  --ink-2: #44516d;
+  --ink-3: #8a92a6;
+  --line: #dfdacb;
+  --line-2: #ecead8;
+  --primary: #1a3a6e;
+  --primary-2: #e6ecf6;
+  --rose: #c4945a;
+  --rose-2: #ead8b8;
+  --rose-3: #f5ecd8;
+  --plum: #2c4870;
+  --amber: #b87d35;
+  --leaf: #5a8073;
+  --hero-grad: linear-gradient(120deg, #ecead8 0%, #e0dac0 50%, #d2cfb8 100%);
+  --hero-glow1: rgba(26, 58, 110, 0.2);
+  --hero-glow2: rgba(196, 148, 90, 0.22);
+  --pr: #b87d35;
+}
+
+[data-theme="mono"] {
+  --bg: #f7f5f1;
+  --bg-2: #ece8df;
+  --paper: #fefdf9;
+  --paper-2: #f3efe6;
+  --ink: #1a1614;
+  --ink-2: #4a4338;
+  --ink-3: #8a8275;
+  --line: #e3ddce;
+  --line-2: #efeae0;
+  --primary: #1a1614;
+  --primary-2: #e3ddce;
+  --rose: #9a8a78;
+  --rose-2: #d4c8b5;
+  --rose-3: #e8e0d0;
+  --plum: #3a3024;
+  --amber: #6a5640;
+  --leaf: #5a5340;
+  --hero-grad: linear-gradient(120deg, #ede8dc 0%, #dcd4c2 50%, #c8bfac 100%);
+  --hero-glow1: rgba(60, 42, 28, 0.18);
+  --hero-glow2: rgba(120, 100, 72, 0.18);
+  --pr: #6a5640;
+}
+
+/* ---------- Density ---------- */
+[data-density="loose"]  { --pad: 28px; --gap: 22px; --row-gap: 36px; --card-pad: 22px; }
+[data-density="normal"] { --pad: 20px; --gap: 16px; --row-gap: 28px; --card-pad: 16px; }
+[data-density="dense"]  { --pad: 14px; --gap: 10px; --row-gap: 20px; --card-pad: 12px; }
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  --pad: 20px;
+  --gap: 16px;
+  --row-gap: 28px;
+  --card-pad: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt" 1;
+}
+
+.serif {
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+
+/* ---------- Affiliate buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+.btn:hover { filter: brightness(1.05); }
+.btn-amazon  { background: #ff9900; color: #1a1a1a; }
+.btn-rakuten { background: #bf0000; color: white; }
+.btn-fanza   { background: #f43c4d; color: white; }
+.btn-ghost   { background: white; border-color: var(--line); color: var(--ink-2); }
+.btn-primary { background: var(--primary); color: white; }
+.btn .pr-mini {
+  font-size: 9px;
+  background: rgba(0, 0, 0, 0.18);
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.1em;
+  font-family: sans-serif;
+}
+.btn-amazon .pr-mini, .btn-rakuten .pr-mini, .btn-fanza .pr-mini {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* ---------- Tag chips ---------- */
+.tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(122, 74, 90, 0.18);
+  color: var(--plum);
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+.tag.alt  { background: var(--primary-2); color: var(--primary); border-color: rgba(108, 91, 140, 0.22); }
+.tag.alt2 { background: rgba(107, 143, 107, 0.12); color: var(--leaf); border-color: rgba(107, 143, 107, 0.25); }
+
+/* ---------- PR tag ---------- */
+.pr-tag {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--pr);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+
+/* ---------- Section header ---------- */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+.sh-eyebrow {
+  font-family: "Noto Serif JP", serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+.sh-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  line-height: 1.1;
+  margin: 0;
+}
+.sh-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+  margin-bottom: 8px;
+}
+.sh-more {
+  font-family: "Noto Serif JP", serif;
+  font-size: 12px;
+  color: var(--primary);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  padding-bottom: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sh-more::after { content: " →"; margin-left: 4px; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
