@@ -1,26 +1,35 @@
 {
-  "name": "magazine-review-site",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
+  "name": "model-hub",
+  "version": "1.0.0",
+  "description": "MODEL HUB — Gravure Magazine & Photobook Affiliate Site",
+  "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && npx pagefind --site \"$([ -d dist/client ] && echo dist/client || echo dist)\"",
-    "preview": "astro preview",
-    "astro": "astro",
-    "generate-data": "python scripts/generate-data.py"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.0",
-    "@astrojs/sitemap": "^3.0.0",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.7",
-    "tailwindcss": "^4.2.2"
+    "@payloadcms/db-sqlite": "^3.40.0",
+    "@payloadcms/next": "^3.40.0",
+    "@payloadcms/richtext-lexical": "^3.40.0",
+    "graphql": "^16.8.1",
+    "next": "^15.3.2",
+    "payload": "^3.40.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
-    "pagefind": "^1.5.2"
+    "@tailwindcss/postcss": "^4.1.7",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
