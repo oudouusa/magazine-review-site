@@ -38,6 +38,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# libsql native bindings are not traced by Next.js standalone analysis
+# Copy them explicitly so Payload CMS SQLite adapter works at runtime
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/libsql ./node_modules/libsql
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/@libsql ./node_modules/@libsql
+
 USER nextjs
 
 EXPOSE 3000
