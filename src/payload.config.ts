@@ -9,6 +9,7 @@ import { Models } from "./collections/Models";
 import { Magazines } from "./collections/Magazines";
 import { Features } from "./collections/Features";
 import { Media } from "./collections/Media";
+import * as initMigration from "./migrations/20260527_000000_init";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -30,7 +31,7 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URL || `file:${path.resolve(dirname, "../data/model-hub.db")}`,
     },
-    push: true,
+    prodMigrations: [initMigration],
   }),
   upload: {
     limits: {
