@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM node:22-slim AS base
 
 # --- deps stage ---
 FROM base AS deps
@@ -38,8 +38,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# libsql native bindings are not traced by Next.js standalone analysis
-# Copy them explicitly so Payload CMS SQLite adapter works at runtime
+# libsql native bindings (linux-x64-gnu for Debian slim) are not traced by
+# Next.js standalone analysis — copy them explicitly.
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules/libsql ./node_modules/libsql
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules/@libsql ./node_modules/@libsql
 
