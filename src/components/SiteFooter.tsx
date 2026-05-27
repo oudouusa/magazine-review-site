@@ -114,6 +114,21 @@ export function SiteFooter() {
           letter-spacing: 0.12em;
           font-weight: 600;
         }
+        @media (max-width: 640px) {
+          .site-foot {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .ft-cols {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+          .ft-right {
+            text-align: left;
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+          }
+        }
       `}</style>
     </footer>
   );
