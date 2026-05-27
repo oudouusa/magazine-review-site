@@ -171,6 +171,107 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
   }
 }
 
+export type MhIssueDetail = {
+  id: number;
+  slug: string;
+  title: string;
+  seriesName: string;
+  issue: string;
+  releaseDate: string;
+  badge?: "new" | "preorder" | "reissue";
+  gradient: { c1: string; c2: string };
+  performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string } }>;
+  backnumbers: MhMagazine[];
+};
+
+export function getIssueDetail(issueId: number): MhIssueDetail | null {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const row = db.prepare(`
+      SELECT id, title, brand, issue_date_start, issue_no_normalized
+      FROM issues WHERE id = ?
+    `).get(issueId) as { id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null } | undefined;
+    if (!row) return null;
+
+    const performers = db.prepare(`
+      SELECT p.name_normalized as performer_key, p.name_jp as performer_name
+      FROM issue_performers ip
+      JOIN performers p ON p.id = ip.performer_id
+      WHERE ip.issue_id = ?
+      ORDER BY ip.position ASC
+    `).all(issueId) as Array<{ performer_key: string; performer_name: string }>;
+
+    const backnumberRows = db.prepare(`
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
+      FROM issues i
+      WHERE i.brand = ? AND i.id != ? AND i.issue_date_start IS NOT NULL
+      ORDER BY i.issue_date_start DESC
+      LIMIT 9
+    `).all(row.brand, issueId) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null }>;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
+
+    const badge: MhMagazine["badge"] =
+      row.issue_date_start > today ? "preorder"
+      : row.issue_date_start >= thirtyDaysAgo ? "new"
+      : undefined;
+
+    const key = `${row.brand}-${row.id}`;
+    const featureTitle = row.title.replace(
+      new RegExp(`^\\[?${row.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
+      ""
+    ).trim() || row.title;
+
+    const backnumbers: MhMagazine[] = backnumberRows.map((r) => {
+      const bKey = `${r.brand}-${r.id}`;
+      const bBadge: MhMagazine["badge"] =
+        r.issue_date_start > today ? "preorder"
+        : r.issue_date_start >= thirtyDaysAgo ? "new"
+        : undefined;
+      const bTitle = r.title.replace(
+        new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
+        ""
+      ).trim() || r.title;
+      return {
+        slug: `issue-${r.id}`,
+        title: bTitle,
+        seriesName: r.brand,
+        issue: r.issue_no_normalized || r.issue_date_start,
+        releaseDate: r.issue_date_start,
+        gradient: { c1: colorFromHash(bKey, 35, 72), c2: colorFromHash(bKey + "2", 30, 58) },
+        badge: bBadge,
+      };
+    });
+
+    return {
+      id: row.id,
+      slug: `issue-${row.id}`,
+      title: featureTitle,
+      seriesName: row.brand,
+      issue: row.issue_no_normalized || row.issue_date_start,
+      releaseDate: row.issue_date_start,
+      badge,
+      gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+      performers: performers.map((p) => ({
+        key: p.performer_key,
+        name: p.performer_name || p.performer_key,
+        slug: encodeURIComponent(p.performer_key),
+        gradient: {
+          c1: colorFromHash(p.performer_key, 42, 78),
+          c2: colorFromHash(p.performer_key + "2", 38, 68),
+          c3: colorFromHash(p.performer_key + "3", 40, 73),
+          c4: colorFromHash(p.performer_key + "4", 36, 63),
+        },
+      })),
+      backnumbers,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function getRecentIssues(limit = 60): MhMagazine[] {
   const db = getDb();
   if (!db) return [];
