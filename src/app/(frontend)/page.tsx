@@ -147,8 +147,15 @@ export default function HomePage() {
               <span>発売 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured?.releaseDate}</b></span>
             </div>
             <div className="h-ctas">
-              <a href="#" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
-              <a href="#" className="btn btn-rakuten">楽天ブックス <span className="pr-mini">PR</span></a>
+              {featured && (() => {
+                const q = encodeURIComponent(`${featured.seriesName} ${featured.issue}`);
+                return (
+                  <>
+                    <a href={`https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
+                    <a href={`https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-rakuten">楽天ブックス <span className="pr-mini">PR</span></a>
+                  </>
+                );
+              })()}
               {featured && <Link href={`/magazines/${featured.slug}`} className="btn btn-ghost" style={{ textDecoration: "none" }}>詳細を見る</Link>}
             </div>
           </div>

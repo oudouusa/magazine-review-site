@@ -101,11 +101,23 @@ export default async function MagazineDetailPage({ params }: Props) {
               ))}
             </div>
 
-            {/* Action buttons */}
-            <div style={{ display: "flex", gap: 8 }}>
-              <button className="btn btn-ghost">♡ お気に入り</button>
-              <button className="btn btn-ghost">共有</button>
-            </div>
+            {/* Purchase links */}
+            {(() => {
+              const q = encodeURIComponent(`${issue.seriesName} ${issue.issue}`);
+              const amazonUrl = `https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`;
+              const rakutenUrl = `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`;
+              return (
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <a href={amazonUrl} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.72a17.75 17.75 0 01-4.973.7c-3.57 0-6.795-.886-9.674-2.66-.163-.1-.245-.234-.18-.404l.14-.3zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                    Amazonで見る <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
+                  </a>
+                  <a href={rakutenUrl} target="_blank" rel="nofollow sponsored noopener" className="btn btn-rakuten" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    楽天ブックス <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
+                  </a>
+                </div>
+              );
+            })()}
           </div>
         </div>
 
