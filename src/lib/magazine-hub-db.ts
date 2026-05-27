@@ -1,5 +1,6 @@
 import "server-only";
 import { DatabaseSync } from "node:sqlite";
+import { existsSync } from "node:fs";
 
 let _db: DatabaseSync | null = null;
 
@@ -82,6 +83,18 @@ function buildXidolCoversUrl(coverUrl: string | null | undefined, brand: string,
   // Spaces → underscores; strip trailing period (e.g. "B.L.T." → "B.L.T")
   const brandDir = brand.replace(/ /g, "_").replace(/\.$/, "");
   return `/api/images/xidol-covers/${brandDir}/${yearMonth}/${filename}`;
+}
+
+// Returns the xidol-covers API path only if the file actually exists on disk.
+// MAGAZINE_IMAGES_PATH should be set to the volume mount root (e.g. /app/public/magazine-images).
+const MAGAZINE_IMAGES_BASE = process.env.MAGAZINE_IMAGES_PATH ?? "/app/public/magazine-images";
+
+function buildXidolCoversUrlIfExists(coverUrl: string | null | undefined, brand: string, issueDate: string): string | undefined {
+  const apiPath = buildXidolCoversUrl(coverUrl, brand, issueDate);
+  if (!apiPath) return undefined;
+  const relativePath = apiPath.replace("/api/images/", "");
+  const fsPath = `${MAGAZINE_IMAGES_BASE}/${relativePath}`;
+  return existsSync(fsPath) ? apiPath : undefined;
 }
 
 export function getTopModels(limit = 100): MhModel[] {
@@ -192,7 +205,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start)),
+        coverImageUrl: filterCoverUrl(r.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start)),
       };
     });
 
@@ -318,7 +331,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       releaseDate: row.issue_date_start,
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
-      coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrl(row.coverImageUrl, row.brand, row.issue_date_start)),
+      coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(row.coverImageUrl, row.brand, row.issue_date_start)),
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -385,16 +398,17 @@ export function getBrands(): MhBrand[] {
     }>;
     return rows.map((r) => {
       const directCover = filterCoverUrl(r.cover_image_url);
-      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrl(r.cover_image_url, r.brand, r.latest_date);
-      const xidolFromPixhost = r.pixhost_cover_url && r.pixhost_cover_date
-        ? buildXidolCoversUrl(r.pixhost_cover_url, r.brand, r.pixhost_cover_date)
-        : undefined;
+      // Check if the latest cover has a local xidol-covers file on disk.
+      // Fall back to pixhost cover URL (served directly) if the local file is absent.
+      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrlIfExists(r.cover_image_url, r.brand, r.latest_date);
+      const pixhostDirect = (directCover || xidolFromLatest) ? undefined
+        : (r.pixhost_cover_url ? filterCoverUrl(r.pixhost_cover_url) : undefined);
       return {
         name: r.brand,
         slug: encodeURIComponent(r.brand),
         issueCount: r.issue_count,
         latestDate: r.latest_date,
-        coverImageUrl: directCover ?? localPathToUrl(xidolFromLatest) ?? localPathToUrl(xidolFromPixhost),
+        coverImageUrl: directCover ?? localPathToUrl(xidolFromLatest) ?? pixhostDirect,
         gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
       };
     });
@@ -443,7 +457,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         ""
       ).trim() || r.title;
       const cover = filterCoverUrl(r.coverImageUrl);
-      const xidolCover = cover ? undefined : buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start);
+      const xidolCover = cover ? undefined : buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -618,7 +632,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         ""
       ).trim() || r.title;
       const cover = filterCoverUrl(r.coverImageUrl);
-      const xidolCover = cover ? undefined : buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start);
+      const xidolCover = cover ? undefined : buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
