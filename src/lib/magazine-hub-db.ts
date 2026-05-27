@@ -73,6 +73,104 @@ export function getTopModels(limit = 100): MhModel[] {
   }
 }
 
+export type MhModelDetail = {
+  slug: string;
+  name: string;
+  nameYomi: string;
+  tags: string[];
+  stats: { issues: number; covers: number; brands: number; firstDate: string | null; lastDate: string | null };
+  profile: { birthday?: string; height?: string; bust?: string; waist?: string; hip?: string; birthplace?: string; debutYear?: string };
+  gradient: { c1: string; c2: string; c3: string; c4: string };
+  recentIssues: MhMagazine[];
+};
+
+export function getModelDetail(performerKey: string): MhModelDetail | null {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const stat = db.prepare(`
+      SELECT performer_key, performer_name, appearance_count, cover_count, brand_count, first_date, last_date
+      FROM performer_stats WHERE performer_key = ?
+    `).get(performerKey) as { performer_key: string; performer_name: string; appearance_count: number; cover_count: number; brand_count: number; first_date: string | null; last_date: string | null } | undefined;
+    if (!stat) return null;
+
+    const profile = db.prepare(`
+      SELECT pp.yomigana, pp.birthday, pp.height, pp.bust, pp.waist, pp.hip, pp.birthplace, pp.debut_year
+      FROM performer_profiles pp
+      JOIN performers p ON p.id = pp.performer_id
+      WHERE p.name_normalized = ?
+      LIMIT 1
+    `).get(performerKey) as { yomigana: string | null; birthday: string | null; height: string | null; bust: string | null; waist: string | null; hip: string | null; birthplace: string | null; debut_year: string | null } | undefined;
+
+    const recentRows = db.prepare(`
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
+      FROM issue_performers ip
+      JOIN issues i ON i.id = ip.issue_id
+      JOIN performers p ON p.id = ip.performer_id
+      WHERE p.name_normalized = ? AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
+      ORDER BY i.issue_date_start DESC
+      LIMIT 12
+    `).all(performerKey) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null }>;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
+
+    const recentIssues: MhMagazine[] = recentRows.map((r) => {
+      const key = `${r.brand}-${r.id}`;
+      const badge: MhMagazine["badge"] =
+        r.issue_date_start > today ? "preorder"
+        : r.issue_date_start >= thirtyDaysAgo ? "new"
+        : undefined;
+      const featureTitle = r.title.replace(
+        new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
+        ""
+      ).trim() || r.title;
+      return {
+        slug: `issue-${r.id}`,
+        title: featureTitle,
+        seriesName: r.brand,
+        issue: r.issue_no_normalized || r.issue_date_start,
+        releaseDate: r.issue_date_start,
+        gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+        badge,
+      };
+    });
+
+    const key = stat.performer_key;
+    return {
+      slug: encodeURIComponent(key),
+      name: stat.performer_name,
+      nameYomi: profile?.yomigana || key,
+      tags: [],
+      stats: {
+        issues: stat.appearance_count,
+        covers: stat.cover_count,
+        brands: stat.brand_count,
+        firstDate: stat.first_date,
+        lastDate: stat.last_date,
+      },
+      profile: {
+        birthday: profile?.birthday || undefined,
+        height: profile?.height || undefined,
+        bust: profile?.bust || undefined,
+        waist: profile?.waist || undefined,
+        hip: profile?.hip || undefined,
+        birthplace: profile?.birthplace || undefined,
+        debutYear: profile?.debut_year || undefined,
+      },
+      gradient: {
+        c1: colorFromHash(key, 42, 78),
+        c2: colorFromHash(key + "2", 38, 68),
+        c3: colorFromHash(key + "3", 40, 73),
+        c4: colorFromHash(key + "4", 36, 63),
+      },
+      recentIssues,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function getRecentIssues(limit = 60): MhMagazine[] {
   const db = getDb();
   if (!db) return [];
