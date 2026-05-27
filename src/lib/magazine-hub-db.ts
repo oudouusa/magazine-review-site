@@ -360,7 +360,17 @@ export function getBrands(): MhBrand[] {
          JOIN issues i2 ON i2.id = c.issue_id
          WHERE i2.brand = i.brand AND c.position = 1
          ORDER BY i2.issue_date_start DESC
-         LIMIT 1) AS cover_image_url
+         LIMIT 1) AS cover_image_url,
+        (SELECT c.image_url FROM covers c
+         JOIN issues i2 ON i2.id = c.issue_id
+         WHERE i2.brand = i.brand AND c.position = 1 AND c.image_url LIKE '%pixhost%'
+         ORDER BY i2.issue_date_start DESC
+         LIMIT 1) AS pixhost_cover_url,
+        (SELECT i2.issue_date_start FROM covers c
+         JOIN issues i2 ON i2.id = c.issue_id
+         WHERE i2.brand = i.brand AND c.position = 1 AND c.image_url LIKE '%pixhost%'
+         ORDER BY i2.issue_date_start DESC
+         LIMIT 1) AS pixhost_cover_date
       FROM issues i
       WHERE i.brand IS NOT NULL AND i.issue_date_start IS NOT NULL AND i.brand NOT LIKE 'REP%'
       GROUP BY i.brand
@@ -370,15 +380,24 @@ export function getBrands(): MhBrand[] {
       issue_count: number;
       latest_date: string;
       cover_image_url: string | null;
+      pixhost_cover_url: string | null;
+      pixhost_cover_date: string | null;
     }>;
-    return rows.map((r) => ({
-      name: r.brand,
-      slug: encodeURIComponent(r.brand),
-      issueCount: r.issue_count,
-      latestDate: r.latest_date,
-      coverImageUrl: filterCoverUrl(r.cover_image_url) ?? localPathToUrl(buildXidolCoversUrl(r.cover_image_url, r.brand, r.latest_date)),
-      gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
-    }));
+    return rows.map((r) => {
+      const directCover = filterCoverUrl(r.cover_image_url);
+      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrl(r.cover_image_url, r.brand, r.latest_date);
+      const xidolFromPixhost = r.pixhost_cover_url && r.pixhost_cover_date
+        ? buildXidolCoversUrl(r.pixhost_cover_url, r.brand, r.pixhost_cover_date)
+        : undefined;
+      return {
+        name: r.brand,
+        slug: encodeURIComponent(r.brand),
+        issueCount: r.issue_count,
+        latestDate: r.latest_date,
+        coverImageUrl: directCover ?? localPathToUrl(xidolFromLatest) ?? localPathToUrl(xidolFromPixhost),
+        gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
+      };
+    });
   } catch {
     return [];
   }
