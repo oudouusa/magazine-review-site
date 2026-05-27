@@ -88,6 +88,19 @@ export function SiteNav({ activePath = "/" }: { activePath?: string }) {
         </div>
       </nav>
 
+      {/* Mobile-only nav strip */}
+      <nav className="mobile-nav" aria-label="モバイルナビ">
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`mobile-nav-link${activePath === link.href ? " active" : ""}`}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+
       <div className="subnav">
         <span className="subnav-label">棚から探す</span>
         {shelfLinks.map((label, i) => (
@@ -268,6 +281,46 @@ export function SiteNav({ activePath = "/" }: { activePath?: string }) {
           height: 14px;
           background: var(--line);
           flex-shrink: 0;
+        }
+        .mobile-nav { display: none; }
+        @media (max-width: 640px) {
+          .site-nav {
+            grid-template-columns: auto auto;
+            padding: 10px 16px;
+            gap: 10px;
+          }
+          .nav-menu { display: none; }
+          .logo-sub { display: none; }
+          .nav-search { display: none; }
+          .logo-mark { width: 34px; height: 34px; }
+          .logo-text { font-size: 16px; }
+          .icon-circ { width: 32px; height: 32px; }
+          .mobile-nav {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            padding: 0 16px;
+          }
+          .mobile-nav::-webkit-scrollbar { display: none; }
+          .mobile-nav-link {
+            padding: 10px 12px;
+            font-family: "Noto Serif JP", serif;
+            font-size: 12.5px;
+            letter-spacing: 0.1em;
+            color: var(--ink-2);
+            text-decoration: none;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            flex-shrink: 0;
+          }
+          .mobile-nav-link.active {
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom-color: var(--primary);
+          }
+          .subnav { padding: 8px 16px; gap: 12px; font-size: 11px; }
         }
       `}</style>
     </>
