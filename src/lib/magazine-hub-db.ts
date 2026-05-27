@@ -396,6 +396,32 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
   }
 }
 
+export function getAllModelSlugs(): string[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(
+      `SELECT performer_key FROM performer_stats ORDER BY appearance_count DESC`
+    ).all() as Array<{ performer_key: string }>;
+    return rows.map((r) => encodeURIComponent(r.performer_key));
+  } catch {
+    return [];
+  }
+}
+
+export function getAllIssueIds(): Array<{ id: number; date: string }> {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(
+      `SELECT id, issue_date_start FROM issues WHERE issue_date_start IS NOT NULL AND brand IS NOT NULL ORDER BY issue_date_start DESC`
+    ).all() as Array<{ id: number; issue_date_start: string }>;
+    return rows.map((r) => ({ id: r.id, date: r.issue_date_start }));
+  } catch {
+    return [];
+  }
+}
+
 export function searchModels(query: string, limit = 30): MhModel[] {
   const db = getDb();
   if (!db || !query.trim()) return [];

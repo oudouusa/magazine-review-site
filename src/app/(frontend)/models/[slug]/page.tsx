@@ -11,9 +11,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const model = getModelDetail(decodeURIComponent(slug));
   if (!model) return { title: "モデルが見つかりません" };
+  const desc = `${model.name}（${model.nameYomi}）のグラビア出演情報。出演${model.stats.issues}誌・表紙${model.stats.covers}回。`;
   return {
     title: `${model.name} — モデル詳細`,
-    description: `${model.name}（${model.nameYomi}）のグラビア出演情報。出演${model.stats.issues}誌・表紙${model.stats.covers}回。`,
+    description: desc,
+    openGraph: {
+      title: `${model.name} | MODEL HUB`,
+      description: desc,
+      url: `https://magazine.happyharem.com/models/${slug}`,
+      ...(model.imageUrl ? { images: [{ url: model.imageUrl, alt: model.name }] } : {}),
+    },
   };
 }
 

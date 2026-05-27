@@ -18,9 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!id) return { title: "雑誌が見つかりません" };
   const issue = getIssueDetail(id);
   if (!issue) return { title: "雑誌が見つかりません" };
+  const desc = `${issue.title} — ${issue.releaseDate}発売。登場モデル: ${issue.performers.map((p) => p.name).slice(0, 5).join("、")}`;
   return {
     title: `${issue.seriesName} ${issue.issue}`,
-    description: `${issue.title} — ${issue.releaseDate}発売。登場モデル: ${issue.performers.map((p) => p.name).slice(0, 5).join("、")}`,
+    description: desc,
+    openGraph: {
+      title: `${issue.seriesName} ${issue.issue} | MODEL HUB`,
+      description: desc,
+      url: `https://magazine.happyharem.com/magazines/${slug}`,
+      ...(issue.coverImageUrl ? { images: [{ url: issue.coverImageUrl, alt: `${issue.seriesName} ${issue.issue}` }] } : {}),
+    },
   };
 }
 

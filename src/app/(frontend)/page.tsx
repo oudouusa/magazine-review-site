@@ -8,6 +8,12 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "MODEL HUB — グラビア雑誌・写真集アーカイブ",
   description: "グラビア雑誌・写真集のコレクター向けアーカイブ。Amazon・楽天・FANZAの3社価格比較。",
+  openGraph: {
+    title: "MODEL HUB — グラビア雑誌・写真集アーカイブ",
+    description: "グラビア雑誌・写真集のコレクター向けアーカイブ。3,000名以上のモデルと163,000誌以上を収録。",
+    url: "https://magazine.happyharem.com",
+    type: "website",
+  },
 };
 
 function CoverPlaceholder({
