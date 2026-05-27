@@ -38,10 +38,12 @@ function PortraitCard({ model }: { model: MhModel }) {
       }}>
         <div style={{
           aspectRatio: "3/4",
-          background: `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
+          background: model.imageUrl
+            ? `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`
+            : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
           position: "relative",
         }}>
-          <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", color: "rgba(255,255,255,.5)", fontFamily: '"Noto Serif JP",serif', letterSpacing: "0.25em", fontSize: 9 }}>PORTRAIT</div>
+          {!model.imageUrl && <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", color: "rgba(255,255,255,.5)", fontFamily: '"Noto Serif JP",serif', letterSpacing: "0.25em", fontSize: 9 }}>PORTRAIT</div>}
         </div>
         <div style={{ padding: "10px 12px 12px" }}>
           <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "var(--ink)", marginBottom: 2 }}>{model.name}</div>

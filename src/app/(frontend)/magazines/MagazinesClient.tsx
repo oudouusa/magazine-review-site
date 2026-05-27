@@ -17,7 +17,7 @@ function IssueCard({ mag }: { mag: MhMagazine }) {
   return (
     <Link href={`/magazines/${mag.slug}`} style={{ textDecoration: "none" }}>
       <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer" }}>
-        <div style={{ aspectRatio: "3/4", background: `linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.38)), linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`, position: "relative" }}>
+        <div style={{ aspectRatio: "3/4", background: mag.coverImageUrl ? `url("${mag.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})` : `linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.38)), linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`, position: "relative" }}>
           <div style={{ position: "absolute", top: 12, left: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 13, letterSpacing: "0.12em", textShadow: "0 1px 2px rgba(0,0,0,.2)" }}>{mag.seriesName}</div>
           <div style={{ position: "absolute", left: 12, right: 12, bottom: 14, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.35, letterSpacing: "0.02em", textShadow: "0 1px 2px rgba(0,0,0,.25)", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{mag.title}</div>
           {mag.badge && (
