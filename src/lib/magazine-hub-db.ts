@@ -97,6 +97,14 @@ function buildXidolCoversUrlIfExists(coverUrl: string | null | undefined, brand:
   return existsSync(fsPath) ? apiPath : undefined;
 }
 
+// Returns the URL only if the performer image file actually exists on disk.
+function localPathToUrlIfExists(localPath: string | null | undefined): string | undefined {
+  if (!localPath) return undefined;
+  const relativePath = localPath.replace("/api/images/", "");
+  const fsPath = `${MAGAZINE_IMAGES_BASE}/${relativePath}`;
+  return existsSync(fsPath) ? localPath.replace("/api/images/", "/magazine-images/") : undefined;
+}
+
 export function getTopModels(limit = 100): MhModel[] {
   const db = getDb();
   if (!db) return [];
@@ -129,7 +137,7 @@ export function getTopModels(limit = 100): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: localPathToUrl(r.imageLocalPath),
+      imageUrl: localPathToUrlIfExists(r.imageLocalPath),
     }));
   } catch {
     return [];
@@ -237,7 +245,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         c3: colorFromHash(key + "3", 40, 73),
         c4: colorFromHash(key + "4", 36, 63),
       },
-      imageUrl: localPathToUrl(imageRow?.local_path),
+      imageUrl: localPathToUrlIfExists(imageRow?.local_path),
       recentIssues,
     };
   } catch {
@@ -342,7 +350,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
           c3: colorFromHash(p.performer_key + "3", 40, 73),
           c4: colorFromHash(p.performer_key + "4", 36, 63),
         },
-        imageUrl: localPathToUrl(p.imageLocalPath),
+        imageUrl: localPathToUrlIfExists(p.imageLocalPath),
       })),
       backnumbers,
     };
@@ -466,7 +474,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrl(r.performerImagePath),
+        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
       };
     });
   } catch {
@@ -534,7 +542,7 @@ export function searchModels(query: string, limit = 30): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: localPathToUrl(r.imageLocalPath),
+      imageUrl: localPathToUrlIfExists(r.imageLocalPath),
     }));
   } catch {
     return [];
@@ -644,7 +652,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrl(r.performerImagePath),
+        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
       };
     });
   } catch {
