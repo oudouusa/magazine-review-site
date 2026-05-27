@@ -47,6 +47,15 @@ function localPathToUrl(localPath: string | null | undefined): string | undefine
   return localPath.replace("/api/images/", "/magazine-images/");
 }
 
+function filterCoverUrl(url: string | null | undefined): string | undefined {
+  if (!url) return undefined;
+  // Only pass through covers from hosts confirmed to not block hotlinking
+  if (url.includes("pixhost.to")) return url;
+  if (url.startsWith("http://ivworld.xyz") || url.startsWith("http://vworld.xyz")) return url;
+  if (url.includes("xidol.net") || url.includes("x-idol.net")) return url;
+  return undefined;
+}
+
 export function getTopModels(limit = 100): MhModel[] {
   const db = getDb();
   if (!db) return [];
@@ -129,7 +138,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       FROM issue_performers ip
       JOIN issues i ON i.id = ip.issue_id
       JOIN performers p ON p.id = ip.performer_id
-      WHERE p.name_normalized = ? AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
+      WHERE p.name_normalized = ? AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
       LIMIT 12
     `).all(performerKey) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null; coverImageUrl: string | null }>;
@@ -155,7 +164,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: r.coverImageUrl || undefined,
+        coverImageUrl: filterCoverUrl(r.coverImageUrl),
       };
     });
 
@@ -281,7 +290,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       releaseDate: row.issue_date_start,
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
-      coverImageUrl: row.coverImageUrl || undefined,
+      coverImageUrl: filterCoverUrl(row.coverImageUrl),
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -325,7 +334,7 @@ export function getBrands(): MhBrand[] {
          ORDER BY i2.issue_date_start DESC
          LIMIT 1) AS cover_image_url
       FROM issues i
-      WHERE i.brand IS NOT NULL AND i.issue_date_start IS NOT NULL
+      WHERE i.brand IS NOT NULL AND i.issue_date_start IS NOT NULL AND i.brand NOT LIKE 'REP%'
       GROUP BY i.brand
       ORDER BY MAX(i.issue_date_start) DESC
     `).all() as Array<{
@@ -339,7 +348,7 @@ export function getBrands(): MhBrand[] {
       slug: encodeURIComponent(r.brand),
       issueCount: r.issue_count,
       latestDate: r.latest_date,
-      coverImageUrl: r.cover_image_url || undefined,
+      coverImageUrl: filterCoverUrl(r.cover_image_url),
       gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
     }));
   } catch {
@@ -388,7 +397,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: r.coverImageUrl || undefined,
+        coverImageUrl: filterCoverUrl(r.coverImageUrl),
       };
     });
   } catch {
@@ -414,7 +423,7 @@ export function getAllIssueIds(): Array<{ id: number; date: string }> {
   if (!db) return [];
   try {
     const rows = db.prepare(
-      `SELECT id, issue_date_start FROM issues WHERE issue_date_start IS NOT NULL AND brand IS NOT NULL ORDER BY issue_date_start DESC`
+      `SELECT id, issue_date_start FROM issues WHERE issue_date_start IS NOT NULL AND brand IS NOT NULL AND brand NOT LIKE 'REP%' ORDER BY issue_date_start DESC`
     ).all() as Array<{ id: number; issue_date_start: string }>;
     return rows.map((r) => ({ id: r.id, date: r.issue_date_start }));
   } catch {
@@ -472,7 +481,7 @@ export function searchIssues(query: string, limit = 30): MhMagazine[] {
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
         (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
       FROM issues i
-      WHERE (i.title LIKE ? OR i.brand LIKE ?) AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
+      WHERE (i.title LIKE ? OR i.brand LIKE ?) AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
       LIMIT ?
     `).all(q, q, limit) as Array<{
@@ -505,7 +514,7 @@ export function searchIssues(query: string, limit = 30): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: r.coverImageUrl || undefined,
+        coverImageUrl: filterCoverUrl(r.coverImageUrl),
       };
     });
   } catch {
@@ -521,7 +530,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
         (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
       FROM issues i
-      WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
+      WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
       LIMIT ?
     `).all(limit) as Array<{
@@ -558,7 +567,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
-        coverImageUrl: r.coverImageUrl || undefined,
+        coverImageUrl: filterCoverUrl(r.coverImageUrl),
       };
     });
   } catch {
