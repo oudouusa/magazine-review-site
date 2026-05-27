@@ -62,6 +62,28 @@ function filterCoverUrl(url: string | null | undefined): string | undefined {
   return undefined;
 }
 
+// Derive a local xidol-covers path from a cover URL.
+// Files are cached at xidol-covers/{brand}/{YYYY-MM}/{filename} in the volume,
+// where filename is the last path segment of the original cover URL (pixhost or ivworld).
+function buildXidolCoversUrl(coverUrl: string | null | undefined, brand: string, issueDate: string): string | undefined {
+  if (!coverUrl) return undefined;
+  let filename: string | undefined;
+  // pixhost: https://tN.pixhost.to/thumbs/M/FILENAME
+  const pixhostMatch = coverUrl.match(/\/thumbs\/\d+\/(.+)$/);
+  if (pixhostMatch) {
+    filename = pixhostMatch[1];
+  } else {
+    // ivworld: .../wp-content/gallery/YYYYMM/FILENAME
+    const ivworldMatch = coverUrl.match(/\/gallery\/[^/]+\/(.+)$/);
+    if (ivworldMatch) filename = ivworldMatch[1];
+  }
+  if (!filename) return undefined;
+  const yearMonth = issueDate.slice(0, 7);
+  // Spaces → underscores; strip trailing period (e.g. "B.L.T." → "B.L.T")
+  const brandDir = brand.replace(/ /g, "_").replace(/\.$/, "");
+  return `/api/images/xidol-covers/${brandDir}/${yearMonth}/${filename}`;
+}
+
 export function getTopModels(limit = 100): MhModel[] {
   const db = getDb();
   if (!db) return [];
@@ -402,6 +424,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         ""
       ).trim() || r.title;
       const cover = filterCoverUrl(r.coverImageUrl);
+      const xidolCover = cover ? undefined : buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -410,7 +433,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(r.performerImagePath),
+        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrl(r.performerImagePath),
       };
     });
   } catch {
@@ -576,6 +599,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         ""
       ).trim() || r.title;
       const cover = filterCoverUrl(r.coverImageUrl);
+      const xidolCover = cover ? undefined : buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -587,7 +611,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(r.performerImagePath),
+        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrl(r.performerImagePath),
       };
     });
   } catch {
