@@ -1,13 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  TOP10_MODELS,
-  LATEST_ISSUES,
-  EDITOR_PICKS,
-  GENRES,
-  NEW_ARRIVALS,
-  FEATURE_ARTICLES,
-} from "@/lib/mock-data";
+import { getTopModels, getRecentIssues } from "@/lib/magazine-hub-db";
+
+export const dynamic = "force-dynamic";
+
+const GENRES = [
+  { label: "週刊グラビア誌", count: 12, gradient: { c1: "#d9c8f0", c2: "#6a4a9a" } },
+  { label: "月刊グラビア誌", count: 8, gradient: { c1: "#bcc6d9", c2: "#3a5a8f" } },
+  { label: "写真集", count: 156, gradient: { c1: "#f5d8c8", c2: "#c87a6a" } },
+  { label: "電子限定", count: 43, gradient: { c1: "#c8d8c8", c2: "#4a7a4a" } },
+  { label: "水着グラビア", count: 89, gradient: { c1: "#b8d8f0", c2: "#3a6a9a" } },
+  { label: "アイドル系", count: 67, gradient: { c1: "#f8d0d8", c2: "#c84a78" } },
+  { label: "女優系", count: 34, gradient: { c1: "#f8e8c0", c2: "#c89040" } },
+  { label: "復刻・絶版", count: 28, gradient: { c1: "#e0d0c0", c2: "#8a6040" } },
+  { label: "表紙常連", count: 15, gradient: { c1: "#e8d0f0", c2: "#8050c8" } },
+  { label: "ランジェリー", count: 52, gradient: { c1: "#f0c0c8", c2: "#b84060" } },
+  { label: "初版コレクション", count: 23, gradient: { c1: "#c8e8c8", c2: "#3a803a" } },
+  { label: "限定版", count: 19, gradient: { c1: "#d0c8f0", c2: "#5048a8" } },
+];
+
+const FEATURE_ARTICLES = [
+  { slug: "first-edition-guide", title: "初版の見分け方・完全ガイド", lede: "写真集コレクターなら必ず知っておきたい、初版と重版の見分け方。背表紙の印刷番号から奥付の確認方法まで徹底解説。", category: "解説", author: "編集部", date: "2026/05/15", gradient: { c1: "#f5d4dc", c2: "#c87890" } },
+  { slug: "interview-asahina", title: "朝比奈 結衣 特別インタビュー", lede: "ファースト写真集発売を前に、撮影の裏話から今後の活動まで。独占インタビューを全文掲載。", category: "インタビュー", author: "編集部", date: "2026/05/10", gradient: { c1: "#bcc6d9", c2: "#5a6b8f" } },
+  { slug: "luna-weekly-history", title: "Luna Weekly 40年の歴史", lede: "1986年創刊から続くグラビア誌の金字塔。歴代表紙モデルと時代を彩った名作グラビアを一挙紹介。", category: "特集", author: "編集部", date: "2026/05/05", gradient: { c1: "#f0d4b8", c2: "#c88a5a" } },
+];
 
 export const metadata: Metadata = {
   title: "MODEL HUB — グラビア雑誌・写真集アーカイブ",
@@ -111,32 +127,12 @@ function CoverPlaceholder({
   );
 }
 
-function PortraitPlaceholder({
-  c1, c2, c3, c4,
-  size = 80,
-  square = false,
-}: {
-  c1: string; c2: string; c3: string; c4: string;
-  size?: number;
-  square?: boolean;
-}) {
-  return (
-    <div
-      style={{
-        width: size,
-        aspectRatio: square ? "1/1" : "3/4",
-        borderRadius: square ? 8 : 4,
-        background: `radial-gradient(at 30% 25%, ${c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${c2} 0%, transparent 55%), linear-gradient(180deg, ${c3} 0%, ${c4} 100%)`,
-        flexShrink: 0,
-      }}
-    />
-  );
-}
-
 export default function HomePage() {
-  const featured = LATEST_ISSUES[0];
-  const editorFeatured = EDITOR_PICKS.find((p) => p.featured)!;
-  const editorRest = EDITOR_PICKS.filter((p) => !p.featured);
+  const issues = getRecentIssues(20);
+  const top10 = getTopModels(10);
+  const featured = issues[0];
+  const editorIssues = issues.slice(1, 5);
+  const newArrivals = issues.slice(6, 12);
 
   return (
     <>
@@ -149,18 +145,15 @@ export default function HomePage() {
         <div className="hero-cover">
           <div className="h-meta">
             <h1 className="h-title serif" style={{ fontSize: 42, fontWeight: 600, lineHeight: 1.2, letterSpacing: "0.06em", margin: "2px 0 12px", color: "var(--ink)" }}>
-              {featured.featureModel ? (
-                <><em style={{ fontStyle: "normal", color: "var(--primary)" }}>{featured.featureModel}</em><br />２０ページ大特集</>
-              ) : featured.title}
+              {featured?.title ?? "最新グラビアをアーカイブ"}
             </h1>
             <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.85, letterSpacing: "0.04em", marginBottom: 22, maxWidth: 460 }}>
               表紙＆巻頭グラビアで圧巻のデビュー。沖縄ロケで撮り下ろした20ページの独占グラビアは必見。彼女の魅力を余すことなく収めた保存版。
             </p>
             <div style={{ display: "flex", gap: 16, marginBottom: 22, fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em", flexWrap: "wrap" }}>
-              <span>誌名 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured.seriesName}</b></span>
-              <span>号数 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured.issue}</b></span>
-              <span>発売 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured.releaseDate}</b></span>
-              <span>掲載 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>朝比奈 結衣 ほか6名</b></span>
+              <span>誌名 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured?.seriesName}</b></span>
+              <span>号数 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured?.issue}</b></span>
+              <span>発売 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured?.releaseDate}</b></span>
             </div>
             <div className="h-ctas">
               <a href="#" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
@@ -169,14 +162,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className="h-cover-stage">
-            <CoverPlaceholder
+            {featured && <CoverPlaceholder
               c1={featured.gradient.c1}
               c2={featured.gradient.c2}
               width="320px"
               rotate={-2}
               mast={featured.seriesName}
               feature={featured.title}
-            />
+            />}
           </div>
         </div>
       </section>
@@ -194,7 +187,7 @@ export default function HomePage() {
           </div>
           <div className="spotlight">
             {/* Hero card */}
-            <div className="sl-hero" style={{ gridRow: "span 2", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, padding: "var(--card-pad)", display: "flex", flexDirection: "column", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
+            {featured && <div className="sl-hero" style={{ gridRow: "span 2", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, padding: "var(--card-pad)", display: "flex", flexDirection: "column", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
               <div style={{ flex: 1, marginBottom: 14 }}>
                 <CoverPlaceholder
                   c1={featured.gradient.c1}
@@ -209,22 +202,10 @@ export default function HomePage() {
                 <span style={{ marginLeft: "auto", fontSize: 11, color: "var(--ink-3)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured.releaseDate}</span>
               </div>
               <h3 style={{ fontFamily: "\"Noto Serif JP\",serif", fontSize: 18, fontWeight: 600, letterSpacing: "0.04em", color: "var(--ink)", lineHeight: 1.45, margin: "4px 0 10px" }}>{featured.title}</h3>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 12 }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, padding: "3px 9px 3px 3px", background: "var(--rose-3)", border: "1px solid var(--rose-2)", borderRadius: 999, color: "var(--plum)" }}>
-                  <span style={{ width: 16, height: 16, borderRadius: "50%", background: "linear-gradient(135deg, var(--rose), var(--primary))", display: "grid", placeItems: "center", fontSize: 9, fontWeight: 700, color: "white", fontFamily: "\"Noto Serif JP\",serif" }}>結</span>
-                  朝比奈 結衣
-                </span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontFamily: "\"Noto Serif JP\",serif", fontSize: 15, fontWeight: 600, color: "var(--ink)" }}>
-                  <span style={{ fontSize: 11, color: "var(--ink-3)", marginRight: 2 }}>￥</span>{featured.price.toLocaleString()}
-                </span>
-                <span className="pr-tag">PR</span>
-                <Link href={`/magazines/${featured.slug}`} className="btn btn-primary" style={{ marginLeft: "auto", padding: "8px 14px", fontSize: 12 }}>Amazonで買う</Link>
-              </div>
-            </div>
+              <Link href={`/magazines/${featured.slug}`} className="btn btn-primary" style={{ padding: "8px 14px", fontSize: 12, textDecoration: "none", textAlign: "center" }}>詳細を見る</Link>
+            </div>}
             {/* Small cards */}
-            {LATEST_ISSUES.slice(1).map((mag) => (
+            {issues.slice(1, 6).map((mag) => (
               <Link key={mag.slug} href={`/magazines/${mag.slug}`} className="sl-item" style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, padding: "var(--card-pad)", display: "grid", gridTemplateColumns: "96px 1fr", gap: 12, alignItems: "center", cursor: "pointer", transition: "transform .12s, box-shadow .12s", boxShadow: "0 1px 2px rgba(60,30,40,.04)", textDecoration: "none" }}>
                 <CoverPlaceholder c1={mag.gradient.c1} c2={mag.gradient.c2} width="96px" mast={mag.seriesName.slice(0, 8)} />
                 <div style={{ minWidth: 0 }}>
@@ -234,10 +215,8 @@ export default function HomePage() {
                   </div>
                   <div style={{ fontFamily: "\"Noto Serif JP\",serif", fontSize: 13, fontWeight: 600, color: "var(--ink)", lineHeight: 1.45, marginBottom: 8, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{mag.title}</div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontFamily: "\"Noto Serif JP\",serif", fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>
-                      <span style={{ fontSize: 10, color: "var(--ink-3)", marginRight: 1 }}>￥</span>{mag.price.toLocaleString()}
-                    </span>
-                    <span style={{ marginLeft: "auto", fontSize: 10.5, padding: "4px 10px", borderRadius: 999, background: "var(--primary)", color: "white", fontWeight: 600 }}>楽天で買う</span>
+                    <span style={{ fontSize: 10, color: "var(--ink-3)" }}>{mag.releaseDate}</span>
+                    <span style={{ marginLeft: "auto", fontSize: 10.5, padding: "4px 10px", borderRadius: 999, background: "var(--primary)", color: "white", fontWeight: 600 }}>詳細を見る</span>
                   </div>
                 </div>
               </Link>
@@ -258,29 +237,24 @@ export default function HomePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--gap)" }}>
             {[0, 5].map((offset) => (
               <div key={offset} className="ranking">
-                {TOP10_MODELS.slice(offset, offset + 5).map((model) => (
-                  <Link key={model.slug} href={`/models/${model.slug}`} className="rank-card" style={{ textDecoration: "none" }}>
-                    <div className="rk-portrait" style={{ "--c1": model.gradient.c1, "--c2": model.gradient.c2, "--c3": model.gradient.c3, "--c4": model.gradient.c4 } as React.CSSProperties}>
-                      <div className={`rk-num${model.rank <= 3 ? ` r-${model.rank}` : ""}`}>{model.rank}</div>
-                      {model.trend && (
-                        <div className={`rk-trend ${model.trend}`}>
-                          {model.trend === "up" ? "↑" : model.trend === "down" ? "↓" : "NEW"}
+                {top10.slice(offset, offset + 5).map((model, i) => {
+                  const rank = offset + i + 1;
+                  return (
+                    <Link key={model.slug} href={`/models/${model.slug}`} className="rank-card" style={{ textDecoration: "none" }}>
+                      <div className="rk-portrait" style={{ "--c1": model.gradient.c1, "--c2": model.gradient.c2, "--c3": model.gradient.c3, "--c4": model.gradient.c4 } as React.CSSProperties}>
+                        <div className={`rk-num${rank <= 3 ? ` r-${rank}` : ""}`}>{rank}</div>
+                      </div>
+                      <div className="rk-body">
+                        <div className="rk-name serif">{model.name}</div>
+                        <div className="rk-yomi serif">{model.nameYomi}</div>
+                        <div className="rk-foot">
+                          <span>出演 <b>{model.stats.issues}</b>誌</span>
+                          <span style={{ marginLeft: 12 }}>表紙 <b>{model.stats.covers}</b>回</span>
                         </div>
-                      )}
-                    </div>
-                    <div className="rk-body">
-                      <div className="rk-name serif">{model.name}</div>
-                      <div className="rk-yomi serif">{model.nameYomi}</div>
-                      <div className="rk-tags">
-                        {model.tags.map((t) => <span key={t} className="tag" style={{ fontSize: "9.5px", padding: "1px 7px" }}>{t}</span>)}
                       </div>
-                      <div className="rk-foot">
-                        <span>出演 <b>{model.stats.issues}</b>誌</span>
-                        <span style={{ marginLeft: 12 }}>写真集 <b>{model.stats.photobooks}</b>冊</span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             ))}
           </div>
@@ -290,61 +264,23 @@ export default function HomePage() {
         <section className="section">
           <div className="section-head">
             <div>
-              <div className="sh-eyebrow">EDITOR&apos;S PICK</div>
-              <h2 className="sh-title">編集部おすすめ写真集</h2>
+              <div className="sh-eyebrow">RECENT ISSUES</div>
+              <h2 className="sh-title">最近の号</h2>
             </div>
             <div className="sh-rule" />
-            <Link href="/magazines?type=photobook" className="sh-more">写真集一覧</Link>
+            <Link href="/magazines" className="sh-more">すべて見る</Link>
           </div>
-          <div className="pickup">
-            <div className="pk-hero">
-              <div className="pk-cover-stage">
-                <CoverPlaceholder
-                  c1={editorFeatured.gradient.c1}
-                  c2={editorFeatured.gradient.c2}
-                  width="220px"
-                  rotate={-3}
-                />
-              </div>
-              <div className="pk-meta">
-                <div className="pk-eyebrow">★ FEATURED PHOTOBOOK</div>
-                <h3 className="pk-title">{editorFeatured.title}</h3>
-                <div className="pk-by">著 <b>{editorFeatured.seriesName}</b> / 撮影 {editorFeatured.photographer}</div>
-                <blockquote className="pk-quote">{editorFeatured.quote}</blockquote>
-                <div className="pk-stats">
-                  <div><b>{editorFeatured.pageCount}P</b><br />ページ数</div>
-                  <div><b>{editorFeatured.releaseDate}</b><br />発売日</div>
-                  <div><b>{editorFeatured.format}</b><br />形態</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
+            {editorIssues.map((issue) => (
+              <Link key={issue.slug} href={`/magazines/${issue.slug}`} style={{ textDecoration: "none" }}>
+                <div style={{ aspectRatio: "3/4", borderRadius: 8, background: `linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`, marginBottom: 8, position: "relative", overflow: "hidden", boxShadow: "0 8px 18px rgba(80,50,40,.12)" }}>
+                  <div style={{ position: "absolute", top: 12, left: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 13 }}>{issue.seriesName}</div>
+                  <div style={{ position: "absolute", bottom: 10, left: 10, right: 10, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.3 }}>{issue.title}</div>
                 </div>
-                <div className="pk-buy">
-                  <div className="price-tag">
-                    <span className="price serif"><span className="yen">￥</span>{editorFeatured.price.toLocaleString()}</span>
-                    <span style={{ fontSize: 11, color: "var(--ink-3)" }}>税込</span>
-                    <span className="pr" style={{ marginLeft: "auto" }}>PR</span>
-                  </div>
-                  <a href="#" className="btn btn-amazon" style={{ fontSize: 12, padding: "9px 14px" }}>Amazon <span className="pr-mini">PR</span></a>
-                  <a href="#" className="btn btn-rakuten" style={{ fontSize: 12, padding: "9px 14px" }}>楽天 <span className="pr-mini">PR</span></a>
-                </div>
-              </div>
-            </div>
-            <div className="pickup-list">
-              {editorRest.map((book, i) => (
-                <Link key={book.slug} href={`/magazines/${book.slug}`} className="pk-item" style={{ textDecoration: "none" }}>
-                  <div className="pk-mini" style={{ position: "relative" }}>
-                    <CoverPlaceholder c1={book.gradient.c1} c2={book.gradient.c2} />
-                    <div className="pk-num" style={{ position: "absolute", bottom: 6, left: 6, fontFamily: "\"Noto Serif JP\",serif", fontSize: 22, fontWeight: 700, color: "rgba(255,255,255,.95)", textShadow: "0 1px 2px rgba(0,0,0,.3)", lineHeight: 1 }}>0{i + 2}</div>
-                  </div>
-                  <div className="pki-body">
-                    <div className="pki-genre">写真集</div>
-                    <div className="pki-title">{book.title}</div>
-                    <div className="pki-foot">
-                      <span>{book.releaseDate}</span>
-                      <span className="pki-price"><span className="yen">￥</span>{book.price.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 2 }}>{issue.issue}</div>
+                <div style={{ fontSize: 10, color: "var(--ink-3)" }}>{issue.releaseDate}</div>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -382,7 +318,7 @@ export default function HomePage() {
             <Link href="/magazines?sort=release_date" className="sh-more">すべて見る</Link>
           </div>
           <div className="arrivals">
-            {NEW_ARRIVALS.map((book) => (
+            {newArrivals.map((book) => (
               <Link key={book.slug} href={`/magazines/${book.slug}`} className="ar-card" style={{ textDecoration: "none" }}>
                 <div className="ar-cover" style={{ "--c1": book.gradient.c1, "--c2": book.gradient.c2 } as React.CSSProperties}>
                   {book.badge && <div className="ar-badge">{book.badge === "new" ? "新刊" : book.badge === "preorder" ? "予約" : "復刻"}</div>}
@@ -391,8 +327,7 @@ export default function HomePage() {
                 <div className="ar-meta">{book.releaseDate}</div>
                 <div className="ar-name">{book.title}</div>
                 <div className="ar-foot">
-                  <span className="price"><span className="yen">￥</span>{book.price.toLocaleString()}</span>
-                  <span className="shop">Amazon</span>
+                  <span className="shop">詳細を見る</span>
                 </div>
               </Link>
             ))}

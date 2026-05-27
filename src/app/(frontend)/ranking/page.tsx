@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { TOP10_MODELS } from "@/lib/mock-data";
+import { getTopModels } from "@/lib/magazine-hub-db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "モデルランキング",
@@ -14,11 +16,6 @@ const PERIOD_TABS = [
   { key: "hof", label: "殿堂入り", count: 42 },
 ];
 
-const QUOTES: Record<string, string> = {
-  "asahina-yui": "「毎回全力で、それが私のスタイル」",
-  "miura-seira": "「ファンの皆さんのおかげです」",
-  "hayashi-rin": "「進化し続けることが目標」",
-};
 
 const HOF_MODELS = [
   { name: "鈴木 あや", yomi: "すずき あや", since: 2018, gradient: { c1: "#f5d8c8", c2: "#d4a8b2", c3: "#f1d9d2", c4: "#c49098" } },
@@ -30,8 +27,9 @@ const HOF_MODELS = [
 ];
 
 export default function RankingPage() {
-  const top3 = TOP10_MODELS.slice(0, 3);
-  const rest = TOP10_MODELS.slice(3, 10);
+  const models = getTopModels(10);
+  const top3 = models.slice(0, 3);
+  const rest = models.slice(3, 10);
 
   return (
     <>
@@ -67,15 +65,12 @@ export default function RankingPage() {
           <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
             <div style={{ aspectRatio: "3/4", background: `radial-gradient(at 30% 25%, ${top3[1].gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${top3[1].gradient.c3} 0%, ${top3[1].gradient.c4} 100%)`, position: "relative" }}>
               <div style={{ position: "absolute", top: 8, left: 10, fontFamily: '"Noto Serif JP",serif', fontSize: 56, fontWeight: 700, lineHeight: 1, background: "linear-gradient(180deg, #f4f0e8, #a89d8e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", letterSpacing: "-0.02em" }}>2</div>
-              <div style={{ position: "absolute", top: 8, right: 10, background: "rgba(168,157,142,.85)", color: "white", fontSize: 10, padding: "2px 7px", borderRadius: 999, fontWeight: 600 }}>{top3[1].trend === "new" ? "NEW" : "↑"}</div>
             </div>
             <div style={{ padding: "12px 16px 16px" }}>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 17, fontWeight: 600, letterSpacing: "0.06em", color: "var(--ink)", marginBottom: 2 }}>{top3[1].name}</div>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em", marginBottom: 10 }}>{top3[1].nameYomi}</div>
-              <p style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, color: "var(--ink-2)", lineHeight: 1.7, borderLeft: "2px solid var(--rose-2)", paddingLeft: 8, margin: "0 0 12px", fontStyle: "italic" }}>{QUOTES[top3[1].slug] ?? "「感謝の気持ちでいっぱい」"}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[1].stats.issues}</b>出演誌</div>
-                <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[1].stats.photobooks}</b>写真集</div>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[1].stats.covers}</b>表紙</div>
               </div>
             </div>
@@ -88,15 +83,12 @@ export default function RankingPage() {
             </div>
             <div style={{ aspectRatio: "3/4", background: `radial-gradient(at 30% 25%, ${top3[0].gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${top3[0].gradient.c3} 0%, ${top3[0].gradient.c4} 100%)`, position: "relative" }}>
               <div style={{ position: "absolute", top: 8, left: 10, fontFamily: '"Noto Serif JP",serif', fontSize: 68, fontWeight: 700, lineHeight: 1, background: "linear-gradient(180deg, #f6e0a4, #c98a3a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", letterSpacing: "-0.02em" }}>1</div>
-              <div style={{ position: "absolute", top: 8, right: 10, background: "rgba(107,143,107,.85)", color: "white", fontSize: 10, padding: "2px 7px", borderRadius: 999, fontWeight: 600 }}>↑</div>
             </div>
             <div style={{ padding: "12px 16px 16px" }}>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 20, fontWeight: 600, letterSpacing: "0.06em", color: "var(--ink)", marginBottom: 2 }}>{top3[0].name}</div>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em", marginBottom: 10 }}>{top3[0].nameYomi}</div>
-              <p style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, color: "var(--ink-2)", lineHeight: 1.7, borderLeft: "2px solid var(--rose-2)", paddingLeft: 8, margin: "0 0 12px", fontStyle: "italic" }}>{QUOTES[top3[0].slug] ?? "「毎回全力で、それが私のスタイル」"}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 18, color: "var(--ink)" }}>{top3[0].stats.issues}</b>出演誌</div>
-                <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 18, color: "var(--ink)" }}>{top3[0].stats.photobooks}</b>写真集</div>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 18, color: "var(--ink)" }}>{top3[0].stats.covers}</b>表紙</div>
               </div>
             </div>
@@ -106,15 +98,12 @@ export default function RankingPage() {
           <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
             <div style={{ aspectRatio: "3/4", background: `radial-gradient(at 30% 25%, ${top3[2].gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${top3[2].gradient.c3} 0%, ${top3[2].gradient.c4} 100%)`, position: "relative" }}>
               <div style={{ position: "absolute", top: 8, left: 10, fontFamily: '"Noto Serif JP",serif', fontSize: 56, fontWeight: 700, lineHeight: 1, background: "linear-gradient(180deg, #efd0bb, #a47868)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", letterSpacing: "-0.02em" }}>3</div>
-              <div style={{ position: "absolute", top: 8, right: 10, background: "rgba(180,90,80,.7)", color: "white", fontSize: 10, padding: "2px 7px", borderRadius: 999, fontWeight: 600 }}>↓</div>
             </div>
             <div style={{ padding: "12px 16px 16px" }}>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 17, fontWeight: 600, letterSpacing: "0.06em", color: "var(--ink)", marginBottom: 2 }}>{top3[2].name}</div>
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em", marginBottom: 10 }}>{top3[2].nameYomi}</div>
-              <p style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, color: "var(--ink-2)", lineHeight: 1.7, borderLeft: "2px solid var(--rose-2)", paddingLeft: 8, margin: "0 0 12px", fontStyle: "italic" }}>{QUOTES[top3[2].slug] ?? "「進化し続けることが目標」"}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, fontSize: 10, textAlign: "center", color: "var(--ink-3)" }}>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[2].stats.issues}</b>出演誌</div>
-                <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[2].stats.photobooks}</b>写真集</div>
                 <div><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{top3[2].stats.covers}</b>表紙</div>
               </div>
             </div>
@@ -127,28 +116,22 @@ export default function RankingPage() {
             <Link key={model.slug} href={`/models/${model.slug}`} style={{
               textDecoration: "none",
               display: "grid",
-              gridTemplateColumns: "50px 80px 1fr auto auto",
+              gridTemplateColumns: "50px 80px 1fr auto",
               gap: 16,
               alignItems: "center",
               padding: "14px 20px",
               borderBottom: i < rest.length - 1 ? "1px solid var(--line-2)" : undefined,
               color: "inherit",
             }}>
-              <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 28, fontWeight: 700, color: "var(--ink-3)", letterSpacing: "-0.02em", textAlign: "center", lineHeight: 1 }}>{model.rank}</div>
+              <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 28, fontWeight: 700, color: "var(--ink-3)", letterSpacing: "-0.02em", textAlign: "center", lineHeight: 1 }}>{i + 4}</div>
               <div style={{ width: 80, aspectRatio: "1/1", borderRadius: 8, background: `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)` }} />
               <div>
                 <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 16, fontWeight: 600, color: "var(--ink)", marginBottom: 2 }}>{model.name}</div>
-                <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em", marginBottom: 6 }}>{model.nameYomi}</div>
-                <div style={{ display: "flex", gap: 4 }}>
-                  {model.tags.map((t) => <span key={t} className="tag" style={{ fontSize: 9.5, padding: "1px 7px" }}>{t}</span>)}
-                </div>
+                <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em" }}>{model.nameYomi}</div>
               </div>
               <div style={{ display: "flex", gap: 18, fontSize: 11, color: "var(--ink-3)" }}>
+                <div style={{ textAlign: "center" }}><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{model.stats.issues}</b>出演</div>
                 <div style={{ textAlign: "center" }}><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{model.stats.covers}</b>表紙</div>
-                <div style={{ textAlign: "center" }}><b style={{ display: "block", fontFamily: '"Noto Serif JP",serif', fontSize: 16, color: "var(--ink)" }}>{model.stats.photobooks}</b>写真集</div>
-              </div>
-              <div className={`rk-trend ${model.trend ?? "up"}`} style={{ position: "static", borderRadius: 999, padding: "3px 10px", fontSize: 11, fontWeight: 600, color: "white", background: model.trend === "up" ? "rgba(107,143,107,.85)" : model.trend === "down" ? "rgba(180,90,80,.7)" : "rgba(201,138,58,.92)" }}>
-                {model.trend === "up" ? "↑" : model.trend === "down" ? "↓" : "NEW"}
               </div>
             </Link>
           ))}

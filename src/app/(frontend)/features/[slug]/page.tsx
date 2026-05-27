@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FEATURE_ARTICLES, LATEST_ISSUES } from "@/lib/mock-data";
+import { getRecentIssues } from "@/lib/magazine-hub-db";
+
+export const dynamic = "force-dynamic";
+
+const FEATURE_ARTICLES = [
+  { slug: "first-edition-guide", title: "初版の見分け方・完全ガイド", lede: "写真集コレクターなら必ず知っておきたい、初版と重版の見分け方。背表紙の印刷番号から奥付の確認方法まで徹底解説。", category: "解説", author: "編集部", date: "2026/05/15", gradient: { c1: "#f5d4dc", c2: "#c87890" } },
+  { slug: "interview-asahina", title: "朝比奈 結衣 特別インタビュー", lede: "ファースト写真集発売を前に、撮影の裏話から今後の活動まで。独占インタビューを全文掲載。", category: "インタビュー", author: "編集部", date: "2026/05/10", gradient: { c1: "#bcc6d9", c2: "#5a6b8f" } },
+  { slug: "luna-weekly-history", title: "Luna Weekly 40年の歴史", lede: "1986年創刊から続くグラビア誌の金字塔。歴代表紙モデルと時代を彩った名作グラビアを一挙紹介。", category: "特集", author: "編集部", date: "2026/05/05", gradient: { c1: "#f0d4b8", c2: "#c88a5a" } },
+];
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,6 +25,7 @@ export default async function FeatureDetailPage({ params }: Props) {
   const { slug } = await params;
   const article = FEATURE_ARTICLES.find((a) => a.slug === slug) ?? FEATURE_ARTICLES[0];
   const otherArticles = FEATURE_ARTICLES.filter((a) => a.slug !== article.slug);
+  const recentIssues = getRecentIssues(4);
 
   return (
     <>
@@ -65,16 +74,17 @@ export default async function FeatureDetailPage({ params }: Props) {
 
         {/* Inline product card */}
         <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, padding: "var(--card-pad)", display: "grid", gridTemplateColumns: "96px 1fr auto", gap: 16, alignItems: "center", margin: "32px 0" }}>
-          <div style={{ width: 96, aspectRatio: "3/4", borderRadius: 5, background: `linear-gradient(160deg, ${LATEST_ISSUES[0].gradient.c1}, ${LATEST_ISSUES[0].gradient.c2})` }} />
-          <div>
-            <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 9.5, letterSpacing: "0.25em", color: "var(--pr)", marginBottom: 4, fontWeight: 600 }}>この記事で取り上げた商品</div>
-            <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 15, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>{LATEST_ISSUES[0].seriesName} {LATEST_ISSUES[0].issue}</div>
-            <div style={{ fontSize: 11, color: "var(--ink-3)" }}>{LATEST_ISSUES[0].releaseDate} · {LATEST_ISSUES[0].publisher}</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 18, fontWeight: 600, color: "var(--ink)", textAlign: "right" }}>￥{LATEST_ISSUES[0].price.toLocaleString()}</div>
-            <a href="#" className="btn btn-amazon" style={{ fontSize: 11, padding: "7px 14px" }}>Amazonで買う <span className="pr-mini">PR</span></a>
-          </div>
+          {recentIssues[0] && <>
+            <div style={{ width: 96, aspectRatio: "3/4", borderRadius: 5, background: `linear-gradient(160deg, ${recentIssues[0].gradient.c1}, ${recentIssues[0].gradient.c2})` }} />
+            <div>
+              <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 9.5, letterSpacing: "0.25em", color: "var(--pr)", marginBottom: 4, fontWeight: 600 }}>最新号</div>
+              <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 15, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>{recentIssues[0].seriesName} {recentIssues[0].issue}</div>
+              <div style={{ fontSize: 11, color: "var(--ink-3)" }}>{recentIssues[0].releaseDate}</div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <a href={`/magazines/${recentIssues[0].slug}`} className="btn btn-primary" style={{ fontSize: 11, padding: "7px 14px" }}>詳細を見る</a>
+            </div>
+          </>}
         </div>
 
         <h2 style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 24, fontWeight: 600, letterSpacing: "0.1em", color: "var(--ink)", margin: "40px 0 16px", borderLeft: "3px solid var(--primary)", paddingLeft: 16 }}>
@@ -105,11 +115,11 @@ export default async function FeatureDetailPage({ params }: Props) {
           <div className="sh-rule" />
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)", marginBottom: "var(--row-gap)" }}>
-          {LATEST_ISSUES.slice(0, 4).map((mag) => (
+          {recentIssues.slice(0, 4).map((mag) => (
             <Link key={mag.slug} href={`/magazines/${mag.slug}`} style={{ textDecoration: "none" }}>
               <div style={{ aspectRatio: "3/4", borderRadius: 5, background: `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`, marginBottom: 8, boxShadow: "0 8px 18px rgba(80,50,40,.12)" }} />
               <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>{mag.seriesName}</div>
-              <div style={{ fontSize: 10, color: "var(--ink-3)" }}>￥{mag.price.toLocaleString()}</div>
+              <div style={{ fontSize: 10, color: "var(--ink-3)" }}>{mag.releaseDate}</div>
             </Link>
           ))}
         </div>

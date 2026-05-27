@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FEATURE_ARTICLES } from "@/lib/mock-data";
 
 export const metadata: Metadata = {
   title: "特集記事",
@@ -8,7 +7,9 @@ export const metadata: Metadata = {
 };
 
 const ALL_FEATURES = [
-  ...FEATURE_ARTICLES,
+  { slug: "first-edition-guide", title: "初版の見分け方・完全ガイド", lede: "写真集コレクターなら必ず知っておきたい、初版と重版の見分け方。背表紙の印刷番号から奥付の確認方法まで徹底解説。", category: "解説", author: "編集部", date: "2026/05/15", gradient: { c1: "#f5d4dc", c2: "#c87890" } },
+  { slug: "interview-asahina", title: "朝比奈 結衣 特別インタビュー", lede: "ファースト写真集発売を前に、撮影の裏話から今後の活動まで。独占インタビューを全文掲載。", category: "インタビュー", author: "編集部", date: "2026/05/10", gradient: { c1: "#bcc6d9", c2: "#5a6b8f" } },
+  { slug: "luna-weekly-history", title: "Luna Weekly 40年の歴史", lede: "1986年創刊から続くグラビア誌の金字塔。歴代表紙モデルと時代を彩った名作グラビアを一挙紹介。", category: "特集", author: "編集部", date: "2026/05/05", gradient: { c1: "#f0d4b8", c2: "#c88a5a" } },
   { slug: "reissue-guide", title: "復刻版・絶版の見分け方と入手法", lede: "市場から消えた名作グラビア写真集を手に入れるための完全ガイド。", category: "ガイド", author: "編集部", date: "2026/04/28", gradient: { c1: "#d9c8f0", c2: "#8a6bbc" } },
   { slug: "magazine-history", title: "グラビア雑誌40年史", lede: "1980年代の創刊ラッシュから現在のデジタル化まで、日本のグラビア文化を振り返る。", category: "特集", author: "編集部", date: "2026/04/15", gradient: { c1: "#c8d8c8", c2: "#4a7a4a" } },
   { slug: "photobook-production", title: "写真集ができるまで — 制作現場に密着", lede: "企画から撮影、校正、印刷まで。写真集の制作現場を独占取材。", category: "特集", author: "編集部", date: "2026/04/01", gradient: { c1: "#f0d4b8", c2: "#c88a5a" } },
