@@ -1,29 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getTopModels, getRecentIssues } from "@/lib/magazine-hub-db";
+import { getTopModels, getRecentIssues, getBrands } from "@/lib/magazine-hub-db";
 
 export const dynamic = "force-dynamic";
 
-const GENRES = [
-  { label: "週刊グラビア誌", count: 12, gradient: { c1: "#d9c8f0", c2: "#6a4a9a" } },
-  { label: "月刊グラビア誌", count: 8, gradient: { c1: "#bcc6d9", c2: "#3a5a8f" } },
-  { label: "写真集", count: 156, gradient: { c1: "#f5d8c8", c2: "#c87a6a" } },
-  { label: "電子限定", count: 43, gradient: { c1: "#c8d8c8", c2: "#4a7a4a" } },
-  { label: "水着グラビア", count: 89, gradient: { c1: "#b8d8f0", c2: "#3a6a9a" } },
-  { label: "アイドル系", count: 67, gradient: { c1: "#f8d0d8", c2: "#c84a78" } },
-  { label: "女優系", count: 34, gradient: { c1: "#f8e8c0", c2: "#c89040" } },
-  { label: "復刻・絶版", count: 28, gradient: { c1: "#e0d0c0", c2: "#8a6040" } },
-  { label: "表紙常連", count: 15, gradient: { c1: "#e8d0f0", c2: "#8050c8" } },
-  { label: "ランジェリー", count: 52, gradient: { c1: "#f0c0c8", c2: "#b84060" } },
-  { label: "初版コレクション", count: 23, gradient: { c1: "#c8e8c8", c2: "#3a803a" } },
-  { label: "限定版", count: 19, gradient: { c1: "#d0c8f0", c2: "#5048a8" } },
-];
-
-const FEATURE_ARTICLES = [
-  { slug: "first-edition-guide", title: "初版の見分け方・完全ガイド", lede: "写真集コレクターなら必ず知っておきたい、初版と重版の見分け方。背表紙の印刷番号から奥付の確認方法まで徹底解説。", category: "解説", author: "編集部", date: "2026/05/15", gradient: { c1: "#f5d4dc", c2: "#c87890" } },
-  { slug: "interview-asahina", title: "朝比奈 結衣 特別インタビュー", lede: "ファースト写真集発売を前に、撮影の裏話から今後の活動まで。独占インタビューを全文掲載。", category: "インタビュー", author: "編集部", date: "2026/05/10", gradient: { c1: "#bcc6d9", c2: "#5a6b8f" } },
-  { slug: "luna-weekly-history", title: "Luna Weekly 40年の歴史", lede: "1986年創刊から続くグラビア誌の金字塔。歴代表紙モデルと時代を彩った名作グラビアを一挙紹介。", category: "特集", author: "編集部", date: "2026/05/05", gradient: { c1: "#f0d4b8", c2: "#c88a5a" } },
-];
 
 export const metadata: Metadata = {
   title: "MODEL HUB — グラビア雑誌・写真集アーカイブ",
@@ -134,6 +114,7 @@ function CoverPlaceholder({
 export default function HomePage() {
   const issues = getRecentIssues(20);
   const top10 = getTopModels(10);
+  const brands = getBrands().slice(0, 12);
   const featured = issues[0];
   const editorIssues = issues.slice(1, 5);
   const newArrivals = issues.slice(6, 12);
@@ -162,7 +143,7 @@ export default function HomePage() {
             <div className="h-ctas">
               <a href="#" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
               <a href="#" className="btn btn-rakuten">楽天ブックス <span className="pr-mini">PR</span></a>
-              <a href="#" className="btn btn-ghost">詳細を見る</a>
+              {featured && <Link href={`/magazines/${featured.slug}`} className="btn btn-ghost" style={{ textDecoration: "none" }}>詳細を見る</Link>}
             </div>
           </div>
           <div className="h-cover-stage">
@@ -279,9 +260,17 @@ export default function HomePage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
             {editorIssues.map((issue) => (
               <Link key={issue.slug} href={`/magazines/${issue.slug}`} style={{ textDecoration: "none" }}>
-                <div style={{ aspectRatio: "3/4", borderRadius: 8, background: `linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`, marginBottom: 8, position: "relative", overflow: "hidden", boxShadow: "0 8px 18px rgba(80,50,40,.12)" }}>
-                  <div style={{ position: "absolute", top: 12, left: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 13 }}>{issue.seriesName}</div>
-                  <div style={{ position: "absolute", bottom: 10, left: 10, right: 10, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.3 }}>{issue.title}</div>
+                <div style={{
+                  aspectRatio: "3/4", borderRadius: 8,
+                  background: issue.coverImageUrl
+                    ? `url("${issue.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`
+                    : `linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`,
+                  marginBottom: 8, position: "relative", overflow: "hidden", boxShadow: "0 8px 18px rgba(80,50,40,.12)",
+                }}>
+                  {!issue.coverImageUrl && <>
+                    <div style={{ position: "absolute", top: 12, left: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 13 }}>{issue.seriesName}</div>
+                    <div style={{ position: "absolute", bottom: 10, left: 10, right: 10, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.3 }}>{issue.title}</div>
+                  </>}
                 </div>
                 <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 2 }}>{issue.issue}</div>
                 <div style={{ fontSize: 10, color: "var(--ink-3)" }}>{issue.releaseDate}</div>
@@ -290,22 +279,26 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Browse by Genre ── */}
+        {/* ── Browse by Brand ── */}
         <section className="section">
           <div className="section-head">
             <div>
               <div className="sh-eyebrow">BROWSE</div>
-              <h2 className="sh-title">ジャンルから探す</h2>
+              <h2 className="sh-title">ブランドから探す</h2>
             </div>
             <div className="sh-rule" />
+            <Link href="/brands" className="sh-more">すべてのブランド</Link>
           </div>
           <div className="browse">
             <div className="browse-grid">
-              {GENRES.map((genre) => (
-                <Link key={genre.label} href={`/magazines?genre=${encodeURIComponent(genre.label)}`} className="bw-card" style={{ "--c1": genre.gradient.c1, "--c2": genre.gradient.c2 } as React.CSSProperties}>
+              {brands.map((brand) => (
+                <Link key={brand.name} href={`/magazines?brand=${brand.slug}`} className="bw-card" style={{
+                  ...({"--c1": brand.gradient.c1, "--c2": brand.gradient.c2} as React.CSSProperties),
+                  ...(brand.coverImageUrl ? { background: `url("${brand.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})` } : {}),
+                }}>
                   <div className="bw-label">
-                    <div className="ttl">{genre.label}</div>
-                    <div className="n">{genre.count}タイトル</div>
+                    <div className="ttl">{brand.name}</div>
+                    <div className="n">{brand.issueCount}号</div>
                   </div>
                 </Link>
               ))}
@@ -326,9 +319,12 @@ export default function HomePage() {
           <div className="arrivals">
             {newArrivals.map((book) => (
               <Link key={book.slug} href={`/magazines/${book.slug}`} className="ar-card" style={{ textDecoration: "none" }}>
-                <div className="ar-cover" style={{ "--c1": book.gradient.c1, "--c2": book.gradient.c2 } as React.CSSProperties}>
+                <div className="ar-cover" style={{
+                  ...({"--c1": book.gradient.c1, "--c2": book.gradient.c2} as React.CSSProperties),
+                  ...(book.coverImageUrl ? { background: `url("${book.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${book.gradient.c1}, ${book.gradient.c2})` } : {}),
+                }}>
                   {book.badge && <div className="ar-badge">{book.badge === "new" ? "新刊" : book.badge === "preorder" ? "予約" : "復刻"}</div>}
-                  <div className="ar-mast">{book.seriesName}</div>
+                  {!book.coverImageUrl && <div className="ar-mast">{book.seriesName}</div>}
                 </div>
                 <div className="ar-meta">{book.releaseDate}</div>
                 <div className="ar-name">{book.title}</div>
@@ -340,26 +336,30 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Feature Articles ── */}
+        {/* ── More Models ── */}
         <section className="section">
           <div className="section-head">
             <div>
-              <div className="sh-eyebrow">FEATURES</div>
-              <h2 className="sh-title">特集記事</h2>
+              <div className="sh-eyebrow">MODELS</div>
+              <h2 className="sh-title">注目モデル</h2>
             </div>
             <div className="sh-rule" />
-            <Link href="/features" className="sh-more">すべての特集</Link>
+            <Link href="/models" className="sh-more">全モデル一覧</Link>
           </div>
-          <div className="features-grid">
-            {FEATURE_ARTICLES.map((article) => (
-              <Link key={article.slug} href={`/features/${article.slug}`} className="feat-card" style={{ textDecoration: "none" }}>
-                <div className="feat-img" style={{ "--c1": article.gradient.c1, "--c2": article.gradient.c2 } as React.CSSProperties}>
-                  <div className="feat-tag">{article.category}</div>
-                </div>
-                <div className="feat-body">
-                  <div className="feat-meta">{article.date} · {article.author}</div>
-                  <div className="feat-title">{article.title}</div>
-                  <div className="feat-lede">{article.lede}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "var(--gap)" }} className="more-models-grid">
+            {getTopModels(6).map((model) => (
+              <Link key={model.slug} href={`/models/${model.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
+                  <div style={{
+                    aspectRatio: "3/4",
+                    background: model.imageUrl
+                      ? `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`
+                      : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
+                  }} />
+                  <div style={{ padding: "8px 10px 10px" }}>
+                    <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{model.name}</div>
+                    <div style={{ fontSize: 9, color: "var(--ink-3)" }}>出演 {model.stats.issues}誌</div>
+                  </div>
                 </div>
               </Link>
             ))}
