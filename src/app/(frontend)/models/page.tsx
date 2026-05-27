@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { TOP10_MODELS } from "@/lib/mock-data";
+import { getTopModels, type MhModel } from "@/lib/magazine-hub-db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "モデル一覧",
@@ -16,7 +18,7 @@ const FACETS = {
   photobookCount: ["写真集あり", "写真集2冊以上", "写真集5冊以上"],
 };
 
-function PortraitCard({ model }: { model: typeof TOP10_MODELS[0] }) {
+function PortraitCard({ model }: { model: MhModel }) {
   return (
     <Link href={`/models/${model.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
       <div style={{
@@ -38,12 +40,9 @@ function PortraitCard({ model }: { model: typeof TOP10_MODELS[0] }) {
         <div style={{ padding: "10px 12px 12px" }}>
           <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "var(--ink)", marginBottom: 2 }}>{model.name}</div>
           <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.12em", marginBottom: 6 }}>{model.nameYomi}</div>
-          <div style={{ display: "flex", gap: 3, flexWrap: "wrap", marginBottom: 7 }}>
-            {model.tags.map((t) => <span key={t} className="tag" style={{ fontSize: 9, padding: "1px 6px" }}>{t}</span>)}
-          </div>
           <div style={{ display: "flex", borderTop: "1px dashed var(--line)", paddingTop: 6, fontSize: 10, color: "var(--ink-3)" }}>
             <span>出演 <b style={{ color: "var(--plum)", fontFamily: '"Noto Serif JP",serif' }}>{model.stats.issues}</b></span>
-            <span style={{ marginLeft: 8 }}>写真集 <b style={{ color: "var(--plum)", fontFamily: '"Noto Serif JP",serif' }}>{model.stats.photobooks}</b></span>
+            <span style={{ marginLeft: 8 }}>表紙 <b style={{ color: "var(--plum)", fontFamily: '"Noto Serif JP",serif' }}>{model.stats.covers}</b></span>
           </div>
         </div>
       </div>
@@ -52,6 +51,15 @@ function PortraitCard({ model }: { model: typeof TOP10_MODELS[0] }) {
 }
 
 export default function ModelsPage() {
+  const models = getTopModels(100);
+  const total = models.length;
+
+  // Split into groups of 8 for display
+  const chunks: MhModel[][] = [];
+  for (let i = 0; i < models.length; i += 8) {
+    chunks.push(models.slice(i, i + 8));
+  }
+
   return (
     <>
       {/* Page header */}
@@ -62,21 +70,21 @@ export default function ModelsPage() {
       }}>
         <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 10, letterSpacing: "0.32em", color: "var(--ink-3)", marginBottom: 6 }}>MODELS</div>
         <h1 style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 32, fontWeight: 600, letterSpacing: "0.1em", margin: 0, color: "var(--ink)" }}>モデル一覧</h1>
-        <p style={{ fontSize: 13, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.04em" }}>全{TOP10_MODELS.length * 10}名のグラビアモデル・アイドルをアーカイブ</p>
+        <p style={{ fontSize: 13, color: "var(--ink-2)", marginTop: 6, letterSpacing: "0.04em" }}>全{total}名のグラビアモデル・アイドルをアーカイブ</p>
       </div>
 
       {/* Toolbar */}
       <div style={{ padding: "14px var(--pad)", background: "var(--paper-2)", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 12, color: "var(--ink-3)" }}>全{TOP10_MODELS.length * 10}名</span>
+        <span style={{ fontSize: 12, color: "var(--ink-3)" }}>全{total}名</span>
         <div style={{ display: "flex", gap: 6, marginLeft: "auto" }}>
-          {["五十音", "人気", "新着", "表紙数", "写真集数"].map((s) => (
+          {["人気順", "表紙数", "出演数"].map((s, i) => (
             <button key={s} style={{
               fontSize: 11,
               padding: "4px 12px",
               borderRadius: 999,
               border: "1px solid var(--line)",
-              background: s === "五十音" ? "var(--primary)" : "white",
-              color: s === "五十音" ? "white" : "var(--ink-2)",
+              background: i === 0 ? "var(--primary)" : "white",
+              color: i === 0 ? "white" : "var(--ink-2)",
               cursor: "pointer",
               fontFamily: '"Noto Serif JP",serif',
               letterSpacing: "0.08em",
@@ -92,8 +100,8 @@ export default function ModelsPage() {
             width: 36, height: 36,
             borderRadius: 6,
             border: "1px solid var(--line)",
-            background: k === "あ" ? "var(--primary)" : "white",
-            color: k === "あ" ? "white" : "var(--ink-2)",
+            background: "white",
+            color: "var(--ink-2)",
             fontFamily: '"Noto Serif JP",serif',
             fontSize: 13,
             cursor: "pointer",
@@ -104,47 +112,14 @@ export default function ModelsPage() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: "var(--gap)", padding: "var(--row-gap) var(--pad)", alignItems: "start" }}>
         {/* Left: model groups */}
         <div>
-          {/* あ行 group */}
-          <div style={{ marginBottom: "var(--row-gap)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <div style={{
-                width: 42, height: 42, borderRadius: 8,
-                background: "var(--primary-2)",
-                display: "grid", placeItems: "center",
-                fontFamily: '"Noto Serif JP",serif',
-                fontSize: 22, fontWeight: 700, color: "var(--primary)",
-              }}>あ</div>
-              <span style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em" }}>3名</span>
-              <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--line), transparent)" }} />
+          {chunks.map((chunk, idx) => (
+            <div key={idx} style={{ marginBottom: "var(--row-gap)" }}>
+              <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--line), transparent)", marginBottom: 16 }} />
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
+                {chunk.map((m) => <PortraitCard key={m.slug} model={m} />)}
+              </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
-              {TOP10_MODELS.slice(0, 4).map((m) => <PortraitCard key={m.slug} model={m} />)}
-            </div>
-          </div>
-
-          {/* か行 group */}
-          <div style={{ marginBottom: "var(--row-gap)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 42, height: 42, borderRadius: 8, background: "var(--primary-2)", display: "grid", placeItems: "center", fontFamily: '"Noto Serif JP",serif', fontSize: 22, fontWeight: 700, color: "var(--primary)" }}>か</div>
-              <span style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em" }}>2名</span>
-              <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--line), transparent)" }} />
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
-              {TOP10_MODELS.slice(4, 8).map((m) => <PortraitCard key={m.slug} model={m} />)}
-            </div>
-          </div>
-
-          {/* さ行 group */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 42, height: 42, borderRadius: 8, background: "var(--primary-2)", display: "grid", placeItems: "center", fontFamily: '"Noto Serif JP",serif', fontSize: 22, fontWeight: 700, color: "var(--primary)" }}>さ</div>
-              <span style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em" }}>2名</span>
-              <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--line), transparent)" }} />
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
-              {TOP10_MODELS.slice(8, 10).map((m) => <PortraitCard key={m.slug} model={m} />)}
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Right: facets */}
@@ -163,14 +138,6 @@ export default function ModelsPage() {
             </div>
           ))}
         </aside>
-      </div>
-
-      {/* Pagination */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 6, padding: "var(--row-gap) var(--pad)" }}>
-        {[1, 2, 3, 4, 5].map((p) => (
-          <button key={p} style={{ width: 36, height: 36, borderRadius: 6, border: "1px solid var(--line)", background: p === 1 ? "var(--primary)" : "white", color: p === 1 ? "white" : "var(--ink-2)", cursor: "pointer", fontFamily: '"Noto Serif JP",serif', fontSize: 13 }}>{p}</button>
-        ))}
-        <button style={{ padding: "0 12px", height: 36, borderRadius: 6, border: "1px solid var(--line)", background: "white", color: "var(--ink-2)", cursor: "pointer", fontSize: 12 }}>次へ →</button>
       </div>
     </>
   );
