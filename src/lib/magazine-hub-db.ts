@@ -301,6 +301,101 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
   }
 }
 
+export type MhBrand = {
+  name: string;
+  slug: string;
+  issueCount: number;
+  latestDate: string;
+  coverImageUrl?: string;
+  gradient: { c1: string; c2: string };
+};
+
+export function getBrands(): MhBrand[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(`
+      SELECT
+        i.brand,
+        COUNT(*) AS issue_count,
+        MAX(i.issue_date_start) AS latest_date,
+        (SELECT c.image_url FROM covers c
+         JOIN issues i2 ON i2.id = c.issue_id
+         WHERE i2.brand = i.brand AND c.position = 1
+         ORDER BY i2.issue_date_start DESC
+         LIMIT 1) AS cover_image_url
+      FROM issues i
+      WHERE i.brand IS NOT NULL AND i.issue_date_start IS NOT NULL
+      GROUP BY i.brand
+      ORDER BY MAX(i.issue_date_start) DESC
+    `).all() as Array<{
+      brand: string;
+      issue_count: number;
+      latest_date: string;
+      cover_image_url: string | null;
+    }>;
+    return rows.map((r) => ({
+      name: r.brand,
+      slug: encodeURIComponent(r.brand),
+      issueCount: r.issue_count,
+      latestDate: r.latest_date,
+      coverImageUrl: r.cover_image_url || undefined,
+      gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(`
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
+      FROM issues i
+      WHERE i.brand = ? AND i.issue_date_start IS NOT NULL
+      ORDER BY i.issue_date_start DESC
+      LIMIT ?
+    `).all(brand, limit) as Array<{
+      id: number;
+      title: string;
+      brand: string;
+      issue_date_start: string;
+      issue_no_normalized: string | null;
+      coverImageUrl: string | null;
+    }>;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
+
+    return rows.map((r) => {
+      const key = `${r.brand}-${r.id}`;
+      const badge: MhMagazine["badge"] =
+        r.issue_date_start > today ? "preorder"
+        : r.issue_date_start >= thirtyDaysAgo ? "new"
+        : undefined;
+      const featureTitle = r.title.replace(
+        new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
+        ""
+      ).trim() || r.title;
+      return {
+        slug: `issue-${r.id}`,
+        title: featureTitle,
+        seriesName: r.brand,
+        issue: r.issue_no_normalized || r.issue_date_start,
+        releaseDate: r.issue_date_start,
+        gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+        badge,
+        coverImageUrl: r.coverImageUrl || undefined,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export function searchModels(query: string, limit = 30): MhModel[] {
   const db = getDb();
   if (!db || !query.trim()) return [];

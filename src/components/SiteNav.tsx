@@ -4,9 +4,9 @@ const navLinks = [
   { href: "/", label: "トップ" },
   { href: "/models", label: "モデル" },
   { href: "/magazines", label: "雑誌・写真集" },
+  { href: "/brands", label: "ブランド" },
   { href: "/ranking", label: "ランキング" },
   { href: "/features", label: "特集" },
-  { href: "/magazines?type=backnumber", label: "バックナンバー" },
 ];
 
 const shelfLinks = [
