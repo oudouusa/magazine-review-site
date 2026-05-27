@@ -56,10 +56,10 @@ function cleanFeatureTitle(featureTitle: string): string {
 
 function filterCoverUrl(url: string | null | undefined): string | undefined {
   if (!url) return undefined;
-  // Only pass through covers from hosts confirmed to not block hotlinking
+  // Only pass through HTTPS sources confirmed to not block hotlinking.
+  // ivworld.xyz is HTTP-only — omitted here so URLs fall through to the local
+  // xidol-covers volume cache (buildXidolCoversUrlIfExists) instead.
   if (url.includes("pixhost.to")) return url;
-  if (url.startsWith("http://ivworld.xyz") || url.startsWith("http://vworld.xyz")) return url;
-  if (url.includes("xidol.net") || url.includes("x-idol.net")) return url;
   return undefined;
 }
 
