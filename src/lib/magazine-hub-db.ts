@@ -368,7 +368,12 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
   try {
     const rows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
-        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl,
+        (SELECT pi.local_path FROM performer_images pi
+         JOIN performers p ON p.id = pi.performer_id
+         JOIN issue_performers ip ON ip.performer_id = p.id
+         WHERE ip.issue_id = i.id AND pi.position = 0
+         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath
       FROM issues i
       WHERE i.brand = ? AND i.issue_date_start IS NOT NULL
       ORDER BY i.issue_date_start DESC
@@ -380,6 +385,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
       issue_date_start: string;
       issue_no_normalized: string | null;
       coverImageUrl: string | null;
+      performerImagePath: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -395,6 +401,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
         ""
       ).trim() || r.title;
+      const cover = filterCoverUrl(r.coverImageUrl);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -403,7 +410,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl),
+        coverImageUrl: cover ?? localPathToUrl(r.performerImagePath),
       };
     });
   } catch {
@@ -534,7 +541,12 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
   try {
     const rows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
-        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl,
+        (SELECT pi.local_path FROM performer_images pi
+         JOIN performers p ON p.id = pi.performer_id
+         JOIN issue_performers ip ON ip.performer_id = p.id
+         WHERE ip.issue_id = i.id AND pi.position = 0
+         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath
       FROM issues i
       WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
@@ -546,6 +558,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       issue_date_start: string;
       issue_no_normalized: string | null;
       coverImageUrl: string | null;
+      performerImagePath: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -562,6 +575,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
         ""
       ).trim() || r.title;
+      const cover = filterCoverUrl(r.coverImageUrl);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -573,7 +587,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl),
+        coverImageUrl: cover ?? localPathToUrl(r.performerImagePath),
       };
     });
   } catch {
