@@ -192,7 +192,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl),
+        coverImageUrl: filterCoverUrl(r.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrl(r.coverImageUrl, r.brand, r.issue_date_start)),
       };
     });
 
@@ -318,7 +318,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       releaseDate: row.issue_date_start,
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
-      coverImageUrl: filterCoverUrl(row.coverImageUrl),
+      coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrl(row.coverImageUrl, row.brand, row.issue_date_start)),
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -376,7 +376,7 @@ export function getBrands(): MhBrand[] {
       slug: encodeURIComponent(r.brand),
       issueCount: r.issue_count,
       latestDate: r.latest_date,
-      coverImageUrl: filterCoverUrl(r.cover_image_url),
+      coverImageUrl: filterCoverUrl(r.cover_image_url) ?? localPathToUrl(buildXidolCoversUrl(r.cover_image_url, r.brand, r.latest_date)),
       gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
     }));
   } catch {
