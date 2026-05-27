@@ -47,6 +47,12 @@ function localPathToUrl(localPath: string | null | undefined): string | undefine
   return localPath.replace("/api/images/", "/magazine-images/");
 }
 
+function cleanFeatureTitle(featureTitle: string): string {
+  // REP\d+ is an internal scraper code, not a real title
+  if (/^REP\d+$/.test(featureTitle)) return "";
+  return featureTitle;
+}
+
 function filterCoverUrl(url: string | null | undefined): string | undefined {
   if (!url) return undefined;
   // Only pass through covers from hosts confirmed to not block hotlinking
@@ -158,7 +164,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       ).trim() || r.title;
       return {
         slug: `issue-${r.id}`,
-        title: featureTitle,
+        title: cleanFeatureTitle(featureTitle),
         seriesName: r.brand,
         issue: r.issue_no_normalized || r.issue_date_start,
         releaseDate: r.issue_date_start,
@@ -284,7 +290,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
     return {
       id: row.id,
       slug: `issue-${row.id}`,
-      title: featureTitle,
+      title: cleanFeatureTitle(featureTitle),
       seriesName: row.brand,
       issue: row.issue_no_normalized || row.issue_date_start,
       releaseDate: row.issue_date_start,
@@ -391,7 +397,7 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
       ).trim() || r.title;
       return {
         slug: `issue-${r.id}`,
-        title: featureTitle,
+        title: cleanFeatureTitle(featureTitle),
         seriesName: r.brand,
         issue: r.issue_no_normalized || r.issue_date_start,
         releaseDate: r.issue_date_start,
@@ -508,7 +514,7 @@ export function searchIssues(query: string, limit = 30): MhMagazine[] {
       ).trim() || r.title;
       return {
         slug: `issue-${r.id}`,
-        title: featureTitle,
+        title: cleanFeatureTitle(featureTitle),
         seriesName: r.brand,
         issue: r.issue_no_normalized || r.issue_date_start,
         releaseDate: r.issue_date_start,
@@ -558,7 +564,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       ).trim() || r.title;
       return {
         slug: `issue-${r.id}`,
-        title: featureTitle,
+        title: cleanFeatureTitle(featureTitle),
         seriesName: r.brand,
         issue: r.issue_no_normalized || r.issue_date_start,
         releaseDate: r.issue_date_start,
