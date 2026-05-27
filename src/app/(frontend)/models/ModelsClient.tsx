@@ -65,11 +65,19 @@ type Props = { models: MhModel[] };
 export function ModelsClient({ models }: Props) {
   const [sort, setSort] = useState<SortKey>("popular");
   const [kana, setKana] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
     let list = kana
       ? models.filter((m) => matchesKana(m.nameYomi, kana))
       : models;
+
+    if (query.trim()) {
+      const q = query.trim().toLowerCase();
+      list = list.filter((m) =>
+        m.name.toLowerCase().includes(q) || m.nameYomi.toLowerCase().includes(q)
+      );
+    }
 
     if (sort === "covers") {
       list = [...list].sort((a, b) => b.stats.covers - a.stats.covers);
@@ -77,7 +85,7 @@ export function ModelsClient({ models }: Props) {
       list = [...list].sort((a, b) => b.stats.issues - a.stats.issues);
     }
     return list;
-  }, [models, sort, kana]);
+  }, [models, sort, kana, query]);
 
   const SORT_OPTS: Array<{ key: SortKey; label: string }> = [
     { key: "popular", label: "人気順" },
@@ -88,11 +96,23 @@ export function ModelsClient({ models }: Props) {
   return (
     <>
       {/* Toolbar */}
-      <div style={{ padding: "14px var(--pad)", background: "var(--paper-2)", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 12, color: "var(--ink-3)" }}>
-          {filtered.length !== models.length ? `${filtered.length}名表示 / 全${models.length}名` : `全${models.length}名`}
+      <div style={{ padding: "10px var(--pad)", background: "var(--paper-2)", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 999, padding: "6px 12px", flex: "1 1 180px", minWidth: 0 }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--ink-3)", flexShrink: 0 }}>
+            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); setKana(null); }}
+            placeholder="モデル名で絞り込む"
+            style={{ border: 0, outline: 0, background: "transparent", fontSize: 12, color: "var(--ink)", flex: 1, minWidth: 0, fontFamily: "inherit" }}
+          />
+          {query && <button onClick={() => setQuery("")} style={{ border: 0, background: "none", cursor: "pointer", color: "var(--ink-3)", fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>}
+        </div>
+        <span style={{ fontSize: 12, color: "var(--ink-3)", whiteSpace: "nowrap" }}>
+          {filtered.length !== models.length ? `${filtered.length}名 / ${models.length}名` : `全${models.length}名`}
         </span>
-        <div style={{ display: "flex", gap: 6, marginLeft: "auto" }}>
+        <div style={{ display: "flex", gap: 6 }}>
           {SORT_OPTS.map(({ key, label }) => (
             <button
               key={key}

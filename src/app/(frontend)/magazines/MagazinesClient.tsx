@@ -45,6 +45,7 @@ type Props = { issues: MhMagazine[] };
 export function MagazinesClient({ issues }: Props) {
   const [years, setYears] = useState<string[]>([]);
   const [statuses, setStatuses] = useState<string[]>([]);
+  const [query, setQuery] = useState("");
 
   function toggle(set: string[], setSet: (v: string[]) => void, val: string) {
     setSet(set.includes(val) ? set.filter((x) => x !== val) : [...set, val]);
@@ -52,6 +53,10 @@ export function MagazinesClient({ issues }: Props) {
 
   const filtered = useMemo(() => {
     return issues.filter((m) => {
+      if (query.trim()) {
+        const q = query.trim().toLowerCase();
+        if (!m.seriesName.toLowerCase().includes(q) && !m.title.toLowerCase().includes(q) && !m.issue.toLowerCase().includes(q)) return false;
+      }
       if (years.length > 0) {
         const y = m.releaseDate.slice(0, 4);
         const matches =
@@ -71,7 +76,7 @@ export function MagazinesClient({ issues }: Props) {
       }
       return true;
     });
-  }, [issues, years, statuses]);
+  }, [issues, years, statuses, query]);
 
   const byMonth = useMemo(() => {
     const map = new Map<string, MhMagazine[]>();
@@ -89,13 +94,25 @@ export function MagazinesClient({ issues }: Props) {
   return (
     <>
       {/* Toolbar */}
-      <div style={{ padding: "12px var(--pad)", background: "var(--paper-2)", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 12, color: "var(--ink-3)" }}>
-          {filtered.length !== issues.length ? `${filtered.length}件表示 / 全${issues.length}件` : `全${issues.length}件`}
+      <div style={{ padding: "10px var(--pad)", background: "var(--paper-2)", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 999, padding: "6px 12px", flex: "1 1 180px", minWidth: 0 }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--ink-3)", flexShrink: 0 }}>
+            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="シリーズ名・号数で絞り込む"
+            style={{ border: 0, outline: 0, background: "transparent", fontSize: 12, color: "var(--ink)", flex: 1, minWidth: 0, fontFamily: "inherit" }}
+          />
+          {query && <button onClick={() => setQuery("")} style={{ border: 0, background: "none", cursor: "pointer", color: "var(--ink-3)", fontSize: 14, lineHeight: 1, padding: 0 }}>×</button>}
+        </div>
+        <span style={{ fontSize: 12, color: "var(--ink-3)", whiteSpace: "nowrap" }}>
+          {filtered.length !== issues.length ? `${filtered.length}件 / ${issues.length}件` : `全${issues.length}件`}
         </span>
-        {(years.length > 0 || statuses.length > 0) && (
+        {(years.length > 0 || statuses.length > 0 || query) && (
           <button
-            onClick={() => { setYears([]); setStatuses([]); }}
+            onClick={() => { setYears([]); setStatuses([]); setQuery(""); }}
             style={{ fontSize: 11, padding: "3px 10px", borderRadius: 999, border: "1px solid var(--line)", background: "white", color: "var(--plum)", cursor: "pointer", fontFamily: '"Noto Serif JP",serif' }}
           >
             フィルター解除
