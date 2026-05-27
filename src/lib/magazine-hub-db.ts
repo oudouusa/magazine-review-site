@@ -372,45 +372,43 @@ export function getBrands(): MhBrand[] {
   const db = getDb();
   if (!db) return [];
   try {
+    // Three separate queries are faster than correlated subqueries over 70k covers.
+
+    // 1. Aggregated brand stats
     const rows = db.prepare(`
-      SELECT
-        i.brand,
-        COUNT(*) AS issue_count,
-        MAX(i.issue_date_start) AS latest_date,
-        (SELECT c.image_url FROM covers c
-         JOIN issues i2 ON i2.id = c.issue_id
-         WHERE i2.brand = i.brand AND c.position = 1
-         ORDER BY i2.issue_date_start DESC
-         LIMIT 1) AS cover_image_url,
-        (SELECT c.image_url FROM covers c
-         JOIN issues i2 ON i2.id = c.issue_id
-         WHERE i2.brand = i.brand AND c.position = 1 AND c.image_url LIKE '%pixhost%'
-         ORDER BY i2.issue_date_start DESC
-         LIMIT 1) AS pixhost_cover_url,
-        (SELECT i2.issue_date_start FROM covers c
-         JOIN issues i2 ON i2.id = c.issue_id
-         WHERE i2.brand = i.brand AND c.position = 1 AND c.image_url LIKE '%pixhost%'
-         ORDER BY i2.issue_date_start DESC
-         LIMIT 1) AS pixhost_cover_date
+      SELECT i.brand, COUNT(*) AS issue_count, MAX(i.issue_date_start) AS latest_date
       FROM issues i
       WHERE i.brand IS NOT NULL AND i.issue_date_start IS NOT NULL AND i.brand NOT LIKE 'REP%'
       GROUP BY i.brand
       ORDER BY MAX(i.issue_date_start) DESC
-    `).all() as Array<{
-      brand: string;
-      issue_count: number;
-      latest_date: string;
-      cover_image_url: string | null;
-      pixhost_cover_url: string | null;
-      pixhost_cover_date: string | null;
-    }>;
+    `).all() as Array<{ brand: string; issue_count: number; latest_date: string }>;
+
+    // 2. Latest cover per brand (single table scan using SQLite GROUP BY + MAX trick)
+    const latestCoverRows = db.prepare(`
+      SELECT i.brand, c.image_url, MAX(i.issue_date_start) AS issue_date_start
+      FROM covers c
+      JOIN issues i ON i.id = c.issue_id
+      WHERE c.position = 1 AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
+      GROUP BY i.brand
+    `).all() as Array<{ brand: string; image_url: string; issue_date_start: string }>;
+    const latestCover = new Map(latestCoverRows.map((r) => [r.brand, r]));
+
+    // 3. Latest pixhost cover per brand (single scan with LIKE filter)
+    const pixhostRows = db.prepare(`
+      SELECT i.brand, c.image_url, MAX(i.issue_date_start) AS issue_date_start
+      FROM covers c
+      JOIN issues i ON i.id = c.issue_id
+      WHERE c.position = 1 AND c.image_url LIKE '%pixhost%' AND i.brand IS NOT NULL
+      GROUP BY i.brand
+    `).all() as Array<{ brand: string; image_url: string; issue_date_start: string }>;
+    const pixhostCover = new Map(pixhostRows.map((r) => [r.brand, r]));
+
     return rows.map((r) => {
-      const directCover = filterCoverUrl(r.cover_image_url);
-      // Check if the latest cover has a local xidol-covers file on disk.
-      // Fall back to pixhost cover URL (served directly) if the local file is absent.
-      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrlIfExists(r.cover_image_url, r.brand, r.latest_date);
-      const pixhostDirect = (directCover || xidolFromLatest) ? undefined
-        : (r.pixhost_cover_url ? filterCoverUrl(r.pixhost_cover_url) : undefined);
+      const cover = latestCover.get(r.brand);
+      const directCover = filterCoverUrl(cover?.image_url);
+      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrlIfExists(cover?.image_url, r.brand, cover?.issue_date_start ?? r.latest_date);
+      const pixhostData = pixhostCover.get(r.brand);
+      const pixhostDirect = (directCover || xidolFromLatest) ? undefined : filterCoverUrl(pixhostData?.image_url);
       return {
         name: r.brand,
         slug: encodeURIComponent(r.brand),
