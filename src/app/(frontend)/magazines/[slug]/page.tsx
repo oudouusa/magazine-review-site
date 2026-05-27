@@ -57,14 +57,18 @@ export default async function MagazineDetailPage({ params }: Props) {
               width: 320,
               aspectRatio: "3/4",
               borderRadius: 6,
-              background: `linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`,
+              background: issue.coverImageUrl
+                ? `url("${issue.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`
+                : `linear-gradient(160deg, ${issue.gradient.c1}, ${issue.gradient.c2})`,
               boxShadow: "0 30px 60px rgba(80,50,40,.22)",
               position: "relative",
               overflow: "hidden",
               transform: "rotate(-1.5deg)",
             }}>
-              <div style={{ position: "absolute", top: 18, left: 18, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 24, letterSpacing: "0.12em" }}>{issue.seriesName}</div>
-              <div style={{ position: "absolute", bottom: 20, left: 18, right: 18, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{issue.title}</div>
+              {!issue.coverImageUrl && <>
+                <div style={{ position: "absolute", top: 18, left: 18, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 24, letterSpacing: "0.12em" }}>{issue.seriesName}</div>
+                <div style={{ position: "absolute", bottom: 20, left: 18, right: 18, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{issue.title}</div>
+              </>}
             </div>
           </div>
 
@@ -112,7 +116,7 @@ export default async function MagazineDetailPage({ params }: Props) {
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {issue.performers.map((model) => (
                 <Link key={model.key} href={`/models/${model.slug}`} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10, background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, padding: "8px 14px 8px 8px" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)` }} />
+                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: model.imageUrl ? `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)` : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)` }} />
                   <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{model.name}</div>
                 </Link>
               ))}

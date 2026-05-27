@@ -39,6 +39,7 @@ function CoverPlaceholder({
   mast,
   feature,
   badge,
+  coverImageUrl,
 }: {
   c1: string;
   c2: string;
@@ -48,6 +49,7 @@ function CoverPlaceholder({
   mast?: string;
   feature?: string;
   badge?: string;
+  coverImageUrl?: string;
 }) {
   return (
     <div
@@ -55,20 +57,22 @@ function CoverPlaceholder({
         width,
         aspectRatio,
         borderRadius: "5px",
-        background: `linear-gradient(160deg, ${c1}, ${c2})`,
+        background: coverImageUrl
+          ? `url("${coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${c1}, ${c2})`
+          : `linear-gradient(160deg, ${c1}, ${c2})`,
         position: "relative",
         overflow: "hidden",
         transform: rotate ? `rotate(${rotate}deg)` : undefined,
         flexShrink: 0,
       }}
     >
-      <div
+      {!coverImageUrl && <div
         style={{
           position: "absolute",
           inset: 0,
           background: "radial-gradient(at 30% 25%, rgba(255,255,255,.32), transparent 55%)",
         }}
-      />
+      />}
       {badge && (
         <div
           style={{
@@ -167,8 +171,9 @@ export default function HomePage() {
               c2={featured.gradient.c2}
               width="320px"
               rotate={-2}
-              mast={featured.seriesName}
-              feature={featured.title}
+              mast={featured.coverImageUrl ? undefined : featured.seriesName}
+              feature={featured.coverImageUrl ? undefined : featured.title}
+              coverImageUrl={featured.coverImageUrl}
             />}
           </div>
         </div>
@@ -192,8 +197,9 @@ export default function HomePage() {
                 <CoverPlaceholder
                   c1={featured.gradient.c1}
                   c2={featured.gradient.c2}
-                  mast={featured.seriesName}
-                  feature={featured.title}
+                  mast={featured.coverImageUrl ? undefined : featured.seriesName}
+                  feature={featured.coverImageUrl ? undefined : featured.title}
+                  coverImageUrl={featured.coverImageUrl}
                 />
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
@@ -207,7 +213,7 @@ export default function HomePage() {
             {/* Small cards */}
             {issues.slice(1, 6).map((mag) => (
               <Link key={mag.slug} href={`/magazines/${mag.slug}`} className="sl-item" style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, padding: "var(--card-pad)", display: "grid", gridTemplateColumns: "96px 1fr", gap: 12, alignItems: "center", cursor: "pointer", transition: "transform .12s, box-shadow .12s", boxShadow: "0 1px 2px rgba(60,30,40,.04)", textDecoration: "none" }}>
-                <CoverPlaceholder c1={mag.gradient.c1} c2={mag.gradient.c2} width="96px" mast={mag.seriesName.slice(0, 8)} />
+                <CoverPlaceholder c1={mag.gradient.c1} c2={mag.gradient.c2} width="96px" mast={mag.coverImageUrl ? undefined : mag.seriesName.slice(0, 8)} coverImageUrl={mag.coverImageUrl} />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontSize: 10.5, color: "var(--ink-3)", letterSpacing: "0.06em", marginBottom: 4 }}>
                     <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif", fontWeight: 600, letterSpacing: "0.08em", marginRight: 6 }}>{mag.seriesName}</b>
@@ -241,7 +247,7 @@ export default function HomePage() {
                   const rank = offset + i + 1;
                   return (
                     <Link key={model.slug} href={`/models/${model.slug}`} className="rank-card" style={{ textDecoration: "none" }}>
-                      <div className="rk-portrait" style={{ "--c1": model.gradient.c1, "--c2": model.gradient.c2, "--c3": model.gradient.c3, "--c4": model.gradient.c4 } as React.CSSProperties}>
+                      <div className="rk-portrait" style={{ "--c1": model.gradient.c1, "--c2": model.gradient.c2, "--c3": model.gradient.c3, "--c4": model.gradient.c4, ...(model.imageUrl ? { background: `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)` } : {}) } as React.CSSProperties}>
                         <div className={`rk-num${rank <= 3 ? ` r-${rank}` : ""}`}>{rank}</div>
                       </div>
                       <div className="rk-body">

@@ -28,6 +28,7 @@ export type MhModel = {
   tags: string[];
   stats: { issues: number; covers: number };
   gradient: { c1: string; c2: string; c3: string; c4: string };
+  imageUrl?: string;
 };
 
 export type MhMagazine = {
@@ -38,22 +39,33 @@ export type MhMagazine = {
   releaseDate: string;
   gradient: { c1: string; c2: string };
   badge?: "new" | "preorder" | "reissue";
+  coverImageUrl?: string;
 };
+
+function localPathToUrl(localPath: string | null | undefined): string | undefined {
+  if (!localPath) return undefined;
+  return localPath.replace("/api/images/", "/magazine-images/");
+}
 
 export function getTopModels(limit = 100): MhModel[] {
   const db = getDb();
   if (!db) return [];
   try {
     const rows = db.prepare(`
-      SELECT performer_key, performer_name, appearance_count, cover_count
-      FROM performer_stats
-      ORDER BY appearance_count DESC
+      SELECT ps.performer_key, ps.performer_name, ps.appearance_count, ps.cover_count,
+        (SELECT pi.local_path FROM performer_images pi
+         JOIN performers p ON p.id = pi.performer_id
+         WHERE p.name_normalized = ps.performer_key AND pi.position = 0
+         LIMIT 1) AS imageLocalPath
+      FROM performer_stats ps
+      ORDER BY ps.appearance_count DESC
       LIMIT ?
     `).all(limit) as Array<{
       performer_key: string;
       performer_name: string;
       appearance_count: number;
       cover_count: number;
+      imageLocalPath: string | null;
     }>;
     return rows.map((r) => ({
       slug: encodeURIComponent(r.performer_key),
@@ -67,6 +79,7 @@ export function getTopModels(limit = 100): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
+      imageUrl: localPathToUrl(r.imageLocalPath),
     }));
   } catch {
     return [];
@@ -81,6 +94,7 @@ export type MhModelDetail = {
   stats: { issues: number; covers: number; brands: number; firstDate: string | null; lastDate: string | null };
   profile: { birthday?: string; height?: string; bust?: string; waist?: string; hip?: string; birthplace?: string; debutYear?: string };
   gradient: { c1: string; c2: string; c3: string; c4: string };
+  imageUrl?: string;
   recentIssues: MhMagazine[];
 };
 
@@ -102,15 +116,23 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       LIMIT 1
     `).get(performerKey) as { yomigana: string | null; birthday: string | null; height: string | null; bust: string | null; waist: string | null; hip: string | null; birthplace: string | null; debut_year: string | null } | undefined;
 
+    const imageRow = db.prepare(`
+      SELECT pi.local_path FROM performer_images pi
+      JOIN performers p ON p.id = pi.performer_id
+      WHERE p.name_normalized = ? AND pi.position = 0
+      LIMIT 1
+    `).get(performerKey) as { local_path: string | null } | undefined;
+
     const recentRows = db.prepare(`
-      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
       FROM issue_performers ip
       JOIN issues i ON i.id = ip.issue_id
       JOIN performers p ON p.id = ip.performer_id
       WHERE p.name_normalized = ? AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
       ORDER BY i.issue_date_start DESC
       LIMIT 12
-    `).all(performerKey) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null }>;
+    `).all(performerKey) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null; coverImageUrl: string | null }>;
 
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
@@ -133,6 +155,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
+        coverImageUrl: r.coverImageUrl || undefined,
       };
     });
 
@@ -164,6 +187,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         c3: colorFromHash(key + "3", 40, 73),
         c4: colorFromHash(key + "4", 36, 63),
       },
+      imageUrl: localPathToUrl(imageRow?.local_path),
       recentIssues,
     };
   } catch {
@@ -180,7 +204,8 @@ export type MhIssueDetail = {
   releaseDate: string;
   badge?: "new" | "preorder" | "reissue";
   gradient: { c1: string; c2: string };
-  performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string } }>;
+  coverImageUrl?: string;
+  performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string }; imageUrl?: string }>;
   backnumbers: MhMagazine[];
 };
 
@@ -189,18 +214,20 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
   if (!db) return null;
   try {
     const row = db.prepare(`
-      SELECT id, title, brand, issue_date_start, issue_no_normalized
-      FROM issues WHERE id = ?
-    `).get(issueId) as { id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null } | undefined;
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
+      FROM issues i WHERE i.id = ?
+    `).get(issueId) as { id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null; coverImageUrl: string | null } | undefined;
     if (!row) return null;
 
     const performers = db.prepare(`
-      SELECT p.name_normalized as performer_key, p.name_jp as performer_name
+      SELECT p.name_normalized as performer_key, p.name_jp as performer_name,
+        (SELECT pi.local_path FROM performer_images pi WHERE pi.performer_id = p.id AND pi.position = 0 LIMIT 1) AS imageLocalPath
       FROM issue_performers ip
       JOIN performers p ON p.id = ip.performer_id
       WHERE ip.issue_id = ?
       ORDER BY ip.position ASC
-    `).all(issueId) as Array<{ performer_key: string; performer_name: string }>;
+    `).all(issueId) as Array<{ performer_key: string; performer_name: string; imageLocalPath: string | null }>;
 
     const backnumberRows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
@@ -254,6 +281,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       releaseDate: row.issue_date_start,
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+      coverImageUrl: row.coverImageUrl || undefined,
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -264,6 +292,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
           c3: colorFromHash(p.performer_key + "3", 40, 73),
           c4: colorFromHash(p.performer_key + "4", 36, 63),
         },
+        imageUrl: localPathToUrl(p.imageLocalPath),
       })),
       backnumbers,
     };
@@ -277,7 +306,8 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
   if (!db) return [];
   try {
     const rows = db.prepare(`
-      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
       FROM issues i
       WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL
       ORDER BY i.issue_date_start DESC
@@ -288,6 +318,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       brand: string;
       issue_date_start: string;
       issue_no_normalized: string | null;
+      coverImageUrl: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -315,6 +346,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
+        coverImageUrl: r.coverImageUrl || undefined,
       };
     });
   } catch {

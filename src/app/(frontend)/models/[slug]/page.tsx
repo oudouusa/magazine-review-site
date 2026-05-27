@@ -52,15 +52,12 @@ export default async function ModelDetailPage({ params }: Props) {
             <div style={{
               aspectRatio: "3/4",
               borderRadius: 14,
-              background: `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
+              background: model.imageUrl
+                ? `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`
+                : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
               boxShadow: "0 30px 60px rgba(120,60,80,.22)",
-              display: "grid",
-              placeItems: "center",
-              color: "rgba(255,255,255,.55)",
-              fontFamily: '"Noto Serif JP",serif',
-              letterSpacing: "0.3em",
-              fontSize: 14,
-            }}>PORTRAIT</div>
+              ...(!model.imageUrl ? { display: "grid", placeItems: "center", color: "rgba(255,255,255,.55)", fontFamily: '"Noto Serif JP",serif', letterSpacing: "0.3em", fontSize: 14 } : {}),
+            }}>{!model.imageUrl ? "PORTRAIT" : null}</div>
           </div>
 
           {/* Profile */}
