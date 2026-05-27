@@ -29,29 +29,33 @@ export default function BrandsPage() {
       </div>
 
       <div style={{ padding: "var(--row-gap) var(--pad)" }}>
-        <div className="brands-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
+        <div className="brands-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "var(--gap)" }}>
           {brands.map((brand) => (
             <Link key={brand.name} href={`/magazines?brand=${brand.slug}`} style={{ textDecoration: "none" }}>
-              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer", transition: "box-shadow 0.12s" }}>
-                {/* Cover strip */}
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer" }}>
+                {/* Portrait cover */}
                 <div style={{
-                  height: 100,
+                  aspectRatio: "3/4",
                   background: brand.coverImageUrl
                     ? `url("${brand.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`
-                    : `linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`,
+                    : `linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.5)), linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`,
                   position: "relative",
                 }}>
                   {!brand.coverImageUrl && (
-                    <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.8)", fontWeight: 700, fontSize: 13, letterSpacing: "0.08em", padding: "0 12px", textAlign: "center" }}>
-                      {brand.name}
-                    </div>
+                    <>
+                      <div style={{ position: "absolute", top: 12, left: 12, right: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 12, letterSpacing: "0.08em", lineHeight: 1.4 }}>
+                        {brand.name}
+                      </div>
+                      <div style={{ position: "absolute", bottom: 10, left: 12, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.8)", fontSize: 10 }}>
+                        {brand.issueCount}号
+                      </div>
+                    </>
                   )}
                 </div>
-                <div style={{ padding: "12px 14px" }}>
-                  <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{brand.name}</div>
-                  <div style={{ display: "flex", gap: 12, fontSize: 10, color: "var(--ink-3)" }}>
-                    <span><b style={{ color: "var(--plum)", fontFamily: '"Noto Serif JP",serif', fontSize: 12 }}>{brand.issueCount}</b> 号</span>
-                    <span>{brand.latestDate.slice(0, 7)} 最新</span>
+                <div style={{ padding: "8px 10px 10px" }}>
+                  <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 11, fontWeight: 600, color: "var(--ink)", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{brand.name}</div>
+                  <div style={{ fontSize: 9.5, color: "var(--ink-3)" }}>
+                    <b style={{ color: "var(--plum)", fontFamily: '"Noto Serif JP",serif' }}>{brand.issueCount}</b>号 · {brand.latestDate.slice(0, 7)}
                   </div>
                 </div>
               </div>
