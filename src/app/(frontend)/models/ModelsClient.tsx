@@ -145,11 +145,16 @@ export function ModelsClient({ models }: Props) {
             この行のモデルはいません
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
+          <div className="models-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
             {filtered.map((m) => <PortraitCard key={m.slug} model={m} />)}
           </div>
         )}
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .models-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </>
   );
 }

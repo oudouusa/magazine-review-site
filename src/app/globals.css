@@ -214,3 +214,16 @@ body {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  html {
+    --pad: 14px;
+    --gap: 10px;
+    --row-gap: 20px;
+    --card-pad: 12px;
+  }
+  .sh-title { font-size: 20px; }
+  .sh-rule { display: none; }
+  .section-head { flex-wrap: wrap; gap: 8px; }
+}

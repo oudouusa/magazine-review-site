@@ -598,6 +598,23 @@ export default function HomePage() {
         .nl-form { display: flex; background: white; border: 1px solid var(--line); border-radius: 999px; padding: 4px; align-items: center; position: relative; }
         .nl-form input { border: 0; outline: 0; padding: 8px 16px; font-size: 12.5px; font-family: inherit; width: 240px; background: transparent; color: var(--ink); }
         .nl-form button { background: var(--primary); color: white; border: 0; border-radius: 999px; padding: 10px 22px; font-family: "Noto Serif JP", serif; font-size: 12px; letter-spacing: 0.12em; cursor: pointer; font-weight: 600; }
+        @media (max-width: 640px) {
+          .hero { padding: var(--pad); }
+          .hero-cover { grid-template-columns: 1fr; }
+          .h-cover-stage { display: none; }
+          .h-title { font-size: 28px !important; }
+          .h-ctas { flex-direction: column; }
+          .spotlight { grid-template-columns: 1fr; }
+          .sl-hero { display: none; }
+          .ranking { grid-template-columns: repeat(2, 1fr); }
+          .browse-grid { grid-template-columns: repeat(3, 1fr); }
+          .arrivals { grid-template-columns: repeat(3, 1fr); }
+          .features-grid { grid-template-columns: 1fr; }
+          .newsletter { grid-template-columns: 1fr; gap: 16px; }
+          .nl-form { flex-direction: column; border-radius: 12px; gap: 8px; }
+          .nl-form input { width: 100%; }
+          .nl-form button { border-radius: 999px; width: 100%; }
+        }
       `}</style>
     </>
   );

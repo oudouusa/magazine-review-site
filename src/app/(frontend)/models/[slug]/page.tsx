@@ -46,7 +46,7 @@ export default async function ModelDetailPage({ params }: Props) {
 
       <div style={{ padding: "var(--row-gap) var(--pad)" }}>
         {/* Model Hero */}
-        <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 32, marginBottom: "var(--row-gap)" }}>
+        <div className="model-hero" style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 32, marginBottom: "var(--row-gap)" }}>
           {/* Portrait */}
           <div>
             <div style={{
@@ -107,7 +107,7 @@ export default async function ModelDetailPage({ params }: Props) {
               </div>
               <div className="sh-rule" />
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "var(--gap)" }}>
+            <div className="appearances-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "var(--gap)" }}>
               {model.recentIssues.map((mag) => (
                 <Link key={mag.slug} href={`/magazines/${mag.slug}`} style={{ textDecoration: "none" }}>
                   <div style={{
@@ -156,6 +156,12 @@ export default async function ModelDetailPage({ params }: Props) {
           </div>
         )}
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .model-hero { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .appearances-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+      `}</style>
     </>
   );
 }

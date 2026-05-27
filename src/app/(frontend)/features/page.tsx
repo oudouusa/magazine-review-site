@@ -30,7 +30,7 @@ export default function FeaturesPage() {
 
       <div style={{ padding: "var(--row-gap) var(--pad)" }}>
         {/* Featured hero article */}
-        <Link href={`/features/${hero.slug}`} style={{ textDecoration: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--gap)", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", marginBottom: "var(--row-gap)", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer" }}>
+        <Link href={`/features/${hero.slug}`} className="features-hero" style={{ textDecoration: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--gap)", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", marginBottom: "var(--row-gap)", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer" }}>
           <div style={{
             aspectRatio: "16/10",
             background: `linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.4)), linear-gradient(160deg, ${hero.gradient.c1}, ${hero.gradient.c2})`,
@@ -46,7 +46,7 @@ export default function FeaturesPage() {
         </Link>
 
         {/* Grid of remaining articles */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--gap)" }}>
+        <div className="features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--gap)" }}>
           {rest.map((article) => (
             <Link key={article.slug} href={`/features/${article.slug}`} style={{ textDecoration: "none", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 1px 2px rgba(60,30,40,.04)", cursor: "pointer" }}>
               <div style={{ aspectRatio: "16/9", background: `linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.32)), linear-gradient(160deg, ${article.gradient.c1}, ${article.gradient.c2})`, position: "relative" }}>
@@ -61,6 +61,12 @@ export default function FeaturesPage() {
           ))}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .features-hero { grid-template-columns: 1fr !important; }
+          .features-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </>
   );
 }

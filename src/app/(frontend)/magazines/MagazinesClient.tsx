@@ -103,7 +103,7 @@ export function MagazinesClient({ issues }: Props) {
         )}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 220px", gap: "var(--gap)", padding: "var(--row-gap) var(--pad)", alignItems: "start" }}>
+      <div className="mags-layout" style={{ display: "grid", gridTemplateColumns: "1fr 220px", gap: "var(--gap)", padding: "var(--row-gap) var(--pad)", alignItems: "start" }}>
         {/* Left: month-grouped issues */}
         <div>
           {filtered.length === 0 ? (
@@ -118,7 +118,7 @@ export function MagazinesClient({ issues }: Props) {
                   <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--line), transparent)" }} />
                   <span style={{ fontSize: 10, color: "var(--ink-3)" }}>{mags.length}号</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
+                <div className="mags-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)" }}>
                   {mags.map((mag) => <IssueCard key={mag.slug} mag={mag} />)}
                 </div>
               </div>
@@ -148,6 +148,13 @@ export function MagazinesClient({ issues }: Props) {
           </div>
         </aside>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .mags-layout { grid-template-columns: 1fr !important; }
+          .mags-layout aside { display: none; }
+          .mags-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </>
   );
 }

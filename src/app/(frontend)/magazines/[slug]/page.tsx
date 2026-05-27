@@ -50,7 +50,7 @@ export default async function MagazineDetailPage({ params }: Props) {
 
       <div style={{ padding: "var(--row-gap) var(--pad)" }}>
         {/* Issue Hero */}
-        <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 36, marginBottom: "var(--row-gap)" }}>
+        <div className="issue-hero" style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 36, marginBottom: "var(--row-gap)" }}>
           {/* Cover */}
           <div>
             <div style={{
@@ -155,6 +155,11 @@ export default async function MagazineDetailPage({ params }: Props) {
           </div>
         )}
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .issue-hero { grid-template-columns: 1fr !important; gap: 20px !important; }
+        }
+      `}</style>
     </>
   );
 }

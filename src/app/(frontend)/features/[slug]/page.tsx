@@ -114,7 +114,7 @@ export default async function FeatureDetailPage({ params }: Props) {
           </div>
           <div className="sh-rule" />
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)", marginBottom: "var(--row-gap)" }}>
+        <div className="feature-products" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--gap)", marginBottom: "var(--row-gap)" }}>
           {recentIssues.slice(0, 4).map((mag) => (
             <Link key={mag.slug} href={`/magazines/${mag.slug}`} style={{ textDecoration: "none" }}>
               <div style={{ aspectRatio: "3/4", borderRadius: 5, background: `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`, marginBottom: 8, boxShadow: "0 8px 18px rgba(80,50,40,.12)" }} />
@@ -134,7 +134,7 @@ export default async function FeatureDetailPage({ params }: Props) {
           </div>
           <div className="sh-rule" />
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--gap)" }}>
+        <div className="feature-related" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--gap)" }}>
           {otherArticles.map((a) => (
             <Link key={a.slug} href={`/features/${a.slug}`} style={{ textDecoration: "none", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }}>
               <div style={{ aspectRatio: "16/9", background: `linear-gradient(160deg, ${a.gradient.c1}, ${a.gradient.c2})`, position: "relative" }}>
@@ -147,6 +147,12 @@ export default async function FeatureDetailPage({ params }: Props) {
           ))}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .feature-products { grid-template-columns: repeat(2, 1fr) !important; }
+          .feature-related { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </>
   );
 }

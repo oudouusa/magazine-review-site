@@ -60,7 +60,7 @@ export default function RankingPage() {
 
       <div style={{ padding: "var(--row-gap) var(--pad)" }}>
         {/* TOP3 Podium */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr 1fr", gap: "var(--gap)", marginBottom: "var(--row-gap)", alignItems: "end" }}>
+        <div className="ranking-podium" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr 1fr", gap: "var(--gap)", marginBottom: "var(--row-gap)", alignItems: "end" }}>
           {/* 2nd */}
           <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", boxShadow: "0 1px 2px rgba(60,30,40,.04)" }}>
             <div style={{ aspectRatio: "3/4", background: `radial-gradient(at 30% 25%, ${top3[1].gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${top3[1].gradient.c3} 0%, ${top3[1].gradient.c4} 100%)`, position: "relative" }}>
@@ -113,7 +113,7 @@ export default function RankingPage() {
         {/* Ranks 4-10 */}
         <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", marginBottom: "var(--row-gap)" }}>
           {rest.map((model, i) => (
-            <Link key={model.slug} href={`/models/${model.slug}`} style={{
+            <Link key={model.slug} href={`/models/${model.slug}`} className="ranking-rest" style={{
               textDecoration: "none",
               display: "grid",
               gridTemplateColumns: "50px 80px 1fr auto",
@@ -149,7 +149,7 @@ export default function RankingPage() {
           </div>
           <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, padding: "var(--card-pad)" }}>
             <p style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, color: "var(--ink-3)", marginBottom: 16, letterSpacing: "0.04em" }}>3ヶ月連続TOP10入りを達成したモデルが殿堂入りとなります。</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12 }}>
+            <div className="hof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12 }}>
               {HOF_MODELS.map((model) => (
                 <div key={model.name} style={{ textAlign: "center" }}>
                   <div style={{ position: "relative", marginBottom: 8, display: "inline-block" }}>
@@ -164,6 +164,14 @@ export default function RankingPage() {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .ranking-podium { grid-template-columns: 1fr !important; align-items: start !important; }
+          .ranking-podium > div:nth-child(2) { transform: none !important; order: -1; }
+          .ranking-rest { grid-template-columns: 50px 72px 1fr auto !important; gap: 10px !important; padding: 12px 14px !important; }
+          .hof-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+      `}</style>
     </>
   );
 }
