@@ -41,6 +41,7 @@ export type MhMagazine = {
   gradient: { c1: string; c2: string };
   badge?: "new" | "preorder" | "reissue";
   coverImageUrl?: string;
+  rakutenUrl?: string;
 };
 
 function localPathToUrl(localPath: string | null | undefined): string | undefined {
@@ -263,6 +264,7 @@ export type MhIssueDetail = {
   badge?: "new" | "preorder" | "reissue";
   gradient: { c1: string; c2: string };
   coverImageUrl?: string;
+  rakutenUrl?: string;
   performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string }; imageUrl?: string }>;
   backnumbers: MhMagazine[];
 };
@@ -330,6 +332,10 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       };
     });
 
+    const rakutenRow = db.prepare(
+      `SELECT url FROM issue_external_links WHERE issue_id = ? AND provider = 'rakuten-books' LIMIT 1`
+    ).get(issueId) as { url: string } | undefined;
+
     return {
       id: row.id,
       slug: `issue-${row.id}`,
@@ -340,6 +346,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
       coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(row.coverImageUrl, row.brand, row.issue_date_start)),
+      rakutenUrl: rakutenRow?.url,
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -608,7 +615,9 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
          JOIN performers p ON p.id = pi.performer_id
          JOIN issue_performers ip ON ip.performer_id = p.id
          WHERE ip.issue_id = i.id AND pi.position = 0
-         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath
+         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath,
+        (SELECT e.url FROM issue_external_links e
+         WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1) AS rakutenDirectUrl
       FROM issues i
       WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
@@ -621,6 +630,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       issue_no_normalized: string | null;
       coverImageUrl: string | null;
       performerImagePath: string | null;
+      rakutenDirectUrl: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -651,6 +661,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         },
         badge,
         coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
+        rakutenUrl: r.rakutenDirectUrl ?? undefined,
       };
     });
   } catch {

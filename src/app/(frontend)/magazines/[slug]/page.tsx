@@ -105,7 +105,7 @@ export default async function MagazineDetailPage({ params }: Props) {
             {(() => {
               const q = encodeURIComponent(`${issue.seriesName} ${issue.issue}`);
               const amazonUrl = `https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`;
-              const rakutenUrl = `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`;
+              const rakutenUrl = issue.rakutenUrl ?? `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`;
               return (
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <a href={amazonUrl} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
