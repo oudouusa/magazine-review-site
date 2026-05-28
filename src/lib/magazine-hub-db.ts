@@ -344,7 +344,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       JOIN source_posts sp ON sp.id = e.source_post_id
       WHERE e.provider = 'amazon' AND e.asin IS NOT NULL AND e.asin != ''
         AND UPPER(sp.brand_normalized) = UPPER(?)
-        AND ABS(julianday(sp.release_date) - julianday(?)) <= 7
+        AND ABS(julianday(sp.release_date) - julianday(?)) <= 3
       ORDER BY ABS(julianday(sp.release_date) - julianday(?)), e.asin
       LIMIT 1
     `).get(row.brand, row.issue_date_start, row.issue_date_start) as { url: string } | undefined;
@@ -637,7 +637,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
            JOIN source_posts sp ON sp.id = e2.source_post_id
            WHERE e2.provider = 'amazon' AND e2.asin IS NOT NULL AND e2.asin != ''
              AND UPPER(sp.brand_normalized) = UPPER(i.brand)
-             AND ABS(julianday(sp.release_date) - julianday(i.issue_date_start)) <= 7
+             AND ABS(julianday(sp.release_date) - julianday(i.issue_date_start)) <= 3
            LIMIT 1),
         's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22') AS amazonDirectUrl
       FROM issues i
