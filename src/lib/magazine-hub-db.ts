@@ -638,7 +638,6 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
            WHERE e2.provider = 'amazon' AND e2.asin IS NOT NULL AND e2.asin != ''
              AND UPPER(sp.brand_normalized) = UPPER(i.brand)
              AND ABS(julianday(sp.release_date) - julianday(i.issue_date_start)) <= 7
-           ORDER BY ABS(julianday(sp.release_date) - julianday(i.issue_date_start)), e2.asin
            LIMIT 1),
         's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22') AS amazonDirectUrl
       FROM issues i
