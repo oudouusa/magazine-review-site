@@ -333,12 +333,9 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       };
     });
 
-    const rakutenRow = db.prepare(
-      `SELECT url FROM issue_external_links WHERE issue_id = ? AND provider = 'rakuten-books' LIMIT 1`
-    ).get(issueId) as { url: string } | undefined;
-
-    // Match Amazon via performer names in idolz source_post titles — more accurate than date matching
-    // because issue_date_start is the cover date while source_post.release_date is the sale date.
+    // Match Amazon and Rakuten via performer names in idolz source_post titles.
+    // More accurate than date-based matching because issue_date_start is the cover date
+    // while source_post.release_date is the sale date (offset ~14 days for weekly magazines).
     const amazonRow = db.prepare(`
       SELECT REPLACE(REPLACE(e.url, 's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22') AS url
       FROM source_post_external_links e
@@ -351,6 +348,23 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       ORDER BY ip.position ASC
       LIMIT 1
     `).get(issueId, row.brand) as { url: string } | undefined;
+
+    const rakutenPerformerRow = db.prepare(`
+      SELECT e.url
+      FROM source_post_external_links e
+      JOIN source_posts sp ON sp.id = e.source_post_id
+      JOIN issue_performers ip ON ip.issue_id = ?
+      JOIN performers p ON p.id = ip.performer_id
+      WHERE e.provider = 'rakuten-books'
+        AND UPPER(sp.brand_normalized) = UPPER(?)
+        AND sp.title LIKE '%' || p.name_jp || '%'
+      ORDER BY ip.position ASC
+      LIMIT 1
+    `).get(issueId, row.brand) as { url: string } | undefined;
+
+    const rakutenRow = rakutenPerformerRow ?? (db.prepare(
+      `SELECT url FROM issue_external_links WHERE issue_id = ? AND provider = 'rakuten-books' LIMIT 1`
+    ).get(issueId) as { url: string } | undefined);
 
     return {
       id: row.id,
