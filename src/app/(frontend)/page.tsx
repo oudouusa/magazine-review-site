@@ -117,13 +117,23 @@ function CoverPlaceholder({
   );
 }
 
+const FEATURED_BRANDS = new Set([
+  "FRIDAY", "FLASH", "ヤングジャンプ", "ヤングマガジン", "ヤングチャンピオン",
+  "週刊プレイボーイ", "B.L.T.", "UTB", "BOMB", "ヤングキングBULL",
+  "グラビアザテレビジョン", "ヤングアニマル", "FRIDAY GOLD", "Platinum FLASH",
+]);
+
 export default function HomePage() {
   const issues = getRecentIssues(20);
   const top10 = getTopModels(10);
   const brands = getBrands().slice(0, 12);
-  const featured = issues[0];
-  const editorIssues = issues.slice(1, 5);
-  const newArrivals = issues.slice(6, 12);
+  const featured =
+    issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.coverImageUrl) ??
+    issues.find(i => FEATURED_BRANDS.has(i.seriesName)) ??
+    issues[0];
+  const restIssues = issues.filter(i => i.slug !== featured?.slug);
+  const editorIssues = restIssues.slice(0, 4);
+  const newArrivals = restIssues.slice(5, 11);
 
   return (
     <>
@@ -139,7 +149,9 @@ export default function HomePage() {
               {featured?.title ?? "最新グラビアをアーカイブ"}
             </h1>
             <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.85, letterSpacing: "0.04em", marginBottom: 22, maxWidth: 460 }}>
-              表紙＆巻頭グラビアで圧巻のデビュー。沖縄ロケで撮り下ろした20ページの独占グラビアは必見。彼女の魅力を余すことなく収めた保存版。
+              {featured?.title
+                ? `${featured.title}が表紙を飾る最新号。巻頭グラビアをはじめ、旬なモデルのフレッシュなショットが満載。`
+                : "最新グラビアをアーカイブ。旬なモデルたちのフレッシュなショットをお届けします。"}
             </p>
             <div style={{ display: "flex", gap: 16, marginBottom: 22, fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em", flexWrap: "wrap" }}>
               <span>誌名 <b style={{ color: "var(--plum)", fontFamily: "\"Noto Serif JP\",serif" }}>{featured?.seriesName}</b></span>
@@ -205,7 +217,7 @@ export default function HomePage() {
               <Link href={`/magazines/${featured.slug}`} className="btn btn-primary" style={{ padding: "8px 14px", fontSize: 12, textDecoration: "none", textAlign: "center" }}>詳細を見る</Link>
             </div>}
             {/* Small cards */}
-            {issues.slice(1, 6).map((mag) => (
+            {restIssues.slice(0, 5).map((mag) => (
               <Link key={mag.slug} href={`/magazines/${mag.slug}`} className="sl-item" style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 10, padding: "var(--card-pad)", display: "grid", gridTemplateColumns: "96px 1fr", gap: 12, alignItems: "center", cursor: "pointer", transition: "transform .12s, box-shadow .12s", boxShadow: "0 1px 2px rgba(60,30,40,.04)", textDecoration: "none" }}>
                 <CoverPlaceholder c1={mag.gradient.c1} c2={mag.gradient.c2} width="96px" mast={mag.coverImageUrl ? undefined : mag.seriesName.slice(0, 8)} coverImageUrl={mag.coverImageUrl} />
                 <div style={{ minWidth: 0 }}>
