@@ -128,16 +128,10 @@ export default function HomePage() {
   const top10 = getTopModels(10);
   const brands = getBrands().slice(0, 12);
   const featured =
-    issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.amazonUrl && i.coverImageUrl) ??
     issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.coverImageUrl) ??
-    issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.amazonUrl) ??
     issues.find(i => FEATURED_BRANDS.has(i.seriesName)) ??
-    issues.find(i => i.amazonUrl) ??
     issues[0];
-  // Sort remaining issues: Amazon-linked first, then by date (already ordered)
-  const restIssues = issues
-    .filter(i => i.slug !== featured?.slug)
-    .sort((a, b) => (b.amazonUrl ? 1 : 0) - (a.amazonUrl ? 1 : 0));
+  const restIssues = issues.filter(i => i.slug !== featured?.slug);
   const editorIssues = restIssues.slice(0, 4);
   const newArrivals = restIssues.slice(5, 11);
 
@@ -169,7 +163,7 @@ export default function HomePage() {
                 const q = encodeURIComponent(`${featured.seriesName} ${featured.issue}`);
                 return (
                   <>
-                    <a href={featured.amazonUrl ?? `https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
+                    <a href={`https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
                     <a href={featured.rakutenUrl ?? `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-rakuten">楽天ブックス <span className="pr-mini">PR</span></a>
                   </>
                 );
