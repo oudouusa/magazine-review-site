@@ -42,6 +42,7 @@ export type MhMagazine = {
   badge?: "new" | "preorder" | "reissue";
   coverImageUrl?: string;
   rakutenUrl?: string;
+  amazonUrl?: string;
 };
 
 function localPathToUrl(localPath: string | null | undefined): string | undefined {
@@ -265,6 +266,7 @@ export type MhIssueDetail = {
   gradient: { c1: string; c2: string };
   coverImageUrl?: string;
   rakutenUrl?: string;
+  amazonUrl?: string;
   performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string }; imageUrl?: string }>;
   backnumbers: MhMagazine[];
 };
@@ -336,6 +338,17 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       `SELECT url FROM issue_external_links WHERE issue_id = ? AND provider = 'rakuten-books' LIMIT 1`
     ).get(issueId) as { url: string } | undefined;
 
+    const amazonRow = db.prepare(`
+      SELECT REPLACE(REPLACE(e.url, 's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22') AS url
+      FROM source_post_external_links e
+      JOIN source_posts sp ON sp.id = e.source_post_id
+      WHERE e.provider = 'amazon' AND e.asin IS NOT NULL AND e.asin != ''
+        AND UPPER(sp.brand_normalized) = UPPER(?)
+        AND ABS(julianday(sp.release_date) - julianday(?)) <= 7
+      ORDER BY ABS(julianday(sp.release_date) - julianday(?)), e.asin
+      LIMIT 1
+    `).get(row.brand, row.issue_date_start, row.issue_date_start) as { url: string } | undefined;
+
     return {
       id: row.id,
       slug: `issue-${row.id}`,
@@ -347,6 +360,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
       coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(row.coverImageUrl, row.brand, row.issue_date_start)),
       rakutenUrl: rakutenRow?.url,
+      amazonUrl: amazonRow?.url,
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -617,7 +631,16 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
          WHERE ip.issue_id = i.id AND pi.position = 0
          ORDER BY ip.position ASC LIMIT 1) AS performerImagePath,
         (SELECT e.url FROM issue_external_links e
-         WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1) AS rakutenDirectUrl
+         WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1) AS rakutenDirectUrl,
+        REPLACE(REPLACE(
+          (SELECT e2.url FROM source_post_external_links e2
+           JOIN source_posts sp ON sp.id = e2.source_post_id
+           WHERE e2.provider = 'amazon' AND e2.asin IS NOT NULL AND e2.asin != ''
+             AND UPPER(sp.brand_normalized) = UPPER(i.brand)
+             AND ABS(julianday(sp.release_date) - julianday(i.issue_date_start)) <= 7
+           ORDER BY ABS(julianday(sp.release_date) - julianday(i.issue_date_start)), e2.asin
+           LIMIT 1),
+        's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22') AS amazonDirectUrl
       FROM issues i
       WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
@@ -631,6 +654,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       coverImageUrl: string | null;
       performerImagePath: string | null;
       rakutenDirectUrl: string | null;
+      amazonDirectUrl: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -662,6 +686,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         badge,
         coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
         rakutenUrl: r.rakutenDirectUrl ?? undefined,
+        amazonUrl: r.amazonDirectUrl ?? undefined,
       };
     });
   } catch {
