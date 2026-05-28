@@ -124,14 +124,20 @@ const FEATURED_BRANDS = new Set([
 ]);
 
 export default function HomePage() {
-  const issues = getRecentIssues(20);
+  const issues = getRecentIssues(40);
   const top10 = getTopModels(10);
   const brands = getBrands().slice(0, 12);
   const featured =
+    issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.amazonUrl && i.coverImageUrl) ??
     issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.coverImageUrl) ??
+    issues.find(i => FEATURED_BRANDS.has(i.seriesName) && i.amazonUrl) ??
     issues.find(i => FEATURED_BRANDS.has(i.seriesName)) ??
+    issues.find(i => i.amazonUrl) ??
     issues[0];
-  const restIssues = issues.filter(i => i.slug !== featured?.slug);
+  // Sort remaining issues: Amazon-linked first, then by date (already ordered)
+  const restIssues = issues
+    .filter(i => i.slug !== featured?.slug)
+    .sort((a, b) => (b.amazonUrl ? 1 : 0) - (a.amazonUrl ? 1 : 0));
   const editorIssues = restIssues.slice(0, 4);
   const newArrivals = restIssues.slice(5, 11);
 
