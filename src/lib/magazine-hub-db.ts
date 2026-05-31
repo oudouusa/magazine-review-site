@@ -41,12 +41,41 @@ export type MhMagazine = {
   gradient: { c1: string; c2: string };
   badge?: "new" | "preorder" | "reissue";
   coverImageUrl?: string;
+  amazonUrl?: string;
   rakutenUrl?: string;
+  sourceName?: string;
+  sourceUrl?: string;
+  directLinkCount?: number;
+};
+
+type RetailUrls = {
+  amazonUrl?: string;
+  rakutenUrl?: string;
+};
+
+type ModelCoverLookup = {
+  key: string;
+  name: string;
+};
+
+type PerformerIconLookup = ModelCoverLookup & {
+  portraitLocalPath?: string | null;
 };
 
 function localPathToUrl(localPath: string | null | undefined): string | undefined {
   if (!localPath) return undefined;
-  return localPath.replace("/api/images/", "/magazine-images/");
+  const path = localPath.startsWith("/magazine-images/")
+    ? localPath.replace("/magazine-images/", "/api/images/")
+    : localPath;
+  if (!path.startsWith("/api/images/")) return undefined;
+  return path.split("/").map((part) => {
+    if (!part) return part;
+    try {
+      return encodeURIComponent(decodeURIComponent(part));
+    } catch {
+      return encodeURIComponent(part);
+    }
+  }).join("/");
 }
 
 function cleanFeatureTitle(featureTitle: string): string {
@@ -62,6 +91,21 @@ function filterCoverUrl(url: string | null | undefined): string | undefined {
   // xidol-covers volume cache (buildXidolCoversUrlIfExists) instead.
   if (url.includes("pixhost.to")) return url;
   return undefined;
+}
+
+function normalizeRetailUrl(url: string | null | undefined): string | undefined {
+  if (!url) return undefined;
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("amazon.co.jp")) {
+      parsed.searchParams.set("tag", "magazinelab-22");
+    }
+    return parsed.toString();
+  } catch {
+    return url
+      .replace("tag=s-rocket-22", "tag=magazinelab-22")
+      .replace("tag=dummy-22", "tag=magazinelab-22");
+  }
 }
 
 // Derive a local xidol-covers path from a cover URL.
@@ -89,6 +133,20 @@ function buildXidolCoversUrl(coverUrl: string | null | undefined, brand: string,
 // Returns the xidol-covers API path only if the file actually exists on disk.
 // MAGAZINE_IMAGES_PATH should be set to the volume mount root (e.g. /app/public/magazine-images).
 const MAGAZINE_IMAGES_BASE = process.env.MAGAZINE_IMAGES_PATH ?? "/app/public/magazine-images";
+const SUPPRESSED_IMAGE_BRANDS = new Set(["週刊大衆"]);
+const SUPPRESSED_IMAGE_BRANDS_SQL = Array.from(SUPPRESSED_IMAGE_BRANDS)
+  .map((brand) => `'${brand.replace(/'/g, "''")}'`)
+  .join(",");
+
+function shouldSuppressIssueImages(brand: string | null | undefined): boolean {
+  return !!brand && SUPPRESSED_IMAGE_BRANDS.has(brand.trim());
+}
+
+function visibleImageBrandSql(alias: string): string {
+  return SUPPRESSED_IMAGE_BRANDS_SQL
+    ? `AND TRIM(${alias}.brand) NOT IN (${SUPPRESSED_IMAGE_BRANDS_SQL})`
+    : "";
+}
 
 function buildXidolCoversUrlIfExists(coverUrl: string | null | undefined, brand: string, issueDate: string): string | undefined {
   const apiPath = buildXidolCoversUrl(coverUrl, brand, issueDate);
@@ -101,9 +159,303 @@ function buildXidolCoversUrlIfExists(coverUrl: string | null | undefined, brand:
 // Returns the URL only if the performer image file actually exists on disk.
 function localPathToUrlIfExists(localPath: string | null | undefined): string | undefined {
   if (!localPath) return undefined;
-  const relativePath = localPath.replace("/api/images/", "");
+  const relativePath = localPath
+    .replace("/magazine-images/", "")
+    .replace("/api/images/", "");
   const fsPath = `${MAGAZINE_IMAGES_BASE}/${relativePath}`;
-  return existsSync(fsPath) ? localPath.replace("/api/images/", "/magazine-images/") : undefined;
+  return existsSync(fsPath) ? localPathToUrl(localPath) : undefined;
+}
+
+function resolveCoverImageUrl(
+  coverUrl: string | null | undefined,
+  brand: string,
+  issueDate: string,
+  fallbackLocalPath?: string | null,
+): string | undefined {
+  if (shouldSuppressIssueImages(brand)) return undefined;
+  const localCover = localPathToUrl(buildXidolCoversUrlIfExists(coverUrl, brand, issueDate));
+  return localCover ?? filterCoverUrl(coverUrl) ?? localPathToUrlIfExists(fallbackLocalPath);
+}
+
+function resolveIssueCoverImageUrl(
+  coverUrl: string | null | undefined,
+  coverLocalPath: string | null | undefined,
+  brand: string | null | undefined,
+  issueDate: string | null | undefined,
+): string | undefined {
+  if (!brand || !issueDate || shouldSuppressIssueImages(brand)) return undefined;
+  return localPathToUrlIfExists(coverLocalPath) ?? resolveCoverImageUrl(coverUrl, brand, issueDate);
+}
+
+function getModelCoverFallbacks(db: DatabaseSync, performerKeys: string[]): Map<string, string> {
+  const uniqueKeys = Array.from(new Set(performerKeys.filter(Boolean)));
+  if (uniqueKeys.length === 0) return new Map();
+  const placeholders = uniqueKeys.map(() => "?").join(",");
+  const rows = db.prepare(`
+    WITH ranked AS (
+      SELECT p.name_normalized AS performerKey, i.brand, i.issue_date_start, c.image_url, c.local_path,
+        ROW_NUMBER() OVER (
+          PARTITION BY p.name_normalized
+          ORDER BY i.issue_date_start DESC,
+            CASE WHEN c.local_path IS NOT NULL THEN 0 WHEN c.image_url LIKE '%pixhost%' THEN 1 ELSE 2 END,
+            c.id ASC
+        ) AS rn
+      FROM performers p
+      JOIN issue_performers ip ON ip.performer_id = p.id
+      JOIN issues i ON i.id = ip.issue_id
+      JOIN covers c ON c.issue_id = i.id AND c.position = 1
+      WHERE p.name_normalized IN (${placeholders})
+        AND i.issue_date_start IS NOT NULL
+        AND i.brand IS NOT NULL
+        AND i.brand NOT LIKE 'REP%'
+        ${visibleImageBrandSql("i")}
+    )
+    SELECT performerKey, brand, issue_date_start, image_url, local_path
+    FROM ranked
+    WHERE rn <= 12
+    ORDER BY performerKey, rn
+  `).all(...uniqueKeys) as Array<{
+    performerKey: string;
+    brand: string;
+    issue_date_start: string;
+    image_url: string | null;
+    local_path: string | null;
+  }>;
+  const covers = new Map<string, string>();
+  for (const row of rows) {
+    if (covers.has(row.performerKey)) continue;
+    const url = resolveIssueCoverImageUrl(row.image_url, row.local_path, row.brand, row.issue_date_start);
+    if (url) covers.set(row.performerKey, url);
+  }
+  return covers;
+}
+
+function resolveCardCoverImageUrl(
+  coverUrl: string | null | undefined,
+  localPath: string | null | undefined,
+  brand: string,
+): string | undefined {
+  if (shouldSuppressIssueImages(brand)) return undefined;
+  const localCover = localPathToUrlIfExists(localPath);
+  if (localCover) return localCover;
+  if (coverUrl?.startsWith("https://idolz.hubxhub.com/wp-content/uploads/")) return coverUrl;
+  return filterCoverUrl(coverUrl);
+}
+
+function getModelCardCoverFallbacks(db: DatabaseSync, performers: ModelCoverLookup[]): Map<string, string> {
+  const termToKey = new Map<string, string>();
+  for (const performer of performers) {
+    if (performer.key) termToKey.set(performer.key, performer.key);
+    if (performer.name) termToKey.set(performer.name, performer.key);
+  }
+  const terms = Array.from(termToKey.keys());
+  if (terms.length === 0) return new Map();
+
+  const placeholders = terms.map(() => "?").join(",");
+  const rows = db.prepare(`
+    WITH ranked AS (
+      SELECT mp.performer_name AS term, mc.brand, mc.date, c.cover_url, c.local_path,
+        ROW_NUMBER() OVER (
+          PARTITION BY mp.performer_name
+          ORDER BY mc.date DESC,
+            CASE
+              WHEN c.local_path IS NOT NULL THEN 0
+              WHEN c.cover_url LIKE 'https://idolz.hubxhub.com/wp-content/uploads/%' THEN 1
+              ELSE 2
+            END,
+            c.position ASC,
+            mc.id DESC
+        ) AS rn
+      FROM magazine_card_performers mp
+      JOIN magazine_cards mc ON mc.id = mp.card_id
+      JOIN magazine_card_covers c ON c.card_id = mc.id
+      WHERE mp.performer_name IN (${placeholders})
+        AND mc.source = 'idolz'
+        AND mc.date IS NOT NULL
+        AND mc.date != ''
+        AND mc.brand IS NOT NULL
+        ${visibleImageBrandSql("mc")}
+    )
+    SELECT term, brand, cover_url, local_path
+    FROM ranked
+    WHERE rn <= 12
+    ORDER BY term, rn
+  `).all(...terms) as Array<{
+    term: string;
+    brand: string;
+    cover_url: string | null;
+    local_path: string | null;
+  }>;
+
+  const covers = new Map<string, string>();
+  for (const row of rows) {
+    const key = termToKey.get(row.term);
+    if (!key || covers.has(key)) continue;
+    const url = resolveCardCoverImageUrl(row.cover_url, row.local_path, row.brand);
+    if (url) covers.set(key, url);
+  }
+  return covers;
+}
+
+function getPerformerPortraitUrls(db: DatabaseSync, performers: PerformerIconLookup[]): Map<string, string> {
+  const portraits = new Map<string, string>();
+  const termToKey = new Map<string, string>();
+
+  for (const performer of performers) {
+    const directPortrait = localPathToUrlIfExists(performer.portraitLocalPath);
+    if (directPortrait) portraits.set(performer.key, directPortrait);
+    if (performer.key) termToKey.set(performer.key, performer.key);
+    if (performer.name) termToKey.set(performer.name, performer.key);
+  }
+
+  const terms = Array.from(termToKey.keys());
+  if (terms.length === 0) return portraits;
+
+  const placeholders = terms.map(() => "?").join(",");
+  const rows = db.prepare(`
+    SELECT p.name_normalized, p.name_jp,
+      (SELECT pi.local_path FROM performer_images pi
+       WHERE pi.performer_id = p.id AND pi.position = 0
+       LIMIT 1) AS local_path
+    FROM performers p
+    WHERE p.name_normalized IN (${placeholders}) OR p.name_jp IN (${placeholders})
+    ORDER BY CASE WHEN local_path IS NOT NULL THEN 0 ELSE 1 END, p.id ASC
+  `).all(...terms, ...terms) as Array<{
+    name_normalized: string;
+    name_jp: string | null;
+    local_path: string | null;
+  }>;
+
+  for (const row of rows) {
+    const url = localPathToUrlIfExists(row.local_path);
+    if (!url) continue;
+    for (const term of [row.name_normalized, row.name_jp]) {
+      if (!term) continue;
+      const key = termToKey.get(term);
+      if (key && !portraits.has(key)) portraits.set(key, url);
+    }
+  }
+
+  return portraits;
+}
+
+function getPerformerIconUrls(db: DatabaseSync, performers: PerformerIconLookup[]): Map<string, string> {
+  const urls = getPerformerPortraitUrls(db, performers);
+  const unresolved = performers.filter((performer) => !urls.get(performer.key));
+  if (unresolved.length === 0) return urls;
+
+  const termToKey = new Map<string, string>();
+  for (const performer of unresolved) {
+    if (performer.key) termToKey.set(performer.key, performer.key);
+    if (performer.name) termToKey.set(performer.name, performer.key);
+  }
+
+  const issueCoverFallbacks = getModelCoverFallbacks(db, Array.from(termToKey.keys()));
+  for (const [term, url] of issueCoverFallbacks) {
+    const key = termToKey.get(term);
+    if (key && !urls.has(key)) urls.set(key, url);
+  }
+
+  const stillUnresolved = unresolved.filter((performer) => !urls.get(performer.key));
+  const cardCoverFallbacks = getModelCardCoverFallbacks(db, stillUnresolved);
+  for (const [key, url] of cardCoverFallbacks) {
+    if (!urls.has(key)) urls.set(key, url);
+  }
+
+  return urls;
+}
+
+function cleanCardFeatureTitle(title: string, brand: string): string {
+  const withoutDate = title.replace(/^【[^】]+】\s*/, "").trim();
+  const coverMatch = withoutDate.match(/表紙[：:]\s*(.+)$/u);
+  if (coverMatch?.[1]) return coverMatch[1].trim();
+  return withoutDate
+    .replace(/^「/, "")
+    .replace(/」$/, "")
+    .replace(new RegExp(`^${brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*`, "u"), "")
+    .trim();
+}
+
+type MagazineCardRow = {
+  id: number;
+  title: string;
+  brand: string;
+  issue_no: string | null;
+  date: string;
+  url: string | null;
+  coverUrl: string | null;
+  coverLocalPath: string | null;
+  amazonUrl: string | null;
+  rakutenUrl: string | null;
+  directLinkCount: number;
+};
+
+function mapMagazineCardRow(row: MagazineCardRow): MhMagazine {
+  const key = `${row.brand}-${row.id}`;
+  const today = new Date().toISOString().slice(0, 10);
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
+  const badge: MhMagazine["badge"] =
+    row.date > today ? "preorder"
+    : row.date >= thirtyDaysAgo ? "new"
+    : undefined;
+  return {
+    slug: `card-${row.id}`,
+    title: cleanCardFeatureTitle(row.title, row.brand),
+    seriesName: row.brand,
+    issue: row.issue_no || row.date,
+    releaseDate: row.date,
+    gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+    badge,
+    coverImageUrl: resolveCardCoverImageUrl(row.coverUrl, row.coverLocalPath, row.brand),
+    amazonUrl: normalizeRetailUrl(row.amazonUrl),
+    rakutenUrl: normalizeRetailUrl(row.rakutenUrl),
+    sourceName: "idolz",
+    sourceUrl: row.url ?? undefined,
+    directLinkCount: row.directLinkCount,
+  };
+}
+
+function getIdolzMagazines(limit = 60, brand?: string | null): MhMagazine[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const whereBrand = brand ? "AND mc.brand = ?" : "";
+    const params = brand ? [brand, limit] : [limit];
+    const rows = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.source = 'idolz'
+        AND mc.date IS NOT NULL
+        AND mc.brand IS NOT NULL
+        AND mc.brand NOT LIKE 'REP%'
+        ${whereBrand}
+      ORDER BY
+        CASE WHEN (
+          SELECT COUNT(*) FROM magazine_card_links l
+          WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+            AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')
+        ) > 0 THEN 0 ELSE 1 END,
+        mc.date DESC,
+        mc.id DESC
+      LIMIT ?
+    `).all(...params) as MagazineCardRow[];
+    return rows.map(mapMagazineCardRow);
+  } catch {
+    return [];
+  }
 }
 
 export function getTopModels(limit = 100): MhModel[] {
@@ -126,6 +478,18 @@ export function getTopModels(limit = 100): MhModel[] {
       cover_count: number;
       imageLocalPath: string | null;
     }>;
+    const portraitUrls = new Map(rows.map((r) => [r.performer_key, localPathToUrlIfExists(r.imageLocalPath)]));
+    const rowsWithoutPortrait = rows.filter((r) => !portraitUrls.get(r.performer_key));
+    const coverFallbacks = getModelCoverFallbacks(
+      db,
+      rowsWithoutPortrait.map((r) => r.performer_key),
+    );
+    const cardCoverFallbacks = getModelCardCoverFallbacks(
+      db,
+      rowsWithoutPortrait
+        .filter((r) => !coverFallbacks.get(r.performer_key))
+        .map((r) => ({ key: r.performer_key, name: r.performer_name })),
+    );
     return rows.map((r) => ({
       slug: encodeURIComponent(r.performer_key),
       name: r.performer_name,
@@ -138,7 +502,7 @@ export function getTopModels(limit = 100): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: localPathToUrlIfExists(r.imageLocalPath),
+      imageUrl: portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
     }));
   } catch {
     return [];
@@ -182,16 +546,70 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       LIMIT 1
     `).get(performerKey) as { local_path: string | null } | undefined;
 
+    const coverRows = db.prepare(`
+      SELECT i.brand, i.issue_date_start, c.image_url, c.local_path
+      FROM issue_performers ip
+      JOIN performers p ON p.id = ip.performer_id
+      JOIN issues i ON i.id = ip.issue_id
+      JOIN covers c ON c.issue_id = i.id AND c.position = 1
+      WHERE p.name_normalized = ?
+        AND i.issue_date_start IS NOT NULL
+        AND i.brand IS NOT NULL
+        AND i.brand NOT LIKE 'REP%'
+        ${visibleImageBrandSql("i")}
+      ORDER BY i.issue_date_start DESC,
+        CASE WHEN c.local_path IS NOT NULL THEN 0 WHEN c.image_url LIKE '%pixhost%' THEN 1 ELSE 2 END,
+        c.id ASC
+      LIMIT 12
+    `).all(performerKey) as Array<{ brand: string; issue_date_start: string; image_url: string | null; local_path: string | null }>;
+
+    const coverImageUrl = coverRows
+      .map((r) => resolveIssueCoverImageUrl(r.image_url, r.local_path, r.brand, r.issue_date_start))
+      .find((url): url is string => !!url);
+    const portraitUrl = localPathToUrlIfExists(imageRow?.local_path);
+    const cardCoverImageUrl = (portraitUrl || coverImageUrl)
+      ? undefined
+      : getModelCardCoverFallbacks(db, [{ key: stat.performer_key, name: stat.performer_name }]).get(stat.performer_key);
+
     const recentRows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
-        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl,
+        (SELECT REPLACE(REPLACE(e.url, 's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22')
+         FROM source_post_external_links e
+         JOIN source_posts sp ON sp.id = e.source_post_id
+         WHERE e.provider = 'amazon' AND e.asin IS NOT NULL AND e.asin != ''
+           AND UPPER(sp.brand_normalized) = UPPER(i.brand)
+           AND sp.title LIKE '%' || p.name_jp || '%'
+         ORDER BY sp.release_date DESC
+         LIMIT 1) AS amazonUrl,
+        COALESCE(
+          (SELECT e.url
+           FROM source_post_external_links e
+           JOIN source_posts sp ON sp.id = e.source_post_id
+           WHERE e.provider = 'rakuten-books'
+             AND UPPER(sp.brand_normalized) = UPPER(i.brand)
+             AND sp.title LIKE '%' || p.name_jp || '%'
+           ORDER BY sp.release_date DESC
+           LIMIT 1),
+          (SELECT e.url FROM issue_external_links e
+           WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1)
+        ) AS rakutenUrl
       FROM issue_performers ip
       JOIN issues i ON i.id = ip.issue_id
       JOIN performers p ON p.id = ip.performer_id
       WHERE p.name_normalized = ? AND i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
       LIMIT 12
-    `).all(performerKey) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null; coverImageUrl: string | null }>;
+    `).all(performerKey) as Array<{
+      id: number;
+      title: string;
+      brand: string;
+      issue_date_start: string;
+      issue_no_normalized: string | null;
+      coverImageUrl: string | null;
+      amazonUrl: string | null;
+      rakutenUrl: string | null;
+    }>;
 
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
@@ -214,7 +632,9 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start)),
+        coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start),
+        amazonUrl: normalizeRetailUrl(r.amazonUrl),
+        rakutenUrl: normalizeRetailUrl(r.rakutenUrl),
       };
     });
 
@@ -246,7 +666,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         c3: colorFromHash(key + "3", 40, 73),
         c4: colorFromHash(key + "4", 36, 63),
       },
-      imageUrl: localPathToUrlIfExists(imageRow?.local_path),
+      imageUrl: portraitUrl ?? coverImageUrl ?? cardCoverImageUrl,
       recentIssues,
     };
   } catch {
@@ -266,6 +686,9 @@ export type MhIssueDetail = {
   coverImageUrl?: string;
   rakutenUrl?: string;
   amazonUrl?: string;
+  sourceName?: string;
+  sourceUrl?: string;
+  directLinkCount?: number;
   performers: Array<{ key: string; name: string; slug: string; gradient: { c1: string; c2: string; c3: string; c4: string }; imageUrl?: string }>;
   backnumbers: MhMagazine[];
 };
@@ -291,12 +714,13 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
     `).all(issueId) as Array<{ performer_key: string; performer_name: string; imageLocalPath: string | null }>;
 
     const backnumberRows = db.prepare(`
-      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized
+      SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
+        (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl
       FROM issues i
       WHERE i.brand = ? AND i.id != ? AND i.issue_date_start IS NOT NULL
       ORDER BY i.issue_date_start DESC
       LIMIT 9
-    `).all(row.brand, issueId) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null }>;
+    `).all(row.brand, issueId) as Array<{ id: number; title: string; brand: string; issue_date_start: string; issue_no_normalized: string | null; coverImageUrl: string | null }>;
 
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
@@ -330,6 +754,7 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(bKey, 35, 72), c2: colorFromHash(bKey + "2", 30, 58) },
         badge: bBadge,
+        coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start),
       };
     });
 
@@ -365,6 +790,14 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
     const rakutenRow = rakutenPerformerRow ?? (db.prepare(
       `SELECT url FROM issue_external_links WHERE issue_id = ? AND provider = 'rakuten-books' LIMIT 1`
     ).get(issueId) as { url: string } | undefined);
+    const performerIconUrls = getPerformerIconUrls(
+      db,
+      performers.map((p) => ({
+        key: p.performer_key,
+        name: p.performer_name || p.performer_key,
+        portraitLocalPath: p.imageLocalPath,
+      })),
+    );
 
     return {
       id: row.id,
@@ -375,9 +808,9 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
       releaseDate: row.issue_date_start,
       badge,
       gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
-      coverImageUrl: filterCoverUrl(row.coverImageUrl) ?? localPathToUrl(buildXidolCoversUrlIfExists(row.coverImageUrl, row.brand, row.issue_date_start)),
-      rakutenUrl: rakutenRow?.url,
-      amazonUrl: amazonRow?.url,
+      coverImageUrl: resolveCoverImageUrl(row.coverImageUrl, row.brand, row.issue_date_start),
+      rakutenUrl: normalizeRetailUrl(rakutenRow?.url),
+      amazonUrl: normalizeRetailUrl(amazonRow?.url),
       performers: performers.map((p) => ({
         key: p.performer_key,
         name: p.performer_name || p.performer_key,
@@ -388,9 +821,109 @@ export function getIssueDetail(issueId: number): MhIssueDetail | null {
           c3: colorFromHash(p.performer_key + "3", 40, 73),
           c4: colorFromHash(p.performer_key + "4", 36, 63),
         },
-        imageUrl: localPathToUrlIfExists(p.imageLocalPath),
+        imageUrl: performerIconUrls.get(p.performer_key),
       })),
       backnumbers,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function getMagazineCardDetail(cardId: number): MhIssueDetail | null {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const row = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.id = ? AND mc.source = 'idolz'
+      LIMIT 1
+    `).get(cardId) as MagazineCardRow | undefined;
+    if (!row) return null;
+
+    const performerRows = db.prepare(`
+      SELECT performer_name
+      FROM magazine_card_performers
+      WHERE card_id = ?
+      ORDER BY position ASC
+      LIMIT 24
+    `).all(cardId) as Array<{ performer_name: string }>;
+
+    const backnumberRows = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.source = 'idolz' AND mc.brand = ? AND mc.id != ? AND mc.date IS NOT NULL
+      ORDER BY mc.date DESC, mc.id DESC
+      LIMIT 9
+    `).all(row.brand, cardId) as MagazineCardRow[];
+
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
+    const badge: MhMagazine["badge"] =
+      row.date > today ? "preorder"
+      : row.date >= thirtyDaysAgo ? "new"
+      : undefined;
+    const key = `${row.brand}-${row.id}`;
+    const performerIconUrls = getPerformerIconUrls(
+      db,
+      performerRows.map((p) => ({ key: p.performer_name, name: p.performer_name })),
+    );
+
+    return {
+      id: row.id,
+      slug: `card-${row.id}`,
+      title: cleanCardFeatureTitle(row.title, row.brand),
+      seriesName: row.brand,
+      issue: row.issue_no || row.date,
+      releaseDate: row.date,
+      badge,
+      gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
+      coverImageUrl: resolveCardCoverImageUrl(row.coverUrl, row.coverLocalPath, row.brand),
+      rakutenUrl: normalizeRetailUrl(row.rakutenUrl),
+      amazonUrl: normalizeRetailUrl(row.amazonUrl),
+      sourceName: "idolz",
+      sourceUrl: row.url ?? undefined,
+      directLinkCount: row.directLinkCount,
+      performers: performerRows.map((p) => ({
+        key: p.performer_name,
+        name: p.performer_name,
+        slug: encodeURIComponent(p.performer_name),
+        gradient: {
+          c1: colorFromHash(p.performer_name, 42, 78),
+          c2: colorFromHash(p.performer_name + "2", 38, 68),
+          c3: colorFromHash(p.performer_name + "3", 40, 73),
+          c4: colorFromHash(p.performer_name + "4", 36, 63),
+        },
+        imageUrl: performerIconUrls.get(p.performer_name),
+      })),
+      backnumbers: backnumberRows.map(mapMagazineCardRow),
     };
   } catch {
     return null;
@@ -443,8 +976,17 @@ export function getBrands(): MhBrand[] {
 
     return rows.map((r) => {
       const cover = latestCover.get(r.brand);
-      const directCover = filterCoverUrl(cover?.image_url);
-      const xidolFromLatest = directCover ? undefined : buildXidolCoversUrlIfExists(cover?.image_url, r.brand, cover?.issue_date_start ?? r.latest_date);
+      if (shouldSuppressIssueImages(r.brand)) {
+        return {
+          name: r.brand,
+          slug: encodeURIComponent(r.brand),
+          issueCount: r.issue_count,
+          latestDate: r.latest_date,
+          gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
+        };
+      }
+      const xidolFromLatest = buildXidolCoversUrlIfExists(cover?.image_url, r.brand, cover?.issue_date_start ?? r.latest_date);
+      const directCover = xidolFromLatest ? undefined : filterCoverUrl(cover?.image_url);
       const pixhostData = pixhostCover.get(r.brand);
       const pixhostDirect = (directCover || xidolFromLatest) ? undefined : filterCoverUrl(pixhostData?.image_url);
       return {
@@ -452,7 +994,7 @@ export function getBrands(): MhBrand[] {
         slug: encodeURIComponent(r.brand),
         issueCount: r.issue_count,
         latestDate: r.latest_date,
-        coverImageUrl: directCover ?? localPathToUrl(xidolFromLatest) ?? pixhostDirect,
+        coverImageUrl: localPathToUrl(xidolFromLatest) ?? directCover ?? pixhostDirect,
         gradient: { c1: colorFromHash(r.brand, 35, 72), c2: colorFromHash(r.brand + "2", 30, 58) },
       };
     });
@@ -462,8 +1004,12 @@ export function getBrands(): MhBrand[] {
 }
 
 export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
+  const idolz = getIdolzMagazines(limit, brand);
+  const fallbackLimit = Math.max(0, limit - idolz.length);
+  if (fallbackLimit === 0) return idolz;
+
   const db = getDb();
-  if (!db) return [];
+  if (!db) return idolz;
   try {
     const rows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
@@ -472,12 +1018,14 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
          JOIN performers p ON p.id = pi.performer_id
          JOIN issue_performers ip ON ip.performer_id = p.id
          WHERE ip.issue_id = i.id AND pi.position = 0
-         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath
+         ORDER BY ip.position ASC LIMIT 1) AS performerImagePath,
+        (SELECT e.url FROM issue_external_links e
+         WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1) AS rakutenDirectUrl
       FROM issues i
       WHERE i.brand = ? AND i.issue_date_start IS NOT NULL
       ORDER BY i.issue_date_start DESC
       LIMIT ?
-    `).all(brand, limit) as Array<{
+    `).all(brand, fallbackLimit) as Array<{
       id: number;
       title: string;
       brand: string;
@@ -485,12 +1033,13 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
       issue_no_normalized: string | null;
       coverImageUrl: string | null;
       performerImagePath: string | null;
+      rakutenDirectUrl: string | null;
     }>;
 
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
 
-    return rows.map((r) => {
+    const fallback = rows.map((r) => {
       const key = `${r.brand}-${r.id}`;
       const badge: MhMagazine["badge"] =
         r.issue_date_start > today ? "preorder"
@@ -500,8 +1049,6 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
         ""
       ).trim() || r.title;
-      const cover = filterCoverUrl(r.coverImageUrl);
-      const xidolCover = cover ? undefined : buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -510,11 +1057,13 @@ export function getIssuesByBrand(brand: string, limit = 200): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
+        coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start, r.performerImagePath),
+        rakutenUrl: r.rakutenDirectUrl ?? undefined,
       };
     });
+    return [...idolz, ...fallback].slice(0, limit);
   } catch {
-    return [];
+    return idolz;
   }
 }
 
@@ -566,6 +1115,18 @@ export function searchModels(query: string, limit = 30): MhModel[] {
       cover_count: number;
       imageLocalPath: string | null;
     }>;
+    const portraitUrls = new Map(rows.map((r) => [r.performer_key, localPathToUrlIfExists(r.imageLocalPath)]));
+    const rowsWithoutPortrait = rows.filter((r) => !portraitUrls.get(r.performer_key));
+    const coverFallbacks = getModelCoverFallbacks(
+      db,
+      rowsWithoutPortrait.map((r) => r.performer_key),
+    );
+    const cardCoverFallbacks = getModelCardCoverFallbacks(
+      db,
+      rowsWithoutPortrait
+        .filter((r) => !coverFallbacks.get(r.performer_key))
+        .map((r) => ({ key: r.performer_key, name: r.performer_name })),
+    );
     return rows.map((r) => ({
       slug: encodeURIComponent(r.performer_key),
       name: r.performer_name,
@@ -578,7 +1139,7 @@ export function searchModels(query: string, limit = 30): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: localPathToUrlIfExists(r.imageLocalPath),
+      imageUrl: portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
     }));
   } catch {
     return [];
@@ -627,7 +1188,7 @@ export function searchIssues(query: string, limit = 30): MhMagazine[] {
         releaseDate: r.issue_date_start,
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
-        coverImageUrl: filterCoverUrl(r.coverImageUrl),
+        coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start),
       };
     });
   } catch {
@@ -636,8 +1197,12 @@ export function searchIssues(query: string, limit = 30): MhMagazine[] {
 }
 
 export function getRecentIssues(limit = 60): MhMagazine[] {
+  const idolz = getIdolzMagazines(limit);
+  const fallbackLimit = Math.max(0, limit - idolz.length);
+  if (fallbackLimit === 0) return idolz;
+
   const db = getDb();
-  if (!db) return [];
+  if (!db) return idolz;
   try {
     const rows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
@@ -653,7 +1218,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
       WHERE i.issue_date_start IS NOT NULL AND i.brand IS NOT NULL AND i.brand NOT LIKE 'REP%'
       ORDER BY i.issue_date_start DESC
       LIMIT ?
-    `).all(limit) as Array<{
+    `).all(fallbackLimit) as Array<{
       id: number;
       title: string;
       brand: string;
@@ -667,7 +1232,7 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
 
-    return rows.map((r) => {
+    const fallback = rows.map((r) => {
       const key = `${r.brand}-${r.id}`;
       const badge: MhMagazine["badge"] =
         r.issue_date_start > today ? "preorder"
@@ -678,8 +1243,6 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
         new RegExp(`^\\[?${r.brand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\]?\\s*[\\d.\\s-]*`, "u"),
         ""
       ).trim() || r.title;
-      const cover = filterCoverUrl(r.coverImageUrl);
-      const xidolCover = cover ? undefined : buildXidolCoversUrlIfExists(r.coverImageUrl, r.brand, r.issue_date_start);
       return {
         slug: `issue-${r.id}`,
         title: cleanFeatureTitle(featureTitle),
@@ -691,11 +1254,12 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
           c2: colorFromHash(key + "2", 30, 58),
         },
         badge,
-        coverImageUrl: cover ?? localPathToUrl(xidolCover) ?? localPathToUrlIfExists(r.performerImagePath),
+        coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start, r.performerImagePath),
         rakutenUrl: r.rakutenDirectUrl ?? undefined,
       };
     });
+    return [...idolz, ...fallback].slice(0, limit);
   } catch {
-    return [];
+    return idolz;
   }
 }

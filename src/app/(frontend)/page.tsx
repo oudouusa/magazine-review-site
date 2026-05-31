@@ -163,7 +163,7 @@ export default function HomePage() {
                 const q = encodeURIComponent(`${featured.seriesName} ${featured.issue}`);
                 return (
                   <>
-                    <a href={`https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
+                    <a href={featured.amazonUrl ?? `https://www.amazon.co.jp/s?k=${q}&tag=magazinelab-22`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon">Amazonで買う <span className="pr-mini">PR</span></a>
                     <a href={featured.rakutenUrl ?? `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`} target="_blank" rel="nofollow sponsored noopener" className="btn btn-rakuten">楽天ブックス <span className="pr-mini">PR</span></a>
                   </>
                 );

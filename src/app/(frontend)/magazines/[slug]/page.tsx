@@ -1,22 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getIssueDetail } from "@/lib/magazine-hub-db";
+import { getIssueDetail, getMagazineCardDetail } from "@/lib/magazine-hub-db";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ slug: string }> };
 
-function parseIssueId(slug: string): number | null {
-  const m = slug.match(/^issue-(\d+)$/);
-  return m ? parseInt(m[1], 10) : null;
+function parseMagazineRef(slug: string): { kind: "issue" | "card"; id: number } | null {
+  const issue = slug.match(/^issue-(\d+)$/);
+  if (issue) return { kind: "issue", id: parseInt(issue[1], 10) };
+  const card = slug.match(/^card-(\d+)$/);
+  if (card) return { kind: "card", id: parseInt(card[1], 10) };
+  return null;
+}
+
+function getMagazineDetail(ref: { kind: "issue" | "card"; id: number }) {
+  return ref.kind === "card" ? getMagazineCardDetail(ref.id) : getIssueDetail(ref.id);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const id = parseIssueId(slug);
-  if (!id) return { title: "雑誌が見つかりません" };
-  const issue = getIssueDetail(id);
+  const ref = parseMagazineRef(slug);
+  if (!ref) return { title: "雑誌が見つかりません" };
+  const issue = getMagazineDetail(ref);
   if (!issue) return { title: "雑誌が見つかりません" };
   const desc = `${issue.title} — ${issue.releaseDate}発売。登場モデル: ${issue.performers.map((p) => p.name).slice(0, 5).join("、")}`;
   return {
@@ -33,9 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MagazineDetailPage({ params }: Props) {
   const { slug } = await params;
-  const id = parseIssueId(slug);
-  if (!id) notFound();
-  const issue = getIssueDetail(id);
+  const ref = parseMagazineRef(slug);
+  if (!ref) notFound();
+  const issue = getMagazineDetail(ref);
   if (!issue) notFound();
 
   const quickFacts = [
@@ -43,6 +50,7 @@ export default async function MagazineDetailPage({ params }: Props) {
     { label: "登場モデル", value: `${issue.performers.length}名` },
   ];
   if (issue.issue) quickFacts.push({ label: "号数", value: issue.issue });
+  if (issue.directLinkCount) quickFacts.push({ label: "購入先", value: `${issue.directLinkCount}件` });
 
   return (
     <>
@@ -108,13 +116,18 @@ export default async function MagazineDetailPage({ params }: Props) {
               const rakutenUrl = issue.rakutenUrl ?? `https://search.books.rakuten.co.jp/bks/genesis/search/=?sitem=${q}&g=001&p=0&s=1&o=0&e=0&f=A`;
               return (
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={amazonUrl} target="_blank" rel="nofollow sponsored noopener" className="btn btn-amazon" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                  <a href={amazonUrl} target="_blank" rel="nofollow sponsored noopener" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, background: "#ff9900", color: "#22150a", borderRadius: 999, padding: "10px 15px", fontSize: 13, fontWeight: 700 }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.72a17.75 17.75 0 01-4.973.7c-3.57 0-6.795-.886-9.674-2.66-.163-.1-.245-.234-.18-.404l.14-.3zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>
-                    Amazonで見る <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
+                    {issue.amazonUrl ? "Amazon商品ページ" : "Amazonで見る"} <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
                   </a>
-                  <a href={rakutenUrl} target="_blank" rel="nofollow sponsored noopener" className="btn btn-rakuten" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
-                    楽天ブックス <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
+                  <a href={rakutenUrl} target="_blank" rel="nofollow sponsored noopener" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, background: "#cc0000", color: "white", borderRadius: 999, padding: "10px 15px", fontSize: 13, fontWeight: 700 }}>
+                    {issue.rakutenUrl ? "楽天商品ページ" : "楽天ブックス"} <span style={{ fontSize: 9, opacity: 0.7 }}>PR</span>
                   </a>
+                  {issue.sourceUrl && (
+                    <a href={issue.sourceUrl} target="_blank" rel="noopener" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, background: "var(--paper-2)", color: "var(--ink-2)", border: "1px solid var(--line)", borderRadius: 999, padding: "10px 15px", fontSize: 13, fontWeight: 700 }}>
+                      記事を見る
+                    </a>
+                  )}
                 </div>
               );
             })()}
@@ -163,7 +176,9 @@ export default async function MagazineDetailPage({ params }: Props) {
                     width: 100,
                     aspectRatio: "3/4",
                     borderRadius: 4,
-                    background: `linear-gradient(160deg, ${bn.gradient.c1}, ${bn.gradient.c2})`,
+                    background: bn.coverImageUrl
+                      ? `url("${bn.coverImageUrl}") center top / cover no-repeat, linear-gradient(160deg, ${bn.gradient.c1}, ${bn.gradient.c2})`
+                      : `linear-gradient(160deg, ${bn.gradient.c1}, ${bn.gradient.c2})`,
                     border: "1px solid var(--line)",
                     cursor: "pointer",
                     position: "relative",
