@@ -7,6 +7,18 @@ export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ slug: string }> };
 
+function purchaseQuery(seriesName: string, issue: string, title: string): string {
+  return encodeURIComponent(`${seriesName} ${issue} ${title}`.trim());
+}
+
+function amazonHref(mag: { seriesName: string; issue: string; title: string; amazonUrl?: string }): string {
+  return mag.amazonUrl ?? `https://www.amazon.co.jp/s?k=${purchaseQuery(mag.seriesName, mag.issue, mag.title)}&tag=magazinelab-22`;
+}
+
+function rakutenHref(mag: { seriesName: string; issue: string; title: string; rakutenUrl?: string }): string {
+  return mag.rakutenUrl ?? `https://search.books.rakuten.co.jp/bks/genesis/search/?g=001&sitem=${purchaseQuery(mag.seriesName, mag.issue, mag.title)}`;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const model = getModelDetail(decodeURIComponent(slug));
@@ -113,22 +125,30 @@ export default async function ModelDetailPage({ params }: Props) {
             </div>
             <div className="appearances-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "var(--gap)" }}>
               {model.recentIssues.map((mag) => (
-                <Link key={mag.slug} href={`/magazines/${mag.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{
-                    aspectRatio: "3/4",
-                    borderRadius: 5,
-                    background: `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`,
-                    position: "relative",
-                    overflow: "hidden",
-                    marginBottom: 9,
-                    boxShadow: "0 10px 24px rgba(80,50,40,.12)",
-                  }}>
-                    <div style={{ position: "absolute", top: 14, left: 14, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em" }}>{mag.seriesName}</div>
-                    <div style={{ position: "absolute", bottom: 12, left: 10, right: 10, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.3 }}>{mag.issue}</div>
+                <article key={mag.slug}>
+                  <Link href={`/magazines/${mag.slug}`} style={{ textDecoration: "none", display: "block" }}>
+                    <div style={{
+                      aspectRatio: "3/4",
+                      borderRadius: 5,
+                      background: mag.coverImageUrl
+                        ? `url("${mag.coverImageUrl}") center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
+                        : `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`,
+                      position: "relative",
+                      overflow: "hidden",
+                      marginBottom: 9,
+                      boxShadow: "0 10px 24px rgba(80,50,40,.12)",
+                    }}>
+                      {!mag.coverImageUrl && <div style={{ position: "absolute", top: 14, left: 14, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em" }}>{mag.seriesName}</div>}
+                      <div style={{ position: "absolute", bottom: 12, left: 10, right: 10, fontFamily: '"Noto Serif JP",serif', color: "rgba(255,255,255,.96)", fontSize: 11, fontWeight: 600, lineHeight: 1.3, textShadow: "0 1px 8px rgba(0,0,0,.34)" }}>{mag.issue}</div>
+                    </div>
+                    <div style={{ fontSize: 10, color: "var(--ink-3)", fontFamily: '"Noto Serif JP",serif', marginBottom: 2 }}>{mag.releaseDate}</div>
+                    <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)", minHeight: 34 }}>{mag.seriesName}</div>
+                  </Link>
+                  <div className="appearance-buy">
+                    <a href={amazonHref(mag)} target="_blank" rel="nofollow sponsored noopener" aria-label={`${mag.seriesName} ${mag.issue}をAmazonで見る`}>Amazon <span>PR</span></a>
+                    <a href={rakutenHref(mag)} target="_blank" rel="nofollow sponsored noopener" aria-label={`${mag.seriesName} ${mag.issue}を楽天ブックスで見る`}>楽天 <span>PR</span></a>
                   </div>
-                  <div style={{ fontSize: 10, color: "var(--ink-3)", fontFamily: '"Noto Serif JP",serif', marginBottom: 2 }}>{mag.releaseDate}</div>
-                  <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 12, fontWeight: 600, color: "var(--ink)" }}>{mag.seriesName}</div>
-                </Link>
+                </article>
               ))}
             </div>
           </div>
@@ -147,12 +167,23 @@ export default async function ModelDetailPage({ params }: Props) {
             </div>
             <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden" }}>
               {model.recentIssues.map((mag, i) => (
-                <div key={mag.slug} style={{ display: "grid", gridTemplateColumns: "100px 56px 1fr", gap: 16, alignItems: "center", padding: "12px 16px", borderBottom: i < model.recentIssues.length - 1 ? "1px solid var(--line-2)" : undefined }}>
+                <div key={mag.slug} className="timeline-row" style={{ display: "grid", gridTemplateColumns: "100px 56px 1fr auto", gap: 16, alignItems: "center", padding: "12px 16px", borderBottom: i < model.recentIssues.length - 1 ? "1px solid var(--line-2)" : undefined }}>
                   <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 11, color: "var(--ink-3)" }}>{mag.releaseDate}</div>
-                  <div style={{ width: 56, aspectRatio: "3/4", borderRadius: 3, background: `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})` }} />
+                  <div style={{
+                    width: 56,
+                    aspectRatio: "3/4",
+                    borderRadius: 3,
+                    background: mag.coverImageUrl
+                      ? `url("${mag.coverImageUrl}") center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
+                      : `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
+                  }} />
                   <div>
                     <div style={{ fontFamily: '"Noto Serif JP",serif', fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>{mag.seriesName} {mag.issue}</div>
                     <div style={{ fontSize: 11, color: "var(--ink-3)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{mag.title}</div>
+                  </div>
+                  <div className="timeline-buy">
+                    <a href={amazonHref(mag)} target="_blank" rel="nofollow sponsored noopener" aria-label={`${mag.seriesName} ${mag.issue}をAmazonで見る`}>Amazon</a>
+                    <a href={rakutenHref(mag)} target="_blank" rel="nofollow sponsored noopener" aria-label={`${mag.seriesName} ${mag.issue}を楽天ブックスで見る`}>楽天</a>
                   </div>
                 </div>
               ))}
@@ -161,9 +192,57 @@ export default async function ModelDetailPage({ params }: Props) {
         )}
       </div>
       <style>{`
+        .appearance-buy {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px;
+          margin-top: 8px;
+        }
+        .appearance-buy a,
+        .timeline-buy a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 30px;
+          border-radius: 999px;
+          text-decoration: none;
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--ink);
+          background: var(--paper);
+          border: 1px solid var(--line);
+        }
+        .appearance-buy a:first-child,
+        .timeline-buy a:first-child {
+          background: #ff9900;
+          border-color: #ee8d00;
+          color: #241405;
+        }
+        .appearance-buy a:last-child,
+        .timeline-buy a:last-child {
+          background: #cc0000;
+          border-color: #b50000;
+          color: white;
+        }
+        .appearance-buy span {
+          font-size: 8px;
+          opacity: .72;
+          margin-left: 3px;
+        }
+        .timeline-buy {
+          display: flex;
+          gap: 6px;
+        }
+        .timeline-buy a {
+          min-width: 64px;
+          min-height: 28px;
+          font-size: 10.5px;
+        }
         @media (max-width: 640px) {
           .model-hero { grid-template-columns: 1fr !important; gap: 20px !important; }
           .appearances-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .timeline-row { grid-template-columns: 74px 44px 1fr !important; gap: 10px !important; }
+          .timeline-buy { grid-column: 1 / -1; justify-content: flex-end; }
         }
       `}</style>
     </>
