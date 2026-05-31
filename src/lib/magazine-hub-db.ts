@@ -62,6 +62,10 @@ type PerformerIconLookup = ModelCoverLookup & {
   portraitLocalPath?: string | null;
 };
 
+type ModelCardCoverFallbackOptions = {
+  coverOnly?: boolean;
+};
+
 function localPathToUrl(localPath: string | null | undefined): string | undefined {
   if (!localPath) return undefined;
   const path = localPath.startsWith("/magazine-images/")
@@ -242,7 +246,74 @@ function resolveCardCoverImageUrl(
   return filterCoverUrl(coverUrl);
 }
 
-function getModelCardCoverFallbacks(db: DatabaseSync, performers: ModelCoverLookup[]): Map<string, string> {
+function getModelCardCoverFallbacksFromLinks(
+  db: DatabaseSync,
+  termToKey: Map<string, string>,
+  options: ModelCardCoverFallbackOptions,
+): Map<string, string> {
+  const terms = Array.from(termToKey.keys());
+  if (terms.length === 0) return new Map();
+
+  let rows: Array<{
+    performer_key: string;
+    performer_name: string;
+    brand: string;
+    cover_url: string | null;
+    local_path: string | null;
+  }>;
+  try {
+    const placeholders = terms.map(() => "?").join(",");
+    const coverOnlyClause = options.coverOnly ? "AND pml.is_cover = 1" : "";
+    rows = db.prepare(`
+      WITH ranked AS (
+        SELECT pml.performer_key, pml.performer_name, pml.is_cover, mc.brand, mc.date, c.cover_url, c.local_path,
+          ROW_NUMBER() OVER (
+            PARTITION BY pml.performer_key
+            ORDER BY pml.is_cover DESC,
+              mc.date DESC,
+              CASE
+                WHEN c.local_path IS NOT NULL THEN 0
+                WHEN c.cover_url LIKE 'https://idolz.hubxhub.com/wp-content/uploads/%' THEN 1
+                ELSE 2
+              END,
+              c.position ASC,
+              mc.id DESC
+          ) AS rn
+        FROM performer_magazine_links pml
+        JOIN magazine_cards mc ON mc.id = pml.magazine_card_id
+        JOIN magazine_card_covers c ON c.card_id = mc.id
+        WHERE (pml.performer_key IN (${placeholders}) OR pml.performer_name IN (${placeholders}))
+          ${coverOnlyClause}
+          AND mc.source = 'idolz'
+          AND mc.date IS NOT NULL
+          AND mc.date != ''
+          AND mc.brand IS NOT NULL
+          ${visibleImageBrandSql("mc")}
+      )
+      SELECT performer_key, performer_name, brand, cover_url, local_path
+      FROM ranked
+      WHERE rn <= 12
+      ORDER BY performer_key, rn
+    `).all(...terms, ...terms) as typeof rows;
+  } catch {
+    return new Map();
+  }
+
+  const covers = new Map<string, string>();
+  for (const row of rows) {
+    const key = termToKey.get(row.performer_key) ?? termToKey.get(row.performer_name);
+    if (!key || covers.has(key)) continue;
+    const url = resolveCardCoverImageUrl(row.cover_url, row.local_path, row.brand);
+    if (url) covers.set(key, url);
+  }
+  return covers;
+}
+
+function getModelCardCoverFallbacks(
+  db: DatabaseSync,
+  performers: ModelCoverLookup[],
+  options: ModelCardCoverFallbackOptions = {},
+): Map<string, string> {
   const termToKey = new Map<string, string>();
   for (const performer of performers) {
     if (performer.key) termToKey.set(performer.key, performer.key);
@@ -251,7 +322,13 @@ function getModelCardCoverFallbacks(db: DatabaseSync, performers: ModelCoverLook
   const terms = Array.from(termToKey.keys());
   if (terms.length === 0) return new Map();
 
-  const placeholders = terms.map(() => "?").join(",");
+  const linkCovers = getModelCardCoverFallbacksFromLinks(db, termToKey, options);
+  if (options.coverOnly) return linkCovers;
+
+  const unresolvedTerms = terms.filter((term) => !linkCovers.has(termToKey.get(term) ?? ""));
+  if (unresolvedTerms.length === 0) return linkCovers;
+
+  const placeholders = unresolvedTerms.map(() => "?").join(",");
   const rows = db.prepare(`
     WITH ranked AS (
       SELECT mp.performer_name AS term, mc.brand, mc.date, c.cover_url, c.local_path,
@@ -280,14 +357,14 @@ function getModelCardCoverFallbacks(db: DatabaseSync, performers: ModelCoverLook
     FROM ranked
     WHERE rn <= 12
     ORDER BY term, rn
-  `).all(...terms) as Array<{
+  `).all(...unresolvedTerms) as Array<{
     term: string;
     brand: string;
     cover_url: string | null;
     local_path: string | null;
   }>;
 
-  const covers = new Map<string, string>();
+  const covers = new Map(linkCovers);
   for (const row of rows) {
     const key = termToKey.get(row.term);
     if (!key || covers.has(key)) continue;
@@ -340,7 +417,13 @@ function getPerformerPortraitUrls(db: DatabaseSync, performers: PerformerIconLoo
 }
 
 function getPerformerIconUrls(db: DatabaseSync, performers: PerformerIconLookup[]): Map<string, string> {
-  const urls = getPerformerPortraitUrls(db, performers);
+  const urls = getModelCardCoverFallbacks(db, performers, { coverOnly: true });
+  const withoutCoverCard = performers.filter((performer) => !urls.get(performer.key));
+  const portraitUrls = getPerformerPortraitUrls(db, withoutCoverCard);
+  for (const [key, url] of portraitUrls) {
+    if (!urls.has(key)) urls.set(key, url);
+  }
+
   const unresolved = performers.filter((performer) => !urls.get(performer.key));
   if (unresolved.length === 0) return urls;
 
@@ -478,15 +561,17 @@ export function getTopModels(limit = 100): MhModel[] {
       cover_count: number;
       imageLocalPath: string | null;
     }>;
+    const performers = rows.map((r) => ({ key: r.performer_key, name: r.performer_name }));
+    const coverCardFallbacks = getModelCardCoverFallbacks(db, performers, { coverOnly: true });
     const portraitUrls = new Map(rows.map((r) => [r.performer_key, localPathToUrlIfExists(r.imageLocalPath)]));
-    const rowsWithoutPortrait = rows.filter((r) => !portraitUrls.get(r.performer_key));
+    const rowsWithoutPrimary = rows.filter((r) => !coverCardFallbacks.get(r.performer_key) && !portraitUrls.get(r.performer_key));
     const coverFallbacks = getModelCoverFallbacks(
       db,
-      rowsWithoutPortrait.map((r) => r.performer_key),
+      rowsWithoutPrimary.map((r) => r.performer_key),
     );
     const cardCoverFallbacks = getModelCardCoverFallbacks(
       db,
-      rowsWithoutPortrait
+      rowsWithoutPrimary
         .filter((r) => !coverFallbacks.get(r.performer_key))
         .map((r) => ({ key: r.performer_key, name: r.performer_name })),
     );
@@ -502,7 +587,7 @@ export function getTopModels(limit = 100): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
+      imageUrl: coverCardFallbacks.get(r.performer_key) ?? portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
     }));
   } catch {
     return [];
@@ -563,11 +648,12 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       LIMIT 12
     `).all(performerKey) as Array<{ brand: string; issue_date_start: string; image_url: string | null; local_path: string | null }>;
 
+    const coverCardImageUrl = getModelCardCoverFallbacks(db, [{ key: stat.performer_key, name: stat.performer_name }], { coverOnly: true }).get(stat.performer_key);
     const coverImageUrl = coverRows
       .map((r) => resolveIssueCoverImageUrl(r.image_url, r.local_path, r.brand, r.issue_date_start))
       .find((url): url is string => !!url);
     const portraitUrl = localPathToUrlIfExists(imageRow?.local_path);
-    const cardCoverImageUrl = (portraitUrl || coverImageUrl)
+    const cardCoverImageUrl = (coverCardImageUrl || portraitUrl || coverImageUrl)
       ? undefined
       : getModelCardCoverFallbacks(db, [{ key: stat.performer_key, name: stat.performer_name }]).get(stat.performer_key);
 
@@ -666,7 +752,7 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         c3: colorFromHash(key + "3", 40, 73),
         c4: colorFromHash(key + "4", 36, 63),
       },
-      imageUrl: portraitUrl ?? coverImageUrl ?? cardCoverImageUrl,
+      imageUrl: coverCardImageUrl ?? portraitUrl ?? coverImageUrl ?? cardCoverImageUrl,
       recentIssues,
     };
   } catch {
@@ -1115,15 +1201,17 @@ export function searchModels(query: string, limit = 30): MhModel[] {
       cover_count: number;
       imageLocalPath: string | null;
     }>;
+    const performers = rows.map((r) => ({ key: r.performer_key, name: r.performer_name }));
+    const coverCardFallbacks = getModelCardCoverFallbacks(db, performers, { coverOnly: true });
     const portraitUrls = new Map(rows.map((r) => [r.performer_key, localPathToUrlIfExists(r.imageLocalPath)]));
-    const rowsWithoutPortrait = rows.filter((r) => !portraitUrls.get(r.performer_key));
+    const rowsWithoutPrimary = rows.filter((r) => !coverCardFallbacks.get(r.performer_key) && !portraitUrls.get(r.performer_key));
     const coverFallbacks = getModelCoverFallbacks(
       db,
-      rowsWithoutPortrait.map((r) => r.performer_key),
+      rowsWithoutPrimary.map((r) => r.performer_key),
     );
     const cardCoverFallbacks = getModelCardCoverFallbacks(
       db,
-      rowsWithoutPortrait
+      rowsWithoutPrimary
         .filter((r) => !coverFallbacks.get(r.performer_key))
         .map((r) => ({ key: r.performer_key, name: r.performer_name })),
     );
@@ -1139,7 +1227,7 @@ export function searchModels(query: string, limit = 30): MhModel[] {
         c3: colorFromHash(r.performer_key + "3", 40, 73),
         c4: colorFromHash(r.performer_key + "4", 36, 63),
       },
-      imageUrl: portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
+      imageUrl: coverCardFallbacks.get(r.performer_key) ?? portraitUrls.get(r.performer_key) ?? coverFallbacks.get(r.performer_key) ?? cardCoverFallbacks.get(r.performer_key),
     }));
   } catch {
     return [];
