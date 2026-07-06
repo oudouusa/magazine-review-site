@@ -33,6 +33,13 @@ function cached<T>(key: string, ttlMs: number, compute: () => T): T {
   const hit = cache.get(key);
   if (hit && Date.now() - hit.at < ttlMs) return hit.val as T;
   const val = compute();
+  if (cache.size > 800) {
+    // Keyed by page/model params, so sweep expired entries before growing.
+    const cutoff = Date.now() - HOUR6;
+    for (const [k, v] of cache) {
+      if (v.at < cutoff) cache.delete(k);
+    }
+  }
   cache.set(key, { at: Date.now(), val });
   return val;
 }
@@ -400,35 +407,42 @@ function toCoStar(db: NonNullable<ReturnType<typeof getMhDb>>, rows: Array<{ key
 }
 
 function queryCoStars(db: NonNullable<ReturnType<typeof getMhDb>>, performerKey: string, limit: number) {
+  // Materialized CTE lets SQLite build an ephemeral index over the target's
+  // cards; a direct pml self-join has no card_id index and runs ~100x slower.
   const rows = db.prepare(`
-    SELECT pml2.performer_key AS key, ps.performer_name AS name, COUNT(DISTINCT pml.magazine_card_id) AS count
-    FROM performer_magazine_links pml
-    JOIN performer_magazine_links pml2
-      ON pml2.magazine_card_id = pml.magazine_card_id AND pml2.performer_key != pml.performer_key
-    JOIN performer_stats ps ON ps.performer_key = pml2.performer_key
-    WHERE pml.performer_key = ?
-    GROUP BY pml2.performer_key
+    WITH target_cards AS (
+      SELECT magazine_card_id FROM performer_magazine_links WHERE performer_key = ?
+    )
+    SELECT other.performer_key AS key, ps.performer_name AS name, COUNT(DISTINCT other.magazine_card_id) AS count
+    FROM performer_magazine_links other
+    JOIN target_cards tc ON tc.magazine_card_id = other.magazine_card_id
+    JOIN performer_stats ps ON ps.performer_key = other.performer_key
+    WHERE other.performer_key != ?
+    GROUP BY other.performer_key
     ORDER BY count DESC
     LIMIT ?
-  `).all(performerKey, limit) as Array<{ key: string; name: string; count: number }>;
+  `).all(performerKey, performerKey, limit) as Array<{ key: string; name: string; count: number }>;
   return rows.filter((r) => isPersonKey(r.key));
 }
 
 export function getCoStars(performerKey: string, limit = 8): MhCoStar[] {
-  const db = getMhDb();
-  if (!db) return [];
-  try {
-    return toCoStar(db, queryCoStars(db, performerKey, limit * 2).slice(0, limit));
-  } catch {
-    return [];
-  }
+  return cached(`coStars:${performerKey}:${limit}`, MIN30, () => {
+    const db = getMhDb();
+    if (!db) return [];
+    try {
+      return toCoStar(db, queryCoStars(db, performerKey, limit * 2).slice(0, limit));
+    } catch {
+      return [];
+    }
+  });
 }
 
 export function getRelatedModels(performerKey: string, limit = 6): MhCoStar[] {
-  const db = getMhDb();
-  if (!db) return [];
-  try {
-    const coStars = queryCoStars(db, performerKey, 40);
+  return cached(`related:${performerKey}:${limit}`, MIN30, () => {
+    const db = getMhDb();
+    if (!db) return [];
+    try {
+      const coStars = queryCoStars(db, performerKey, 40);
     const excluded = new Set([performerKey, ...coStars.slice(0, 3).map((c) => c.key)]);
     const coStarCount = new Map(coStars.map((c) => [c.key, c.count]));
 
@@ -463,15 +477,16 @@ export function getRelatedModels(performerKey: string, limit = 6): MhCoStar[] {
       if (!scores.has(c.key)) scores.set(c.key, { key: c.key, name: c.name, score: c.count * 3 });
     }
 
-    const picked = Array.from(scores.values())
-      .filter((s) => !excluded.has(s.key))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit)
-      .map((s) => ({ key: s.key, name: s.name, count: coStarCount.get(s.key) ?? 0 }));
-    return toCoStar(db, picked);
-  } catch {
-    return [];
-  }
+      const picked = Array.from(scores.values())
+        .filter((s) => !excluded.has(s.key))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map((s) => ({ key: s.key, name: s.name, count: coStarCount.get(s.key) ?? 0 }));
+      return toCoStar(db, picked);
+    } catch {
+      return [];
+    }
+  });
 }
 
 // --- birthdays --------------------------------------------------------------
