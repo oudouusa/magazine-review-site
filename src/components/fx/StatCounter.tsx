@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 export function StatCounter({ value, label, suffix }: { value: number; label: string; suffix?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(0);
+  // SSR shows the real value (crawlers / no-JS); the count-up starts on view.
+  const [shown, setShown] = useState(value);
   const started = useRef(false);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export function StatCounter({ value, label, suffix }: { value: number; label: st
         setShown(value);
         return;
       }
+      setShown(0);
       const t0 = performance.now();
       const dur = 900;
       const tick = (t: number) => {
