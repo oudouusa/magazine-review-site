@@ -3,6 +3,17 @@ import { DatabaseSync } from "node:sqlite";
 import { existsSync } from "node:fs";
 
 let _db: DatabaseSync | null = null;
+const HEAVY_CACHE_TTL_MS = 30 * 60_000;
+const heavyCache = new Map<string, { at: number; val: unknown }>();
+
+function cachedHeavy<T>(key: string, load: () => T): T {
+  const now = Date.now();
+  const cached = heavyCache.get(key);
+  if (cached && now - cached.at < HEAVY_CACHE_TTL_MS) return cached.val as T;
+  const val = load();
+  heavyCache.set(key, { at: now, val });
+  return val;
+}
 
 function getDb(): DatabaseSync | null {
   if (_db) return _db;
@@ -1390,5 +1401,741 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
     return [...idolz, ...fallback].slice(0, limit);
   } catch {
     return idolz;
+  }
+}
+
+export type MhSiteStats = {
+  models: number;
+  issues: number;
+  covers: number;
+  brands: number;
+};
+
+export type MhUpcoming = {
+  date: string;
+  title: string;
+  brand: string;
+  kind: "magazine" | "photobook" | "digital_photobook";
+  publisher?: string;
+  performerKey?: string;
+  performerName?: string;
+  coverImageUrl?: string;
+  amazonUrl?: string;
+  rakutenUrl?: string;
+  cardId?: number;
+};
+
+export type MhTrending = {
+  key: string;
+  name: string;
+  imageUrl?: string;
+  c1: string;
+  c2: string;
+  totalPubs: number;
+  firstDate?: string;
+  recent6: number;
+  prior6: number;
+  score: number;
+  monthly: number[];
+};
+
+export type MhModelRelation = {
+  model: MhModel;
+  count: number;
+};
+
+export type MhBirthday = {
+  key: string;
+  name: string;
+  birthday: string;
+  month: number;
+  day: number;
+  imageUrl?: string;
+  c1: string;
+  c2: string;
+  pubCount: number;
+};
+
+type RelatedModelRow = {
+  performer_key: string;
+  performer_name: string;
+  appearance_count: number | null;
+  cover_count: number | null;
+  relation_count: number;
+  imageLocalPath?: string | null;
+};
+
+function todayIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function isoDateAtDelta(days: number): string {
+  return new Date(Date.now() + days * 86400_000).toISOString().slice(0, 10);
+}
+
+function addYearsIso(isoDate: string, years: number): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  const date = new Date(Date.UTC(year + years, month - 1, day));
+  return date.toISOString().slice(0, 10);
+}
+
+function recentMonthKeys(count: number): string[] {
+  const today = todayIso();
+  const [year, month] = today.slice(0, 7).split("-").map(Number);
+  const months: string[] = [];
+  for (let i = count - 1; i >= 0; i--) {
+    const date = new Date(Date.UTC(year, month - 1 - i, 1));
+    months.push(date.toISOString().slice(0, 7));
+  }
+  return months;
+}
+
+function normalizePublicationKind(kind: string | null | undefined): MhUpcoming["kind"] {
+  if (kind === "photobook" || kind === "digital_photobook") return kind;
+  return "magazine";
+}
+
+function buildAmazonAsinUrl(asin: string | null | undefined): string | undefined {
+  const clean = asin?.trim();
+  if (!clean) return undefined;
+  return normalizeRetailUrl(`https://www.amazon.co.jp/dp/${encodeURIComponent(clean)}?tag=magazinelab-22`);
+}
+
+function buildRakutenProductUrl(productId: string | null | undefined): string | undefined {
+  const clean = productId?.trim();
+  if (!clean) return undefined;
+  if (/^\d+$/.test(clean)) return `https://item.rakuten.co.jp/book/${encodeURIComponent(clean)}/`;
+  return `https://product.rakuten.co.jp/product/-/${encodeURIComponent(clean)}/`;
+}
+
+function mapModelRelationRows(db: DatabaseSync, rows: RelatedModelRow[]): MhModelRelation[] {
+  const performers = rows.map((row) => ({
+    key: row.performer_key,
+    name: row.performer_name || row.performer_key,
+    portraitLocalPath: row.imageLocalPath,
+  }));
+  const imageUrls = getPerformerIconUrls(db, performers);
+
+  return rows.map((row) => {
+    const key = row.performer_key;
+    return {
+      count: row.relation_count,
+      model: {
+        slug: encodeURIComponent(key),
+        name: row.performer_name || key,
+        nameYomi: key,
+        tags: [],
+        stats: {
+          issues: row.appearance_count ?? row.relation_count,
+          covers: row.cover_count ?? 0,
+        },
+        gradient: {
+          c1: colorFromHash(key, 42, 78),
+          c2: colorFromHash(`${key}2`, 38, 68),
+          c3: colorFromHash(`${key}3`, 40, 73),
+          c4: colorFromHash(`${key}4`, 36, 63),
+        },
+        imageUrl: imageUrls.get(key),
+      },
+    };
+  });
+}
+
+function getPopularModelRelations(db: DatabaseSync, excludeKeys: string[], limit: number): MhModelRelation[] {
+  if (limit <= 0) return [];
+  const uniqueExcludes = Array.from(new Set(excludeKeys.filter(Boolean)));
+  const placeholders = uniqueExcludes.map(() => "?").join(",");
+  const excludeClause = placeholders ? `WHERE ps.performer_key NOT IN (${placeholders})` : "";
+  const rows = db.prepare(`
+    SELECT ps.performer_key, ps.performer_name, ps.appearance_count, ps.cover_count, 0 AS relation_count,
+      (SELECT pi.local_path FROM performer_images pi
+       JOIN performers p ON p.id = pi.performer_id
+       WHERE p.name_normalized = ps.performer_key AND pi.position = 0
+       LIMIT 1) AS imageLocalPath
+    FROM performer_stats ps
+    ${excludeClause}
+    ORDER BY ps.appearance_count DESC
+    LIMIT ?
+  `).all(...uniqueExcludes, limit) as RelatedModelRow[];
+  return mapModelRelationRows(db, rows);
+}
+
+function parseJapaneseBirthday(value: string): { month: number; day: number } | null {
+  const match = value.match(/(\d{1,2})月(\d{1,2})日/u);
+  if (!match) return null;
+  const month = Number(match[1]);
+  const day = Number(match[2]);
+  if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+  return { month, day };
+}
+
+function getBirthdays(month: number, day?: number): MhBirthday[] {
+  if (month < 1 || month > 12) return [];
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(`
+      SELECT p.name_normalized AS performer_key,
+        COALESCE(ps.performer_name, pp.name, p.name_jp) AS performer_name,
+        pp.birthday,
+        COALESCE(pa.pub_count, ps.appearance_count, 0) AS pub_count,
+        (SELECT pi.local_path FROM performer_images pi
+         WHERE pi.performer_id = p.id AND pi.position = 0
+         LIMIT 1) AS imageLocalPath
+      FROM performer_profiles pp
+      JOIN performers p ON p.id = pp.performer_id
+      JOIN performer_stats ps ON ps.performer_key = p.name_normalized
+      LEFT JOIN performer_appearances pa ON pa.performer_id = p.id
+      WHERE p.name_normalized IS NOT NULL
+        AND p.name_normalized != ''
+        AND pp.birthday IS NOT NULL
+        AND pp.birthday != ''
+    `).all() as Array<{
+      performer_key: string;
+      performer_name: string;
+      birthday: string;
+      pub_count: number;
+      imageLocalPath: string | null;
+    }>;
+
+    const filtered = rows
+      .map((row) => ({ row, parsed: parseJapaneseBirthday(row.birthday) }))
+      .filter((item): item is { row: typeof rows[number]; parsed: { month: number; day: number } } => {
+        return !!item.parsed && item.parsed.month === month && (day === undefined || item.parsed.day === day);
+      })
+      .sort((a, b) => b.row.pub_count - a.row.pub_count);
+
+    const imageUrls = getPerformerPortraitUrls(
+      db,
+      filtered.map(({ row }) => ({
+        key: row.performer_key,
+        name: row.performer_name,
+        portraitLocalPath: row.imageLocalPath,
+      })),
+    );
+
+    return filtered.map(({ row, parsed }) => ({
+      key: row.performer_key,
+      name: row.performer_name,
+      birthday: row.birthday,
+      month: parsed.month,
+      day: parsed.day,
+      imageUrl: imageUrls.get(row.performer_key),
+      c1: colorFromHash(row.performer_key, 42, 78),
+      c2: colorFromHash(`${row.performer_key}2`, 38, 68),
+      pubCount: row.pub_count,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export function getSiteStats(): MhSiteStats {
+  return cachedHeavy("getSiteStats", () => {
+    const db = getDb();
+    if (!db) return { models: 0, issues: 0, covers: 0, brands: 0 };
+    try {
+      const models = db.prepare("SELECT COUNT(*) AS n FROM performer_appearances").get() as { n: number };
+      const issues = db.prepare("SELECT COUNT(*) AS n FROM magazine_cards").get() as { n: number };
+      const covers = db.prepare("SELECT COUNT(*) AS n FROM magazine_card_covers").get() as { n: number };
+      const brands = db.prepare(`
+        SELECT COUNT(DISTINCT brand) AS n
+        FROM magazine_cards
+        WHERE brand IS NOT NULL AND brand != ''
+      `).get() as { n: number };
+      return {
+        models: models.n,
+        issues: issues.n,
+        covers: covers.n,
+        brands: brands.n,
+      };
+    } catch {
+      return { models: 0, issues: 0, covers: 0, brands: 0 };
+    }
+  });
+}
+
+export function getUpcomingReleases(days = 210): MhUpcoming[] {
+  return cachedHeavy(`getUpcomingReleases:${days}`, () => {
+    const db = getDb();
+    if (!db) return [];
+    try {
+      const today = todayIso();
+      const maxDate = isoDateAtDelta(days);
+      const rows = db.prepare(`
+        SELECT p.id AS publicationId,
+          p.release_date AS date,
+          COALESCE(NULLIF(p.official_title, ''), NULLIF(p.jpo_title, ''), p.title, '') AS title,
+          COALESCE(NULLIF(p.display_brand, ''), p.canonical_brand, '') AS brand,
+          p.publication_kind AS kind,
+          COALESCE(NULLIF(p.publisher, ''), NULLIF(p.publisher_official, ''), NULLIF(p.jpo_publisher, '')) AS publisher,
+          NULLIF(p.performer_key, '') AS performerKey,
+          p.asin_print AS asinPrint,
+          p.asin_ebook AS asinEbook,
+          p.rakuten_product_id AS rakutenProductId,
+          mc.id AS cardId,
+          mc.brand AS cardBrand,
+          (SELECT c.cover_url FROM magazine_card_covers c
+           WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+          (SELECT c.local_path FROM magazine_card_covers c
+           WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+          (SELECT l.url FROM magazine_card_links l
+           WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+           ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS cardAmazonUrl,
+          (SELECT l.url FROM magazine_card_links l
+           WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+           ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS cardRakutenUrl,
+          (SELECT pml.performer_key FROM performer_magazine_links pml
+           WHERE pml.publication_id = p.id
+           ORDER BY pml.is_cover DESC, pml.date DESC, pml.magazine_card_id DESC LIMIT 1) AS linkPerformerKey,
+          (SELECT pml.performer_name FROM performer_magazine_links pml
+           WHERE pml.publication_id = p.id
+           ORDER BY pml.is_cover DESC, pml.date DESC, pml.magazine_card_id DESC LIMIT 1) AS linkPerformerName
+        FROM publications p
+        LEFT JOIN magazine_cards mc ON mc.id = (
+          SELECT mc2.id FROM magazine_cards mc2
+          WHERE mc2.publication_id = p.id
+          ORDER BY mc2.date DESC, mc2.id DESC
+          LIMIT 1
+        )
+        WHERE p.release_date > ? AND p.release_date <= ?
+        ORDER BY p.release_date ASC, p.id ASC
+      `).all(today, maxDate) as Array<{
+        publicationId: number;
+        date: string;
+        title: string;
+        brand: string;
+        kind: string | null;
+        publisher: string | null;
+        performerKey: string | null;
+        asinPrint: string | null;
+        asinEbook: string | null;
+        rakutenProductId: string | null;
+        cardId: number | null;
+        cardBrand: string | null;
+        coverUrl: string | null;
+        coverLocalPath: string | null;
+        cardAmazonUrl: string | null;
+        cardRakutenUrl: string | null;
+        linkPerformerKey: string | null;
+        linkPerformerName: string | null;
+      }>;
+
+      const performerKeys = Array.from(new Set(rows
+        .map((row) => row.performerKey || row.linkPerformerKey)
+        .filter((key): key is string => !!key)));
+      const nameMap = new Map<string, string>();
+      if (performerKeys.length > 0) {
+        const placeholders = performerKeys.map(() => "?").join(",");
+        const nameRows = db.prepare(`
+          SELECT performer_key, performer_name FROM performer_stats
+          WHERE performer_key IN (${placeholders})
+        `).all(...performerKeys) as Array<{ performer_key: string; performer_name: string }>;
+        for (const row of nameRows) nameMap.set(row.performer_key, row.performer_name);
+      }
+
+      return rows.map((row) => {
+        const performerKey = row.performerKey || row.linkPerformerKey || undefined;
+        return {
+          date: row.date,
+          title: row.title,
+          brand: row.brand,
+          kind: normalizePublicationKind(row.kind),
+          publisher: row.publisher || undefined,
+          performerKey,
+          performerName: performerKey ? nameMap.get(performerKey) ?? row.linkPerformerName ?? performerKey : undefined,
+          coverImageUrl: resolveCardCoverImageUrl(row.coverUrl, row.coverLocalPath, row.cardBrand || row.brand),
+          amazonUrl: normalizeRetailUrl(row.cardAmazonUrl) ?? buildAmazonAsinUrl(row.asinPrint || row.asinEbook),
+          rakutenUrl: normalizeRetailUrl(row.cardRakutenUrl) ?? buildRakutenProductUrl(row.rakutenProductId),
+          cardId: row.cardId ?? undefined,
+        };
+      });
+    } catch {
+      return [];
+    }
+  });
+}
+
+export function getNewThisWeek(limit = 20): MhMagazine[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const today = todayIso();
+    const minDate = isoDateAtDelta(-14);
+    const rows = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.date >= ? AND mc.date <= ?
+        AND mc.brand IS NOT NULL
+        AND mc.brand != ''
+      ORDER BY mc.date DESC, mc.id DESC
+      LIMIT ?
+    `).all(minDate, today, limit) as MagazineCardRow[];
+    return rows.map(mapMagazineCardRow);
+  } catch {
+    return [];
+  }
+}
+
+export function getTrendingModels(limit = 30): MhTrending[] {
+  return cachedHeavy(`getTrendingModels:${limit}`, () => {
+    const db = getDb();
+    if (!db) return [];
+    try {
+      const today = todayIso();
+      const recentStart = isoDateAtDelta(-183);
+      const priorStart = isoDateAtDelta(-366);
+      const trendRows = db.prepare(`
+        SELECT pml.performer_key,
+          MAX(COALESCE(ps.performer_name, pml.performer_name)) AS performer_name,
+          COALESCE(ps.appearance_count, COUNT(pml.magazine_card_id)) AS total_pubs,
+          ps.first_date,
+          SUM(CASE WHEN mc.date >= ? AND mc.date <= ? THEN 1 ELSE 0 END) AS recent6,
+          SUM(CASE WHEN mc.date >= ? AND mc.date < ? THEN 1 ELSE 0 END) AS prior6
+        FROM performer_magazine_links pml
+        JOIN magazine_cards mc ON mc.id = pml.magazine_card_id
+        LEFT JOIN performer_stats ps ON ps.performer_key = pml.performer_key
+        WHERE mc.date >= ? AND mc.date <= ?
+          AND mc.date IS NOT NULL
+          AND mc.date != ''
+          AND pml.performer_key IS NOT NULL
+          AND pml.performer_key != ''
+        GROUP BY pml.performer_key
+        HAVING recent6 >= 4
+        ORDER BY (recent6 * 1.0 / CASE WHEN prior6 > 0 THEN prior6 ELSE 1 END) DESC, recent6 DESC
+        LIMIT ?
+      `).all(recentStart, today, priorStart, recentStart, priorStart, today, limit) as Array<{
+        performer_key: string;
+        performer_name: string;
+        total_pubs: number;
+        first_date: string | null;
+        recent6: number;
+        prior6: number;
+      }>;
+
+      const keys = trendRows.map((row) => row.performer_key);
+      const months = recentMonthKeys(24);
+      const monthlyByKey = new Map<string, Map<string, number>>();
+      if (keys.length > 0) {
+        const placeholders = keys.map(() => "?").join(",");
+        const monthRows = db.prepare(`
+          SELECT pml.performer_key, substr(mc.date, 1, 7) AS ym, COUNT(*) AS count
+          FROM performer_magazine_links pml
+          JOIN magazine_cards mc ON mc.id = pml.magazine_card_id
+          WHERE pml.performer_key IN (${placeholders})
+            AND mc.date >= ?
+            AND mc.date <= ?
+            AND mc.date IS NOT NULL
+            AND mc.date != ''
+          GROUP BY pml.performer_key, ym
+        `).all(...keys, `${months[0]}-01`, today) as Array<{ performer_key: string; ym: string; count: number }>;
+        for (const row of monthRows) {
+          const monthly = monthlyByKey.get(row.performer_key) ?? new Map<string, number>();
+          monthly.set(row.ym, row.count);
+          monthlyByKey.set(row.performer_key, monthly);
+        }
+      }
+
+      const portraitUrls = getPerformerPortraitUrls(
+        db,
+        trendRows.map((row) => ({ key: row.performer_key, name: row.performer_name })),
+      );
+
+      return trendRows.map((row) => {
+        const key = row.performer_key;
+        const prior6 = row.prior6 || 0;
+        return {
+          key,
+          name: row.performer_name || key,
+          imageUrl: portraitUrls.get(key),
+          c1: colorFromHash(key, 42, 78),
+          c2: colorFromHash(`${key}2`, 38, 68),
+          totalPubs: row.total_pubs,
+          firstDate: row.first_date ?? undefined,
+          recent6: row.recent6,
+          prior6,
+          score: row.recent6 / Math.max(prior6, 1),
+          monthly: months.map((ym) => monthlyByKey.get(key)?.get(ym) ?? 0),
+        };
+      });
+    } catch {
+      return [];
+    }
+  });
+}
+
+export function getModelYearCounts(performerKey: string): { year: number; count: number }[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(`
+      SELECT CAST(substr(mc.date, 1, 4) AS INTEGER) AS year, COUNT(*) AS count
+      FROM performer_magazine_links pml
+      JOIN magazine_cards mc ON mc.id = pml.magazine_card_id
+      WHERE pml.performer_key = ?
+        AND mc.date IS NOT NULL
+        AND mc.date != ''
+      GROUP BY year
+      ORDER BY year ASC
+    `).all(performerKey) as Array<{ year: number; count: number }>;
+    if (rows.length === 0) return [];
+    const counts = new Map(rows.map((row) => [row.year, row.count]));
+    const firstYear = rows[0].year;
+    const currentYear = Number(todayIso().slice(0, 4));
+    const lastYear = Math.max(currentYear, rows[rows.length - 1].year);
+    const filled: { year: number; count: number }[] = [];
+    for (let year = firstYear; year <= lastYear; year++) {
+      filled.push({ year, count: counts.get(year) ?? 0 });
+    }
+    return filled;
+  } catch {
+    return [];
+  }
+}
+
+export function getCoStars(performerKey: string, limit = 8): MhModelRelation[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const rows = db.prepare(`
+      WITH target_cards AS (
+        SELECT magazine_card_id
+        FROM performer_magazine_links
+        WHERE performer_key = ?
+      )
+      SELECT other.performer_key,
+        MAX(COALESCE(ps.performer_name, other.performer_name)) AS performer_name,
+        ps.appearance_count,
+        ps.cover_count,
+        COUNT(*) AS relation_count,
+        (SELECT pi.local_path FROM performer_images pi
+         JOIN performers p ON p.id = pi.performer_id
+         WHERE p.name_normalized = other.performer_key AND pi.position = 0
+         LIMIT 1) AS imageLocalPath
+      FROM performer_magazine_links other
+      JOIN target_cards tc ON tc.magazine_card_id = other.magazine_card_id
+      LEFT JOIN performer_stats ps ON ps.performer_key = other.performer_key
+      WHERE other.performer_key != ?
+        AND other.performer_key IS NOT NULL
+        AND other.performer_key != ''
+      GROUP BY other.performer_key
+      ORDER BY relation_count DESC, COALESCE(ps.appearance_count, 0) DESC
+      LIMIT ?
+    `).all(performerKey, performerKey, limit) as RelatedModelRow[];
+    return mapModelRelationRows(db, rows);
+  } catch {
+    return [];
+  }
+}
+
+export function getRelatedModels(performerKey: string, limit = 6): MhModelRelation[] {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const topBrands = (db.prepare(`
+      SELECT brand
+      FROM performer_magazine_links
+      WHERE performer_key = ?
+        AND brand IS NOT NULL
+        AND brand != ''
+      GROUP BY brand
+      ORDER BY COUNT(*) DESC
+      LIMIT 3
+    `).all(performerKey) as Array<{ brand: string }>).map((row) => row.brand);
+
+    const coStarExcludes = (db.prepare(`
+      WITH target_cards AS (
+        SELECT magazine_card_id
+        FROM performer_magazine_links
+        WHERE performer_key = ?
+      )
+      SELECT other.performer_key
+      FROM performer_magazine_links other
+      JOIN target_cards tc ON tc.magazine_card_id = other.magazine_card_id
+      WHERE other.performer_key != ?
+      GROUP BY other.performer_key
+      ORDER BY COUNT(*) DESC
+      LIMIT 3
+    `).all(performerKey, performerKey) as Array<{ performer_key: string }>).map((row) => row.performer_key);
+
+    const excludeKeys = Array.from(new Set([performerKey, ...coStarExcludes]));
+    const excludePlaceholders = excludeKeys.map(() => "?").join(",");
+    const excludeClause = excludePlaceholders ? `AND pml.performer_key NOT IN (${excludePlaceholders})` : "";
+    const brandScoreSql = topBrands.length > 0
+      ? `SUM(CASE WHEN pml.brand IN (${topBrands.map(() => "?").join(",")}) THEN 1 ELSE 0 END)`
+      : "0";
+
+    const rows = db.prepare(`
+      WITH target_cards AS (
+        SELECT magazine_card_id
+        FROM performer_magazine_links
+        WHERE performer_key = ?
+      ),
+      co_counts AS (
+        SELECT other.performer_key, COUNT(*) AS co_count
+        FROM performer_magazine_links other
+        JOIN target_cards tc ON tc.magazine_card_id = other.magazine_card_id
+        WHERE other.performer_key != ?
+        GROUP BY other.performer_key
+      )
+      SELECT pml.performer_key,
+        MAX(COALESCE(ps.performer_name, pml.performer_name)) AS performer_name,
+        ps.appearance_count,
+        ps.cover_count,
+        (COALESCE(cc.co_count, 0) * 3 + ${brandScoreSql}) AS relation_count,
+        (SELECT pi.local_path FROM performer_images pi
+         JOIN performers p ON p.id = pi.performer_id
+         WHERE p.name_normalized = pml.performer_key AND pi.position = 0
+         LIMIT 1) AS imageLocalPath
+      FROM performer_magazine_links pml
+      LEFT JOIN co_counts cc ON cc.performer_key = pml.performer_key
+      LEFT JOIN performer_stats ps ON ps.performer_key = pml.performer_key
+      WHERE pml.performer_key != ?
+        AND pml.performer_key IS NOT NULL
+        AND pml.performer_key != ''
+        ${excludeClause}
+      GROUP BY pml.performer_key
+      HAVING relation_count > 0
+      ORDER BY relation_count DESC, COALESCE(ps.appearance_count, 0) DESC
+      LIMIT ?
+    `).all(performerKey, performerKey, ...topBrands, performerKey, ...excludeKeys, limit) as RelatedModelRow[];
+
+    const related = mapModelRelationRows(db, rows);
+    if (related.length >= limit) return related;
+
+    const existingKeys = related.map((item) => item.model.nameYomi);
+    const fill = getPopularModelRelations(db, [...excludeKeys, ...existingKeys], limit - related.length);
+    return [...related, ...fill].slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+export function getTodayBirthdays(): MhBirthday[] {
+  const today = todayIso();
+  return getBirthdays(Number(today.slice(5, 7)), Number(today.slice(8, 10)));
+}
+
+export function getBirthdaysForMonth(month: number): MhBirthday[] {
+  return getBirthdays(month);
+}
+
+export function getOnThisDay(limit = 4): MhMagazine[] {
+  return cachedHeavy(`getOnThisDay:${limit}`, () => {
+    const db = getDb();
+    if (!db) return [];
+    try {
+      const today = todayIso();
+      const cutoff = addYearsIso(today, -4);
+      const rows = db.prepare(`
+        SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+          (SELECT c.cover_url FROM magazine_card_covers c
+           WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+          (SELECT c.local_path FROM magazine_card_covers c
+           WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+          (SELECT l.url FROM magazine_card_links l
+           WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+           ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+          (SELECT l.url FROM magazine_card_links l
+           WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+           ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+          (SELECT COUNT(*) FROM magazine_card_links l
+           WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+             AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+        FROM magazine_cards mc
+        WHERE substr(mc.date, 6, 5) = substr(?, 6, 5)
+          AND mc.date <= ?
+          AND EXISTS (
+            SELECT 1 FROM magazine_card_covers c
+            WHERE c.card_id = mc.id AND (c.cover_url IS NOT NULL OR c.local_path IS NOT NULL)
+          )
+        ORDER BY (mc.id * 2654435761) % 997
+        LIMIT ?
+      `).all(today, cutoff, limit) as MagazineCardRow[];
+      return rows.map(mapMagazineCardRow);
+    } catch {
+      return [];
+    }
+  });
+}
+
+export function getCoverWall(opts: {
+  era?: "1990s" | "2000s" | "2010s" | "2020s";
+  brand?: string;
+  offset?: number;
+  limit?: number;
+}): { items: MhMagazine[]; total: number } {
+  const db = getDb();
+  if (!db) return { items: [], total: 0 };
+  try {
+    const where: string[] = [
+      "mc.date IS NOT NULL",
+      "mc.date != ''",
+      `EXISTS (
+        SELECT 1 FROM magazine_card_covers c
+        WHERE c.card_id = mc.id AND (c.cover_url IS NOT NULL OR c.local_path IS NOT NULL)
+      )`,
+    ];
+    const params: Array<string | number> = [];
+
+    if (opts.era) {
+      const startYear = Number(opts.era.slice(0, 4));
+      where.push("mc.date >= ?");
+      params.push(`${startYear}-01-01`);
+      where.push("mc.date < ?");
+      params.push(`${startYear + 10}-01-01`);
+    }
+
+    if (opts.brand?.trim()) {
+      where.push("mc.brand = ?");
+      params.push(opts.brand.trim());
+    }
+
+    const whereSql = where.join(" AND ");
+    const totalRow = db.prepare(`
+      SELECT COUNT(*) AS n
+      FROM magazine_cards mc
+      WHERE ${whereSql}
+    `).get(...params) as { n: number };
+
+    const limit = opts.limit ?? 96;
+    const offset = opts.offset ?? 0;
+    const rows = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE ${whereSql}
+      ORDER BY mc.date DESC, mc.id DESC
+      LIMIT ? OFFSET ?
+    `).all(...params, limit, offset) as MagazineCardRow[];
+
+    return { items: rows.map(mapMagazineCardRow), total: totalRow.n };
+  } catch {
+    return { items: [], total: 0 };
   }
 }
