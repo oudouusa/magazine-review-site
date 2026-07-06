@@ -2,80 +2,66 @@
 
 /* =====================================================================
    MODEL HUB — Design Tokens
+   「深夜のニューススタンド」: 温かい墨色の闇に、表紙が主役。
+   朱 (--primary) は編集部の赤ペン、山吹 (--amber) は値札と帯。
+   旧テーマ名 (sakura/navy/mono) は night への alias として残し、
+   既存ページの inline style が参照する変数は全て定義する。
    ===================================================================== */
 
-/* ---------- Sakura theme (default) ---------- */
+/* ---------- Night (default) ---------- */
 :root,
-[data-theme="sakura"] {
-  --bg: #fbf8f6;
-  --bg-2: #f5ece8;
-  --paper: #ffffff;
-  --paper-2: #faf6f3;
-  --ink: #2a1f24;
-  --ink-2: #5b4e54;
-  --ink-3: #8e8087;
-  --line: #ece5e2;
-  --line-2: #f4eeeb;
-  --primary: #6c5b8c;
-  --primary-2: #efeaf6;
-  --rose: #e8a8b8;
-  --rose-2: #f5d4dc;
-  --rose-3: #fbe9ee;
-  --plum: #7a4a5a;
-  --amber: #c98a3a;
-  --leaf: #6b8f6b;
-  --hero-grad: linear-gradient(120deg, #fdf2f1 0%, #f8eeee 50%, #f3e9f0 100%);
-  --hero-glow1: rgba(232, 168, 184, 0.45);
-  --hero-glow2: rgba(245, 212, 220, 0.55);
-  --pr: #c98a3a;
-}
-
-[data-theme="navy"] {
-  --bg: #f6f4ef;
-  --bg-2: #ecead8;
-  --paper: #fefdf9;
-  --paper-2: #f5f1e6;
-  --ink: #16223a;
-  --ink-2: #44516d;
-  --ink-3: #8a92a6;
-  --line: #dfdacb;
-  --line-2: #ecead8;
-  --primary: #1a3a6e;
-  --primary-2: #e6ecf6;
-  --rose: #c4945a;
-  --rose-2: #ead8b8;
-  --rose-3: #f5ecd8;
-  --plum: #2c4870;
-  --amber: #b87d35;
-  --leaf: #5a8073;
-  --hero-grad: linear-gradient(120deg, #ecead8 0%, #e0dac0 50%, #d2cfb8 100%);
-  --hero-glow1: rgba(26, 58, 110, 0.2);
-  --hero-glow2: rgba(196, 148, 90, 0.22);
-  --pr: #b87d35;
-}
-
+[data-theme="night"],
+[data-theme="sakura"],
+[data-theme="navy"],
 [data-theme="mono"] {
-  --bg: #f7f5f1;
-  --bg-2: #ece8df;
-  --paper: #fefdf9;
-  --paper-2: #f3efe6;
-  --ink: #1a1614;
-  --ink-2: #4a4338;
-  --ink-3: #8a8275;
-  --line: #e3ddce;
-  --line-2: #efeae0;
-  --primary: #1a1614;
-  --primary-2: #e3ddce;
-  --rose: #9a8a78;
-  --rose-2: #d4c8b5;
-  --rose-3: #e8e0d0;
-  --plum: #3a3024;
-  --amber: #6a5640;
-  --leaf: #5a5340;
-  --hero-grad: linear-gradient(120deg, #ede8dc 0%, #dcd4c2 50%, #c8bfac 100%);
-  --hero-glow1: rgba(60, 42, 28, 0.18);
-  --hero-glow2: rgba(120, 100, 72, 0.18);
-  --pr: #6a5640;
+  --bg: #141210;
+  --bg-2: #1a1715;
+  --paper: #201c19;
+  --paper-2: #282320;
+  --ink: #f4efe7;
+  --ink-2: #b3a99c;
+  --ink-3: #7d746a;
+  --line: #322d28;
+  --line-2: #282320;
+  --primary: #e94f37;
+  --primary-2: rgba(233, 79, 55, 0.13);
+  --rose: #d98a7c;
+  --rose-2: rgba(217, 138, 124, 0.22);
+  --rose-3: rgba(217, 138, 124, 0.10);
+  --plum: #c9b8ab;
+  --amber: #e9a820;
+  --leaf: #7fae8b;
+  --hero-grad: linear-gradient(150deg, #1c1815 0%, #141210 55%, #191411 100%);
+  --hero-glow1: rgba(233, 79, 55, 0.16);
+  --hero-glow2: rgba(233, 168, 32, 0.10);
+  --pr: #e9a820;
+  --shadow-lift: 0 14px 36px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Light (生成りの紙) ---------- */
+[data-theme="light"] {
+  --bg: #f6f1e7;
+  --bg-2: #efe8da;
+  --paper: #fffdf8;
+  --paper-2: #f6f0e4;
+  --ink: #26211c;
+  --ink-2: #5f574d;
+  --ink-3: #96897a;
+  --line: #ddd3c1;
+  --line-2: #e9e1d1;
+  --primary: #cf3a24;
+  --primary-2: rgba(207, 58, 36, 0.09);
+  --rose: #b56a5a;
+  --rose-2: rgba(181, 106, 90, 0.18);
+  --rose-3: rgba(181, 106, 90, 0.08);
+  --plum: #5a4a3c;
+  --amber: #a67208;
+  --leaf: #4f7d5c;
+  --hero-grad: linear-gradient(150deg, #f2ead9 0%, #f6f1e7 55%, #efe4cf 100%);
+  --hero-glow1: rgba(207, 58, 36, 0.10);
+  --hero-glow2: rgba(166, 114, 8, 0.12);
+  --pr: #a67208;
+  --shadow-lift: 0 14px 32px rgba(80, 60, 30, 0.18);
 }
 
 /* ---------- Density ---------- */
@@ -103,9 +89,54 @@ body {
   font-feature-settings: "palt" 1;
 }
 
+::selection { background: var(--primary); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
 .serif {
   font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
 }
+
+.mh-num { font-variant-numeric: tabular-nums; }
+
+.mh-vertical {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.3em;
+}
+
+/* ---------- Motion ---------- */
+.mh-lift {
+  transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.2s ease;
+}
+.mh-lift:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  box-shadow: var(--shadow-lift);
+}
+
+@keyframes mh-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mh-rise { animation: mh-rise 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.mh-rise-1 { animation-delay: 0.06s; }
+.mh-rise-2 { animation-delay: 0.12s; }
+.mh-rise-3 { animation-delay: 0.18s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-lift, .mh-rise { transition: none; animation: none; }
+  .mh-lift:hover { transform: none; }
+}
+
+/* ---------- Rails (横スクロール棚) ---------- */
+.mh-rail {
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 4px 12px;
+  margin: -4px -4px 0;
+}
+.mh-rail > * { scroll-snap-align: start; flex-shrink: 0; }
 
 /* ---------- Affiliate buttons ---------- */
 .btn {
@@ -122,13 +153,13 @@ body {
   font-family: inherit;
   white-space: nowrap;
   text-decoration: none;
-  transition: filter 0.15s;
+  transition: filter 0.15s, transform 0.15s;
 }
-.btn:hover { filter: brightness(1.05); }
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn-amazon  { background: #ff9900; color: #1a1a1a; }
 .btn-rakuten { background: #bf0000; color: white; }
 .btn-fanza   { background: #f43c4d; color: white; }
-.btn-ghost   { background: white; border-color: var(--line); color: var(--ink-2); }
+.btn-ghost   { background: var(--paper); border-color: var(--line); color: var(--ink-2); }
 .btn-primary { background: var(--primary); color: white; }
 .btn .pr-mini {
   font-size: 9px;
@@ -147,19 +178,19 @@ body {
   font-size: 11px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(122, 74, 90, 0.18);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
   color: var(--plum);
   letter-spacing: 0.04em;
   display: inline-block;
 }
-.tag.alt  { background: var(--primary-2); color: var(--primary); border-color: rgba(108, 91, 140, 0.22); }
-.tag.alt2 { background: rgba(107, 143, 107, 0.12); color: var(--leaf); border-color: rgba(107, 143, 107, 0.25); }
+.tag.alt  { background: var(--primary-2); color: var(--primary); border-color: transparent; }
+.tag.alt2 { background: rgba(127, 174, 139, 0.14); color: var(--leaf); border-color: transparent; }
 
 /* ---------- PR tag ---------- */
 .pr-tag {
   display: inline-block;
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(128, 128, 128, 0.14);
   color: var(--pr);
   font-size: 9px;
   padding: 1px 5px;
@@ -169,7 +200,7 @@ body {
   font-family: sans-serif;
 }
 
-/* ---------- Section header ---------- */
+/* ---------- Section header (雑誌のコラム見出し) ---------- */
 .section-head {
   display: flex;
   align-items: flex-end;
@@ -177,20 +208,24 @@ body {
   gap: 16px;
 }
 .sh-eyebrow {
-  font-family: "Noto Serif JP", serif;
   font-size: 10px;
   letter-spacing: 0.32em;
-  color: var(--ink-3);
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-family: sans-serif;
 }
 .sh-title {
   font-family: "Noto Serif JP", serif;
   font-size: 26px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   color: var(--ink);
   line-height: 1.1;
   margin: 0;
+  border-left: 4px solid var(--primary);
+  padding-left: 14px;
 }
 .sh-rule {
   flex: 1;
@@ -209,11 +244,39 @@ body {
   text-decoration: none;
 }
 .sh-more::after { content: " →"; margin-left: 4px; }
+.sh-more:hover { text-decoration: underline; }
+
+/* ---------- 帯 (obi) badge ---------- */
+.mh-obi {
+  position: absolute;
+  top: 10px;
+  left: -6px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 3px 10px 3px 8px;
+  border-radius: 0 3px 3px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.mh-obi::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  border-width: 0 6px 5px 0;
+  border-style: solid;
+  border-color: transparent color-mix(in srgb, var(--primary) 55%, black) transparent transparent;
+}
+.mh-obi.gold { background: var(--amber); color: #241a02; }
+.mh-obi.gold::after { border-right-color: color-mix(in srgb, var(--amber) 55%, black); }
 
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
@@ -226,4 +289,5 @@ body {
   .sh-title { font-size: 20px; }
   .sh-rule { display: none; }
   .section-head { flex-wrap: wrap; gap: 8px; }
+  .mh-vertical { writing-mode: horizontal-tb; letter-spacing: 0.14em; }
 }

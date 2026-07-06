@@ -1392,3 +1392,18 @@ export function getRecentIssues(limit = 60): MhMagazine[] {
     return idolz;
   }
 }
+
+// Shared internals for src/lib/mh-insights.ts (feat/site-renewal-fable).
+export {
+  getDb as getMhDb,
+  colorFromHash,
+  normalizeRetailUrl,
+  resolveCardCoverImageUrl,
+  resolveIssueCoverImageUrl,
+  getPerformerIconUrls,
+  getPerformerPortraitUrls,
+  visibleImageBrandSql,
+  cleanCardFeatureTitle,
+  mapMagazineCardRow,
+};
+export type { MagazineCardRow, PerformerIconLookup };
