@@ -5,6 +5,12 @@ import { existsSync } from "node:fs";
 let _db: DatabaseSync | null = null;
 const HEAVY_CACHE_TTL_MS = 30 * 60_000;
 const heavyCache = new Map<string, { at: number; val: unknown }>();
+const JUNK_PERFORMER_KEY =
+  /(追加|付録|特典|袋とじ|未公開|アザー|オフショ|グラビア|写真集|カレンダー|総集編|合本|セット付|ほか|その他|一覧|まとめ|読者|プレゼント)/;
+
+function isDisplayPerformerKey(key: string | null | undefined): key is string {
+  return !!key && !JUNK_PERFORMER_KEY.test(key);
+}
 
 function cachedHeavy<T>(key: string, load: () => T): T {
   const now = Date.now();
@@ -1546,6 +1552,7 @@ function getPopularModelRelations(db: DatabaseSync, excludeKeys: string[], limit
   const uniqueExcludes = Array.from(new Set(excludeKeys.filter(Boolean)));
   const placeholders = uniqueExcludes.map(() => "?").join(",");
   const excludeClause = placeholders ? `WHERE ps.performer_key NOT IN (${placeholders})` : "";
+  const queryLimit = Math.max(limit * 3, limit + 12);
   const rows = db.prepare(`
     SELECT ps.performer_key, ps.performer_name, ps.appearance_count, ps.cover_count, 0 AS relation_count,
       (SELECT pi.local_path FROM performer_images pi
@@ -1556,8 +1563,10 @@ function getPopularModelRelations(db: DatabaseSync, excludeKeys: string[], limit
     ${excludeClause}
     ORDER BY ps.appearance_count DESC
     LIMIT ?
-  `).all(...uniqueExcludes, limit) as RelatedModelRow[];
-  return mapModelRelationRows(db, rows);
+  `).all(...uniqueExcludes, queryLimit) as RelatedModelRow[];
+  return mapModelRelationRows(db, rows)
+    .filter((item) => isDisplayPerformerKey(item.model.nameYomi))
+    .slice(0, limit);
 }
 
 function parseJapaneseBirthday(value: string): { month: number; day: number } | null {
@@ -1601,7 +1610,10 @@ function getBirthdays(month: number, day?: number): MhBirthday[] {
     const filtered = rows
       .map((row) => ({ row, parsed: parseJapaneseBirthday(row.birthday) }))
       .filter((item): item is { row: typeof rows[number]; parsed: { month: number; day: number } } => {
-        return !!item.parsed && item.parsed.month === month && (day === undefined || item.parsed.day === day);
+        return isDisplayPerformerKey(item.row.performer_key)
+          && !!item.parsed
+          && item.parsed.month === month
+          && (day === undefined || item.parsed.day === day);
       })
       .sort((a, b) => b.row.pub_count - a.row.pub_count);
 
@@ -1798,6 +1810,7 @@ export function getTrendingModels(limit = 30): MhTrending[] {
       const today = todayIso();
       const recentStart = isoDateAtDelta(-183);
       const priorStart = isoDateAtDelta(-366);
+      const queryLimit = Math.max(limit * 3, limit + 24);
       const trendRows = db.prepare(`
         SELECT pml.performer_key,
           MAX(COALESCE(ps.performer_name, pml.performer_name)) AS performer_name,
@@ -1817,7 +1830,7 @@ export function getTrendingModels(limit = 30): MhTrending[] {
         HAVING recent6 >= 4
         ORDER BY (recent6 * 1.0 / CASE WHEN prior6 > 0 THEN prior6 ELSE 1 END) DESC, recent6 DESC
         LIMIT ?
-      `).all(recentStart, today, priorStart, recentStart, priorStart, today, limit) as Array<{
+      `).all(recentStart, today, priorStart, recentStart, priorStart, today, queryLimit) as Array<{
         performer_key: string;
         performer_name: string;
         total_pubs: number;
@@ -1826,7 +1839,10 @@ export function getTrendingModels(limit = 30): MhTrending[] {
         prior6: number;
       }>;
 
-      const keys = trendRows.map((row) => row.performer_key);
+      const cleanRows = trendRows
+        .filter((row) => isDisplayPerformerKey(row.performer_key))
+        .slice(0, limit);
+      const keys = cleanRows.map((row) => row.performer_key);
       const months = recentMonthKeys(24);
       const monthlyByKey = new Map<string, Map<string, number>>();
       if (keys.length > 0) {
@@ -1851,10 +1867,10 @@ export function getTrendingModels(limit = 30): MhTrending[] {
 
       const portraitUrls = getPerformerPortraitUrls(
         db,
-        trendRows.map((row) => ({ key: row.performer_key, name: row.performer_name })),
+        cleanRows.map((row) => ({ key: row.performer_key, name: row.performer_name })),
       );
 
-      return trendRows.map((row) => {
+      return cleanRows.map((row) => {
         const key = row.performer_key;
         const prior6 = row.prior6 || 0;
         return {
@@ -1910,6 +1926,7 @@ export function getCoStars(performerKey: string, limit = 8): MhModelRelation[] {
   const db = getDb();
   if (!db) return [];
   try {
+    const queryLimit = Math.max(limit * 3, limit + 12);
     const rows = db.prepare(`
       WITH target_cards AS (
         SELECT magazine_card_id
@@ -1934,8 +1951,10 @@ export function getCoStars(performerKey: string, limit = 8): MhModelRelation[] {
       GROUP BY other.performer_key
       ORDER BY relation_count DESC, COALESCE(ps.appearance_count, 0) DESC
       LIMIT ?
-    `).all(performerKey, performerKey, limit) as RelatedModelRow[];
-    return mapModelRelationRows(db, rows);
+    `).all(performerKey, performerKey, queryLimit) as RelatedModelRow[];
+    return mapModelRelationRows(db, rows)
+      .filter((item) => isDisplayPerformerKey(item.model.nameYomi))
+      .slice(0, limit);
   } catch {
     return [];
   }
@@ -1977,6 +1996,7 @@ export function getRelatedModels(performerKey: string, limit = 6): MhModelRelati
     const brandScoreSql = topBrands.length > 0
       ? `SUM(CASE WHEN pml.brand IN (${topBrands.map(() => "?").join(",")}) THEN 1 ELSE 0 END)`
       : "0";
+    const queryLimit = Math.max(limit * 3, limit + 12);
 
     const rows = db.prepare(`
       WITH target_cards AS (
@@ -2011,9 +2031,11 @@ export function getRelatedModels(performerKey: string, limit = 6): MhModelRelati
       HAVING relation_count > 0
       ORDER BY relation_count DESC, COALESCE(ps.appearance_count, 0) DESC
       LIMIT ?
-    `).all(performerKey, performerKey, ...topBrands, performerKey, ...excludeKeys, limit) as RelatedModelRow[];
+    `).all(performerKey, performerKey, ...topBrands, performerKey, ...excludeKeys, queryLimit) as RelatedModelRow[];
 
-    const related = mapModelRelationRows(db, rows);
+    const related = mapModelRelationRows(db, rows)
+      .filter((item) => isDisplayPerformerKey(item.model.nameYomi))
+      .slice(0, limit);
     if (related.length >= limit) return related;
 
     const existingKeys = related.map((item) => item.model.nameYomi);
@@ -2086,7 +2108,12 @@ export function getCoverWall(opts: {
       "mc.date != ''",
       `EXISTS (
         SELECT 1 FROM magazine_card_covers c
-        WHERE c.card_id = mc.id AND (c.cover_url IS NOT NULL OR c.local_path IS NOT NULL)
+        WHERE c.card_id = mc.id
+          AND (
+            c.local_path IS NOT NULL
+            OR c.cover_url LIKE 'https://idolz.hubxhub.com/wp-content/uploads/%'
+            OR c.cover_url LIKE '%pixhost%'
+          )
       )`,
     ];
     const params: Array<string | number> = [];
@@ -2134,7 +2161,10 @@ export function getCoverWall(opts: {
       LIMIT ? OFFSET ?
     `).all(...params, limit, offset) as MagazineCardRow[];
 
-    return { items: rows.map(mapMagazineCardRow), total: totalRow.n };
+    return {
+      items: rows.map(mapMagazineCardRow).filter((item) => !!item.coverImageUrl),
+      total: totalRow.n,
+    };
   } catch {
     return { items: [], total: 0 };
   }
