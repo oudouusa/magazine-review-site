@@ -11,7 +11,8 @@ export type StatCounterProps = {
 export function StatCounter({ value, label, suffix = "" }: StatCounterProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const frame = useRef<number | null>(null);
-  const [displayValue, setDisplayValue] = useState(0);
+  // SSR shows the real value (crawlers / no-JS); the count-up starts on view.
+  const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
     const node = ref.current;
@@ -24,6 +25,7 @@ export function StatCounter({ value, label, suffix = "" }: StatCounterProps) {
     }
 
     const animate = () => {
+      setDisplayValue(0);
       const start = performance.now();
       const duration = 800;
       const tick = (now: number) => {

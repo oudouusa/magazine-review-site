@@ -1875,22 +1875,36 @@ export function getUpcomingReleases(days = 210): MhUpcoming[] {
         for (const row of nameRows) nameMap.set(row.performer_key, row.performer_name);
       }
 
-      return rows.map((row) => {
+      const mapped: MhUpcoming[] = [];
+      for (const row of rows) {
         const performerKey = row.performerKey || row.linkPerformerKey || undefined;
-        return {
+        const performerName = performerKey
+          ? nameMap.get(performerKey) ?? row.linkPerformerName ?? performerKey
+          : undefined;
+        const kind = normalizePublicationKind(row.kind);
+        const kindLabel = kind === "magazine" ? "雑誌" : kind === "digital_photobook" ? "デジタル写真集" : "写真集";
+        // "未分類" is an ingest placeholder, not a real title/brand.
+        let title = row.title && row.title !== "未分類" ? row.title : "";
+        if (!title) {
+          if (!performerName) continue;
+          title = `${performerName} 新作${kindLabel}`;
+        }
+        const brand = row.brand && row.brand !== "未分類" ? row.brand : kindLabel;
+        mapped.push({
           date: row.date,
-          title: row.title,
-          brand: row.brand,
-          kind: normalizePublicationKind(row.kind),
+          title,
+          brand,
+          kind,
           publisher: row.publisher || undefined,
           performerKey,
-          performerName: performerKey ? nameMap.get(performerKey) ?? row.linkPerformerName ?? performerKey : undefined,
+          performerName,
           coverImageUrl: resolveCardCoverImageUrl(row.coverUrl, row.coverLocalPath, row.cardBrand || row.brand),
           amazonUrl: normalizeRetailUrl(row.cardAmazonUrl) ?? buildAmazonAsinUrl(row.asinPrint || row.asinEbook),
           rakutenUrl: normalizeRetailUrl(row.cardRakutenUrl) ?? buildRakutenProductUrl(row.rakutenProductId),
           cardId: row.cardId ?? undefined,
-        };
-      });
+        });
+      }
+      return mapped;
     } catch {
       return [];
     }
