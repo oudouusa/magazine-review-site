@@ -5,6 +5,7 @@ const BASE = `http://127.0.0.1:${PORT}`;
 const endpoints = [
   "/",
   "/models",
+  "/models/%E3%81%88%E3%81%AA%E3%81%93",
   "/magazines",
   "/calendar",
   "/calendar?kind=photobook",

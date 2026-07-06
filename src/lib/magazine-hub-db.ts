@@ -540,6 +540,135 @@ function mapMagazineCardRow(row: MagazineCardRow): MhMagazine {
   };
 }
 
+function normalizeCardPerformerRows(rows: Array<{ key: string | null; name: string | null }>): Array<{ key?: string; name: string }> {
+  const performers: Array<{ key?: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const row of rows) {
+    const name = row.name?.trim();
+    const key = row.key?.trim();
+    if (!name) continue;
+    if ((key && JUNK_PERFORMER_KEY.test(key)) || JUNK_PERFORMER_KEY.test(name)) continue;
+    const dedupeKey = key || name;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+    performers.push({ name, ...(key ? { key } : {}) });
+  }
+
+  return performers;
+}
+
+export function getAdjacentCards(cardId: number): { prev?: MhMagazine; next?: MhMagazine } {
+  const db = getDb();
+  if (!db) return {};
+  try {
+    const current = db.prepare(`
+      SELECT id, brand, date
+      FROM magazine_cards
+      WHERE id = ? AND source = 'idolz' AND brand IS NOT NULL AND date IS NOT NULL AND date != ''
+      LIMIT 1
+    `).get(cardId) as { id: number; brand: string; date: string } | undefined;
+    if (!current) return {};
+
+    const prev = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.source = 'idolz'
+        AND mc.brand = ?
+        AND mc.date IS NOT NULL
+        AND mc.date != ''
+        AND (mc.date < ? OR (mc.date = ? AND mc.id < ?))
+      ORDER BY mc.date DESC, mc.id DESC
+      LIMIT 1
+    `).get(current.brand, current.date, current.date, current.id) as MagazineCardRow | undefined;
+
+    const next = db.prepare(`
+      SELECT mc.id, mc.title, mc.brand, mc.issue_no, mc.date, mc.url,
+        (SELECT c.cover_url FROM magazine_card_covers c
+         WHERE c.card_id = mc.id ORDER BY c.position ASC LIMIT 1) AS coverUrl,
+        (SELECT c.local_path FROM magazine_card_covers c
+         WHERE c.card_id = mc.id AND c.local_path IS NOT NULL ORDER BY c.position ASC LIMIT 1) AS coverLocalPath,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('amazon', 'amazon-kindle')
+         ORDER BY CASE WHEN l.provider = 'amazon' THEN 0 ELSE 1 END, l.position ASC LIMIT 1) AS amazonUrl,
+        (SELECT l.url FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail' AND l.provider IN ('rakuten-books', 'rakuten-product', 'rakuten-kobo')
+         ORDER BY CASE l.provider WHEN 'rakuten-books' THEN 0 WHEN 'rakuten-product' THEN 1 ELSE 2 END, l.position ASC LIMIT 1) AS rakutenUrl,
+        (SELECT COUNT(*) FROM magazine_card_links l
+         WHERE l.card_id = mc.id AND l.link_kind = 'retail'
+           AND l.provider IN ('amazon', 'amazon-kindle', 'rakuten-books', 'rakuten-product', 'rakuten-kobo')) AS directLinkCount
+      FROM magazine_cards mc
+      WHERE mc.source = 'idolz'
+        AND mc.brand = ?
+        AND mc.date IS NOT NULL
+        AND mc.date != ''
+        AND (mc.date > ? OR (mc.date = ? AND mc.id > ?))
+      ORDER BY mc.date ASC, mc.id ASC
+      LIMIT 1
+    `).get(current.brand, current.date, current.date, current.id) as MagazineCardRow | undefined;
+
+    return {
+      ...(prev ? { prev: mapMagazineCardRow(prev) } : {}),
+      ...(next ? { next: mapMagazineCardRow(next) } : {}),
+    };
+  } catch {
+    return {};
+  }
+}
+
+export function getCardPerformers(cardId: number): Array<{ key?: string; name: string }> {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const linkRows = db.prepare(`
+      SELECT
+        CASE WHEN ps.performer_key IS NOT NULL THEN pml.performer_key ELSE NULL END AS key,
+        COALESCE(NULLIF(pml.performer_name, ''), pml.performer_key) AS name
+      FROM performer_magazine_links pml
+      LEFT JOIN performer_stats ps ON ps.performer_key = pml.performer_key
+      WHERE pml.magazine_card_id = ?
+        AND COALESCE(NULLIF(pml.performer_name, ''), pml.performer_key) IS NOT NULL
+      GROUP BY COALESCE(NULLIF(pml.performer_key, ''), pml.performer_name)
+      ORDER BY MAX(COALESCE(pml.is_cover, 0)) DESC, name ASC
+      LIMIT 48
+    `).all(cardId) as Array<{ key: string | null; name: string | null }>;
+
+    const linked = normalizeCardPerformerRows(linkRows);
+    if (linked.length > 0) return linked;
+
+    const fallbackRows = db.prepare(`
+      SELECT
+        (SELECT ps.performer_key
+         FROM performer_stats ps
+         WHERE ps.performer_key = mcp.performer_name OR ps.performer_name = mcp.performer_name
+         ORDER BY ps.appearance_count DESC
+         LIMIT 1) AS key,
+        mcp.performer_name AS name
+      FROM magazine_card_performers mcp
+      WHERE mcp.card_id = ?
+      ORDER BY mcp.position ASC
+      LIMIT 48
+    `).all(cardId) as Array<{ key: string | null; name: string | null }>;
+
+    return normalizeCardPerformerRows(fallbackRows);
+  } catch {
+    return [];
+  }
+}
+
 function getIdolzMagazines(limit = 60, brand?: string | null): MhMagazine[] {
   const db = getDb();
   if (!db) return [];
