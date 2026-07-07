@@ -696,26 +696,8 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
     const recentRows = db.prepare(`
       SELECT i.id, i.title, i.brand, i.issue_date_start, i.issue_no_normalized,
         (SELECT c.image_url FROM covers c WHERE c.issue_id = i.id AND c.position = 1 LIMIT 1) AS coverImageUrl,
-        (SELECT REPLACE(REPLACE(e.url, 's-rocket-22', 'magazinelab-22'), 'dummy-22', 'magazinelab-22')
-         FROM source_post_external_links e
-         JOIN source_posts sp ON sp.id = e.source_post_id
-         WHERE e.provider = 'amazon' AND e.asin IS NOT NULL AND e.asin != ''
-           AND UPPER(sp.brand_normalized) = UPPER(i.brand)
-           AND sp.title LIKE '%' || p.name_jp || '%'
-         ORDER BY sp.release_date DESC
-         LIMIT 1) AS amazonUrl,
-        COALESCE(
-          (SELECT e.url
-           FROM source_post_external_links e
-           JOIN source_posts sp ON sp.id = e.source_post_id
-           WHERE e.provider = 'rakuten-books'
-             AND UPPER(sp.brand_normalized) = UPPER(i.brand)
-             AND sp.title LIKE '%' || p.name_jp || '%'
-           ORDER BY sp.release_date DESC
-           LIMIT 1),
-          (SELECT e.url FROM issue_external_links e
-           WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1)
-        ) AS rakutenUrl
+        (SELECT e.url FROM issue_external_links e
+         WHERE e.issue_id = i.id AND e.provider = 'rakuten-books' LIMIT 1) AS issueRakutenUrl
       FROM issue_performers ip
       JOIN issues i ON i.id = ip.issue_id
       JOIN performers p ON p.id = ip.performer_id
@@ -729,9 +711,33 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
       issue_date_start: string;
       issue_no_normalized: string | null;
       coverImageUrl: string | null;
-      amazonUrl: string | null;
-      rakutenUrl: string | null;
+      issueRakutenUrl: string | null;
     }>;
+
+    // Retail links used to be two correlated LIKE-subqueries per row (a full
+    // source_posts scan each; ~1s per page). One scan keyed by the performer
+    // name, mapped per brand in JS, matches the old per-row results.
+    const nameJp = (db.prepare(`
+      SELECT name_jp FROM performers WHERE name_normalized = ? AND name_jp IS NOT NULL AND name_jp != '' LIMIT 1
+    `).get(performerKey) as { name_jp: string } | undefined)?.name_jp ?? stat.performer_name;
+    const retailByBrand = new Map<string, string>();
+    if (nameJp) {
+      const linkRows = db.prepare(`
+        SELECT e.provider, e.url, UPPER(sp.brand_normalized) AS brand
+        FROM source_post_external_links e
+        JOIN source_posts sp ON sp.id = e.source_post_id
+        WHERE ((e.provider = 'amazon' AND e.asin IS NOT NULL AND e.asin != '') OR e.provider = 'rakuten-books')
+          AND sp.brand_normalized IS NOT NULL
+          AND sp.title LIKE '%' || ? || '%'
+        ORDER BY sp.release_date DESC
+      `).all(nameJp) as Array<{ provider: string; url: string; brand: string }>;
+      for (const row of linkRows) {
+        const mapKey = `${row.provider}|${row.brand}`;
+        if (!retailByBrand.has(mapKey)) retailByBrand.set(mapKey, row.url);
+      }
+    }
+    const retailFor = (provider: string, brand: string) =>
+      retailByBrand.get(`${provider}|${brand.toUpperCase()}`);
 
     const today = new Date().toISOString().slice(0, 10);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString().slice(0, 10);
@@ -755,8 +761,8 @@ export function getModelDetail(performerKey: string): MhModelDetail | null {
         gradient: { c1: colorFromHash(key, 35, 72), c2: colorFromHash(key + "2", 30, 58) },
         badge,
         coverImageUrl: resolveCoverImageUrl(r.coverImageUrl, r.brand, r.issue_date_start),
-        amazonUrl: normalizeRetailUrl(r.amazonUrl),
-        rakutenUrl: normalizeRetailUrl(r.rakutenUrl),
+        amazonUrl: normalizeRetailUrl(retailFor("amazon", r.brand)),
+        rakutenUrl: normalizeRetailUrl(retailFor("rakuten-books", r.brand) ?? r.issueRakutenUrl),
       };
     });
 

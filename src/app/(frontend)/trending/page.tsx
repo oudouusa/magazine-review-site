@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTrendingModels } from "@/lib/mh-insights";
 import { SectionHead } from "@/components/fx/SectionHead";
 import { Sparkline } from "@/components/fx/Sparkline";
+import { cssBgUrl } from "@/lib/safe-url";
 
 export const dynamic = "force-dynamic";
 
@@ -68,7 +69,7 @@ export default async function TrendingPage() {
                       borderRadius: 999,
                       border: "2px solid var(--line)",
                       background: t.imageUrl
-                        ? `url("${t.imageUrl}") center 20% / cover no-repeat`
+                        ? `${cssBgUrl(t.imageUrl)} center 20% / cover no-repeat`
                         : `linear-gradient(150deg, ${t.c1}, ${t.c2})`,
                     }}
                   />

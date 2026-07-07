@@ -1,4 +1,5 @@
 "use client";
+import { cssBgUrl } from "@/lib/safe-url";
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
@@ -39,7 +40,7 @@ function PortraitCard({ model }: { model: MhModel }) {
         <div style={{
           aspectRatio: "3/4",
           background: model.imageUrl
-            ? `url("${model.imageUrl}") center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`
+            ? `${cssBgUrl(model.imageUrl)} center / cover no-repeat, radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`
             : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), radial-gradient(at 70% 60%, ${model.gradient.c2} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3} 0%, ${model.gradient.c4} 100%)`,
           position: "relative",
         }}>

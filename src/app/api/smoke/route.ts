@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import {
+  getAdjacentCards,
+  getCardPerformers,
   getSiteStats,
   getUpcomingReleases,
   getNewThisWeek,
@@ -20,6 +22,8 @@ export async function GET() {
   try {
     const trending = getTrendingModels(30);
     const sampleKey = trending[0]?.key ?? "えなこ";
+    const sampleCardSlug = getNewThisWeek()[0]?.slug ?? "";
+    const sampleCardId = Number(sampleCardSlug.replace("card-", "")) || 0;
     const results = {
       getSiteStats: getSiteStats().models,
       getUpcomingReleases: getUpcomingReleases().length,
@@ -32,6 +36,9 @@ export async function GET() {
       getBirthdaysForMonth: getBirthdaysForMonth(jstToday().m).length,
       getOnThisDay: getOnThisDay().length,
       getCoverWall: getCoverWall({ pageSize: 96 }).items.length,
+      getCardPerformers: sampleCardId ? getCardPerformers(sampleCardId).length : 0,
+      getAdjacentCards: sampleCardId ? Object.keys(getAdjacentCards(sampleCardId)).length : 0,
+      sampleCardId,
     };
     return NextResponse.json({ ok: true, results });
   } catch (error) {

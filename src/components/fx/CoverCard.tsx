@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cssBgUrl, safeHttpUrl } from "@/lib/safe-url";
 
 export function CoverCard({
   href,
@@ -23,6 +24,7 @@ export function CoverCard({
   width?: number | string;
   minTitle?: boolean;
 }) {
+  const safeImage = safeHttpUrl(imageUrl);
   return (
     <Link
       href={href}
@@ -35,14 +37,14 @@ export function CoverCard({
         overflow: "hidden",
         display: "block",
         textDecoration: "none",
-        background: imageUrl
-          ? `url("${imageUrl}") center / cover no-repeat, linear-gradient(160deg, ${c1}, ${c2})`
+        background: safeImage
+          ? `${cssBgUrl(safeImage)} center / cover no-repeat, linear-gradient(160deg, ${c1}, ${c2})`
           : `linear-gradient(160deg, ${c1}, ${c2})`,
         border: "1px solid var(--line)",
         flexShrink: 0,
       }}
     >
-      {!imageUrl && (
+      {!safeImage && (
         <span
           aria-hidden
           style={{

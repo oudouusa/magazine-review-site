@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getModelDetail } from "@/lib/magazine-hub-db";
-import { getModelYearCounts, getCoStars, getRelatedModels } from "@/lib/mh-insights";
+import { getModelYearCounts, getCoStars, getRelatedModels, getModelDetailCached, timed } from "@/lib/mh-insights";
 import { CoverCard } from "@/components/fx/CoverCard";
 import { ModelCard } from "@/components/fx/ModelCard";
 import { SectionHead } from "@/components/fx/SectionHead";
 import { YearBars } from "@/components/fx/YearBars";
 import { notFound } from "next/navigation";
+import { cssBgUrl } from "@/lib/safe-url";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +26,7 @@ function rakutenHref(mag: { seriesName: string; issue: string; title: string; ra
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const model = getModelDetail(decodeURIComponent(slug));
+  const model = getModelDetailCached(decodeURIComponent(slug));
   if (!model) return { title: "モデルが見つかりません" };
   const desc = `${model.name}（${model.nameYomi}）のグラビア出演情報。出演${model.stats.issues}誌・表紙${model.stats.covers}回。掲載推移・共演モデル・関連モデルも。`;
   return {
@@ -44,12 +44,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ModelDetailPage({ params }: Props) {
   const { slug } = await params;
   const key = decodeURIComponent(slug);
-  const model = getModelDetail(key);
+  const model = timed(`modelDetail:${key}`, () => getModelDetailCached(key));
   if (!model) notFound();
 
-  const yearCounts = getModelYearCounts(key);
-  const coStars = getCoStars(key, 8);
-  const related = getRelatedModels(key, 6);
+  const yearCounts = timed("yearCounts", () => getModelYearCounts(key));
+  const coStars = timed("coStars", () => getCoStars(key, 8));
+  const related = timed("related", () => getRelatedModels(key, 6));
   const activeYears = yearCounts.filter((y) => y.count > 0).length;
 
   const profileItems: Array<{ label: string; value: string }> = [];
@@ -95,7 +95,7 @@ export default async function ModelDetailPage({ params }: Props) {
                 borderRadius: 14,
                 border: "1px solid var(--line)",
                 background: model.imageUrl
-                  ? `url("${model.imageUrl}") center / cover no-repeat, linear-gradient(180deg, ${model.gradient.c3}, ${model.gradient.c4})`
+                  ? `${cssBgUrl(model.imageUrl)} center / cover no-repeat, linear-gradient(180deg, ${model.gradient.c3}, ${model.gradient.c4})`
                   : `radial-gradient(at 30% 25%, ${model.gradient.c1} 0%, transparent 55%), linear-gradient(180deg, ${model.gradient.c3}, ${model.gradient.c4})`,
                 boxShadow: "var(--shadow-lift)",
                 ...(!model.imageUrl
@@ -253,7 +253,7 @@ export default async function ModelDetailPage({ params }: Props) {
                         aspectRatio: "3/4",
                         borderRadius: 3,
                         background: mag.coverImageUrl
-                          ? `url("${mag.coverImageUrl}") center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
+                          ? `${cssBgUrl(mag.coverImageUrl)} center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
                           : `linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`,
                       }}
                     />

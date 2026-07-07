@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getUpcomingReleases, getBirthdaysForMonth, jstToday, type MhUpcoming } from "@/lib/mh-insights";
 import { SectionHead } from "@/components/fx/SectionHead";
+import { cssBgUrl } from "@/lib/safe-url";
 
 export const dynamic = "force-dynamic";
 
@@ -155,7 +156,7 @@ export default async function CalendarPage({
                                     height: 46,
                                     borderRadius: 4,
                                     flexShrink: 0,
-                                    background: `url("${u.coverImageUrl}") center / cover no-repeat`,
+                                    background: `${cssBgUrl(u.coverImageUrl)} center / cover no-repeat`,
                                   }}
                                 />
                               )}

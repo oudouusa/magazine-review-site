@@ -10,6 +10,7 @@ const endpoints = [
   "/covers",
   "/covers?era=2010s&page=2",
   "/models",
+  "/models/%E3%81%88%E3%81%AA%E3%81%93",
   "/magazines",
   "/ranking",
   "/brands",
@@ -89,6 +90,10 @@ try {
   assertMin(smoke.results, "getTodayBirthdays", 0);
   assertMin(smoke.results, "getCoverWall", 80);
   assertMin(smoke.results, "getOnThisDay", 1);
+  if (smoke.results.sampleCardId) {
+    const res = await fetch(`${BASE}/magazines/card-${smoke.results.sampleCardId}`);
+    if (res.status !== 200) throw new Error(`/magazines/card-${smoke.results.sampleCardId} returned ${res.status}`);
+  }
   console.log("PASS", JSON.stringify(smoke.results));
 } catch (e) {
   console.log(`FAIL: ${e instanceof Error ? e.message : String(e)}`);

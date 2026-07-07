@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Sparkline } from "./Sparkline";
+import { cssBgUrl, safeHttpUrl } from "@/lib/safe-url";
 
 export function ModelCard({
   href,
@@ -22,6 +23,7 @@ export function ModelCard({
   spark?: number[];
   width?: number | string;
 }) {
+  const safeImage = safeHttpUrl(imageUrl);
   return (
     <Link
       href={href}
@@ -42,8 +44,8 @@ export function ModelCard({
           display: "block",
           aspectRatio: "1 / 1",
           position: "relative",
-          background: imageUrl
-            ? `url("${imageUrl}") center 22% / cover no-repeat, linear-gradient(150deg, ${c1}, ${c2})`
+          background: safeImage
+            ? `${cssBgUrl(safeImage)} center 22% / cover no-repeat, linear-gradient(150deg, ${c1}, ${c2})`
             : `linear-gradient(150deg, ${c1}, ${c2})`,
         }}
       >
@@ -66,7 +68,7 @@ export function ModelCard({
             {rank}
           </span>
         )}
-        {!imageUrl && (
+        {!safeImage && (
           <span
             className="serif"
             aria-hidden

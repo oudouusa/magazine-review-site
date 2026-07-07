@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getTopModels, getBrands } from "@/lib/magazine-hub-db";
+import { cssBgUrl } from "@/lib/safe-url";
 import {
   getSiteStats,
   getNewThisWeek,
@@ -111,8 +112,7 @@ export default async function HomePage() {
                   color: "var(--ink)",
                 }}
               >
-                深夜の
-                <span style={{ color: "var(--primary)" }}>ニューススタンド</span>へ、
+                深夜の<span style={{ color: "var(--primary)", whiteSpace: "nowrap" }}>ニューススタンド</span>へ、
                 <br />
                 ようこそ。
               </h1>
@@ -320,7 +320,7 @@ export default async function HomePage() {
                       borderRadius: 999,
                       border: "2px solid var(--line)",
                       background: t.imageUrl
-                        ? `url("${t.imageUrl}") center 20% / cover no-repeat`
+                        ? `${cssBgUrl(t.imageUrl)} center 20% / cover no-repeat`
                         : `linear-gradient(150deg, ${t.c1}, ${t.c2})`,
                     }}
                   />
@@ -379,7 +379,7 @@ export default async function HomePage() {
                           borderRadius: 999,
                           flexShrink: 0,
                           background: b.imageUrl
-                            ? `url("${b.imageUrl}") center 20% / cover no-repeat`
+                            ? `${cssBgUrl(b.imageUrl)} center 20% / cover no-repeat`
                             : `linear-gradient(150deg, ${b.c1}, ${b.c2})`,
                         }}
                       />

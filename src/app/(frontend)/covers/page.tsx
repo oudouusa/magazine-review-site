@@ -4,6 +4,7 @@ import { getBrands } from "@/lib/magazine-hub-db";
 import { getCoverWall } from "@/lib/mh-insights";
 import { CoverCard } from "@/components/fx/CoverCard";
 import { SectionHead } from "@/components/fx/SectionHead";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,7 @@ export default async function CoversPage({
   const page = Math.max(1, Number(sp.page) || 1);
   const { items, total } = getCoverWall({ era: era || undefined, brand: brand || undefined, page, pageSize: PAGE_SIZE });
   const lastPage = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (page > lastPage) redirect(wallHref(era, brand, lastPage));
   const brands = getBrands().slice(0, 40);
 
   return (
