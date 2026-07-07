@@ -4,40 +4,54 @@
 
 - **URL**: https://magazine.happyharem.com
 - **GitHub**: https://github.com/oudouusa/magazine-review-site
-- **Hosting**: Cloudflare Pages (auto-deploy from `master`)
+- **Hosting**: VPS の Docker(vps-infra compose の `magazine-review-site` サービス。
+  ローカルビルドしたイメージ `local/magazine-review-site:<sha>` を pin)
 - **Associates tag**: `magazinelab-22`
 
 ## Tech Stack
 
-- Astro 6.1.7 + Tailwind CSS v4 (`@tailwindcss/vite`) + MDX
-- Package manager: **npm** (bun install hangs on this project)
-- Build: `npm run build` → `dist/`
-- Data: `scripts/generate-data.py` → `src/data/*.json` (reads magazine-hub SQLite DB)
+- Next.js 15 (App Router, standalone) + Payload CMS 3 + node:sqlite
+- Package manager: **npm**(`.npmrc` の `legacy-peer-deps=true` 必須。無いと `npm ci` が
+  payload/next の peer conflict で失敗する)
+- データ: magazine-hub の本番 SQLite を **read-only** で直接読む(`src/lib/magazine-hub-db.ts`
+  と `src/lib/mh-insights.ts`)。生成 JSON 方式(旧 Astro 時代の generate-data.py)は廃止。
 
 ## Commands
 
 ```bash
-npm run dev         # dev server (http://localhost:4321)
-npm run build       # static build → dist/
-npm run preview     # preview built site
+npm ci
+# dev / build / smoke は 2 つの env が必須(無いと画像が全部グラデ表示になり
+# smoke の cover 系 assert が落ちる):
+export MAGAZINE_HUB_DB_PATH=/home/oudou/runtime/magazine-hub/scraper-state/xidol_magazines_full.sqlite3
+export MAGAZINE_IMAGES_PATH=/home/oudou/runtime/magazine-hub/magazine-images
 
-# Data refresh
-MAGAZINE_DB_PATH=~/runtime/magazine-hub/scraper-state/xidol_magazines_full.sqlite3 \
-  python scripts/generate-data.py
+npm run dev          # dev server (http://localhost:3000)
+npm run build        # production build
+node scripts/smoke.mjs   # next start を起動して全ページ 200 + データ閾値を検証(PORT=3200)
+MH_TIMING=1 npm run start  # 遅いページ調査用: mh-insights の関数別タイミングをログ出力
 ```
 
 ## Git Workflow
 
-- `master` = base branch. Always deployable. Cloudflare Pages auto-deploys on push.
-- All work goes on feature branches: `feat/`, `fix/`, `chore/`
-- Use `/ship` to create PRs from feature branches → `master`
+- `master` = base branch。作業は feature branch → PR → merge。
+- **デプロイは手動**(merge しても自動では出ない):
+
+```bash
+# 1. merge 済み master でイメージビルド
+cd ~/dev/magazine-review-site && git switch master && git pull
+docker build -t local/magazine-review-site:$(git rev-parse --short HEAD) .
+# 2. runtime .env の pin を更新(バックアップを取ってから)
+#    /home/oudou/runtime/vps-infra/.env の MAGAZINE_REVIEW_SITE_REF=local/magazine-review-site:<sha>
+# 3. コンテナ再作成 + 検証
+docker compose --project-directory /home/oudou/deploy/vps-infra up -d magazine-review-site
+curl -s -o /dev/null -w '%{http_code}' https://magazine.happyharem.com/
+# ロールバック: .env の REF を旧 sha に戻して up -d(旧イメージは消さない)
+```
 
 ## Testing
 
-This is a static content site with no application logic to unit-test.
-Test bootstrap is skipped: `.gstack/no-test-bootstrap`
-
-Manual verification: `npm run build && npm run preview` — check that all 11 pages render.
+`scripts/smoke.mjs` が実データ検証(全ページ 200 + `/api/smoke` のデータ件数閾値 +
+サンプルカード詳細)。unit test は無し。`.gstack/no-test-bootstrap`。
 
 ## Skill routing
 
