@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getBrands } from "@/lib/magazine-hub-db";
+import { cssBgUrl } from "@/lib/safe-url";
 
 export const dynamic = "force-dynamic";
 
@@ -37,7 +38,7 @@ export default function BrandsPage() {
                 <div style={{
                   aspectRatio: "3/4",
                   background: brand.coverImageUrl
-                    ? `url("${brand.coverImageUrl}") center / cover no-repeat, linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`
+                    ? `${cssBgUrl(brand.coverImageUrl)} center / cover no-repeat, linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`
                     : `linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.5)), linear-gradient(160deg, ${brand.gradient.c1}, ${brand.gradient.c2})`,
                   position: "relative",
                 }}>

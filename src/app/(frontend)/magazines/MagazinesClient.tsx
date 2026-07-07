@@ -1,4 +1,5 @@
 "use client";
+import { cssBgUrl } from "@/lib/safe-url";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -50,7 +51,7 @@ function CoverArt({ mag, compact = false }: { mag: MhMagazine; compact?: boolean
       className={`cover-art${compact ? " compact" : ""}${mag.coverImageUrl ? " has-image" : ""}`}
       style={{
         background: mag.coverImageUrl
-          ? `url("${mag.coverImageUrl}") center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
+          ? `${cssBgUrl(mag.coverImageUrl)} center top / cover no-repeat, linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`
           : `linear-gradient(180deg, rgba(0,0,0,0) 52%, rgba(0,0,0,.42)), linear-gradient(160deg, ${mag.gradient.c1}, ${mag.gradient.c2})`,
       }}
     >
