@@ -1,6 +1,13 @@
 import "server-only";
 import { DatabaseSync } from "node:sqlite";
 import { existsSync } from "node:fs";
+import {
+  getImageDeliveryConfig,
+  normalizeLocalImagePath,
+  publicImageUrl,
+  type NormalizedImagePath,
+} from "@/lib/image-delivery";
+import { getImageServingMembership } from "@/lib/image-serving-membership";
 
 let _db: DatabaseSync | null = null;
 
@@ -68,18 +75,9 @@ type ModelCardCoverFallbackOptions = {
 
 function localPathToUrl(localPath: string | null | undefined): string | undefined {
   if (!localPath) return undefined;
-  const path = localPath.startsWith("/magazine-images/")
-    ? localPath.replace("/magazine-images/", "/api/images/")
-    : localPath;
-  if (!path.startsWith("/api/images/")) return undefined;
-  return path.split("/").map((part) => {
-    if (!part) return part;
-    try {
-      return encodeURIComponent(decodeURIComponent(part));
-    } catch {
-      return encodeURIComponent(part);
-    }
-  }).join("/");
+  const imagePath = normalizeLocalImagePath(localPath);
+  if (!imagePath) return undefined;
+  return publicImageUrl(imagePath, getImageDeliveryConfig());
 }
 
 function cleanFeatureTitle(featureTitle: string): string {
@@ -134,8 +132,8 @@ function buildXidolCoversUrl(coverUrl: string | null | undefined, brand: string,
   return `/api/images/xidol-covers/${brandDir}/${yearMonth}/${filename}`;
 }
 
-// Returns the xidol-covers API path only if the file actually exists on disk.
-// MAGAZINE_IMAGES_PATH should be set to the volume mount root (e.g. /app/public/magazine-images).
+// Local mode checks the image mount. Gateway mode checks the env-pinned,
+// sealed full-path membership index mounted read-only from the archive state.
 const MAGAZINE_IMAGES_BASE = process.env.MAGAZINE_IMAGES_PATH ?? "/app/public/magazine-images";
 const SUPPRESSED_IMAGE_BRANDS = new Set(["週刊大衆"]);
 const SUPPRESSED_IMAGE_BRANDS_SQL = Array.from(SUPPRESSED_IMAGE_BRANDS)
@@ -152,22 +150,32 @@ function visibleImageBrandSql(alias: string): string {
     : "";
 }
 
+function imageReferenceAvailable(imagePath: NormalizedImagePath): boolean {
+  const deliveryConfig = getImageDeliveryConfig();
+  if (deliveryConfig.mode === "gateway") {
+    return getImageServingMembership(
+      deliveryConfig.servingIndexPath,
+      deliveryConfig.version,
+    ).paths.has(imagePath.relativePath);
+  }
+  const fsPath = `${MAGAZINE_IMAGES_BASE}/${imagePath.relativePath}`;
+  return existsSync(fsPath);
+}
+
 function buildXidolCoversUrlIfExists(coverUrl: string | null | undefined, brand: string, issueDate: string): string | undefined {
   const apiPath = buildXidolCoversUrl(coverUrl, brand, issueDate);
   if (!apiPath) return undefined;
-  const relativePath = apiPath.replace("/api/images/", "");
-  const fsPath = `${MAGAZINE_IMAGES_BASE}/${relativePath}`;
-  return existsSync(fsPath) ? apiPath : undefined;
+  const imagePath = normalizeLocalImagePath(apiPath);
+  if (!imagePath) return undefined;
+  return imageReferenceAvailable(imagePath) ? apiPath : undefined;
 }
 
 // Returns the URL only if the performer image file actually exists on disk.
 function localPathToUrlIfExists(localPath: string | null | undefined): string | undefined {
   if (!localPath) return undefined;
-  const relativePath = localPath
-    .replace("/magazine-images/", "")
-    .replace("/api/images/", "");
-  const fsPath = `${MAGAZINE_IMAGES_BASE}/${relativePath}`;
-  return existsSync(fsPath) ? localPathToUrl(localPath) : undefined;
+  const imagePath = normalizeLocalImagePath(localPath);
+  if (!imagePath || !imageReferenceAvailable(imagePath)) return undefined;
+  return publicImageUrl(imagePath, getImageDeliveryConfig());
 }
 
 function resolveCoverImageUrl(
