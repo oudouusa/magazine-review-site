@@ -3,10 +3,11 @@ name: Build and push Docker image
 on:
   push:
     branches: [master, feat/model-hub-nextjs]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/magazine-review-site
+  IMAGE_NAME: ${{ github.repository_owner }}/magazine-review-site-app
 
 jobs:
   build:
