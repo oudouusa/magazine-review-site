@@ -15,6 +15,7 @@ const TABS: Array<{ href: string; label: string }> = [
   { href: "/covers", label: "カバーウォール" },
   { href: "/ranking", label: "ランキング" },
   { href: "/features", label: "特集" },
+  { href: "/updates", label: "更新情報" },
 ];
 
 export function SiteNav() {

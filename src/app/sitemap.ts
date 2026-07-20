@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/brands`,   lastModified: today, changeFrequency: "weekly",  priority: 0.8 },
     { url: `${BASE}/ranking`,  lastModified: today, changeFrequency: "weekly",  priority: 0.8 },
     { url: `${BASE}/features`, lastModified: today, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/updates`,  lastModified: today, changeFrequency: "daily",   priority: 0.6 },
     { url: `${BASE}/search`,   lastModified: today, changeFrequency: "monthly", priority: 0.5 },
   ];
 
