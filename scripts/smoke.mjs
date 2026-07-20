@@ -7,6 +7,7 @@ const endpoints = [
   "/calendar",
   "/calendar?kind=photobook",
   "/trending",
+  "/updates",
   "/covers",
   "/covers?era=2010s&page=2",
   "/models",

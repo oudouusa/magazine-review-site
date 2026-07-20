@@ -6,6 +6,7 @@ const EXPLORE: Array<{ href: string; label: string }> = [
   { href: "/covers", label: "カバーウォール" },
   { href: "/ranking", label: "ランキング" },
   { href: "/brands", label: "ブランド一覧" },
+  { href: "/updates", label: "更新情報" },
 ];
 
 const INFO: Array<{ href: string; label: string }> = [
